@@ -1,0 +1,181 @@
+CSS    
+    Cascading style sheet, which is used for styling and provide layout to the webpages 
+    Declaration Types
+        Inline -> as an attribute the the tags
+        Internal -> using style tags inside the head tag
+        External -> By creating separate file for css and link that with html fille using link tag inside head tag
+
+Selectors 
+    It is used to target the html Element for styling 
+    Types
+        Simple Selectors
+            Tis is simple and fundamental Selectors in css to target for styling the webpages
+            There're 5 simple Selectors
+                Id => # -> used to target unique Element, it should not be repeted for any  other tags
+                Class => . -> used to target custom group of Element, it can be repeted for other tags
+                Grouping Selectors => , -> it is used to target multiple tags at once
+                Element Selectors => element_name -> it is used to target specific Element of html
+                Universal Selectors => * -> it is used to target entire body of html
+
+        Combination Selectors
+            This is Combination of simple Selectors, used to target Element based on its relation
+                Direct Child => > -> used to target only the next Child
+                Decendent child => (space) -> used to target child and grand child
+                Adjusent siblings => + -> used to target only the next siblings
+                General  siblings => ~ -> used to target all the siblings
+
+        Psedo class Selectors
+            It is used to target Element bassed on intraction & position
+                => : -> (link, visited, hover, first-child, last-child, nth-child(), active, enabled, disabled, checked)
+
+        Psedo Element Selectors
+            It is used to target specific part of an Element
+                => :: -> (first-letter, first-line, after, before, selection, marker)
+
+        Attribute Selectors
+            It is used to target Element based on an artibutes
+                => input[type =""] 
+
+Text 
+    font-size, font-family, font-weight,
+     text-align, text-decoration, text-transform, text-wrap, text-shadow,
+      letter-spacing, word-spacing, line-height
+
+Background properties
+    background-color, background-image(url), background-repet(repet, no-repet), background-size(cover, contain),
+     background-position(center, top, right, left), background-attachment(scroll, fixed)
+     background -> linear-gradient, radial-gradient, conic-gradient (to right top, blue, white), (to right bottom, violet, pink)
+
+Box-Model
+    All the html Element will be represented as boxex in css, the boxex contains four properties
+        content, padding(space btn content & border), border(line surrounded by the content),
+         margin(space btn border & layout/other Element)
+
+Box-sizing
+    It describe the inpact of border on an element
+    Types
+        Border-box
+            The padding and border of Element are included within defined height and width  
+
+        Content-box 
+            The padding and border of Element are added on top which leads to incresses in defined height and width
+
+Units
+    Units are measurement scale used to define the size of Element in webpage
+    Types   
+        Absolute
+            This units are  fixed, it will not change based on other Element 
+                px, cm, mm
+        Relative
+            This units are depends on other Element/viewport
+                Bassed on text (em, rem) -> default size is 16px
+                Based on viewport (vh, vw, vmin, vmax)
+                Percentage units (%)
+
+Display 
+        It is used to control how each Element should be displayed on the webpage
+        Types
+            block
+                Start from the new line,
+                 it will not allow other Element in same line,
+                  height abd width can be modified
+            Inline
+                It aloows other Element in same line,
+                 it will take only content width,
+                   height and width cant't be modified
+
+            inline-block
+                It will allow other element in same line, 
+                 it will take only the content width,
+                  height and width can be modified
+
+            none
+                It make an element disabled,
+                 this element will not be displayed and not accupy any space
+
+            Flex
+                It is used to control elements in one dimensional layout,
+                 it will make the parent element as flex-container and its children as flex-items
+                
+                FlexBox properties
+                    justify-content -> control the main axis(x)
+                    align-items -> control the cross axis(y)
+                    flex-direction -> used to define the  main axis(row/column)
+                    flex-wrap => wrap -> define the children in multiple row
+                                 no-wrap -> define the children in single row
+                    gap -> provide gap btw the items
+
+            Grid
+                it is used to control elements in two dimensional layout,
+                 it will make the parent element as grid-container and its children as grid-items
+
+                GridBox properties
+                    grid-template-column -> used to define no. of columns and its width
+                    grid-template-row -> used to define no of rows and its height 
+                    justify-content -> contol the grid cell in main axis
+                    align-content -> control the grid cell in cross axis
+                    justify-items -> control the grid items in main axis
+                    allign-items -> control the grid items in cross axis
+                    gap -> provide gap btn grid cells
+                    grid-column -> used to control the size and position of columns/ used to merge column using span
+                    grid-row -> used to cintrol the size and position of row/ used to merge rows using span
+
+Peosition
+    Position defines, how an element is placed on a webpage 
+    Types
+        Static
+            It is default position, it will be in normal document flow,
+             we can't use helper properties like top, right, left, bottom, z-index
+
+        Relative
+            It is positioned with respect to itself but we can use helper properties
+        
+        Absolute    
+            It is positioned with respect to its ancestor but ancestor should not be positioned absolute,
+             helper properties can be used
+        
+        Fixed   
+            It is positioned with respect to viewport, it will be fixed even if the screen is scrollable,
+             helper properties can be used
+        
+        Sticky
+            It is Combination of relative and fixed, until the page scroll it act as relative but during scrollin it will act a fixed
+
+
+MediaQuery
+    It is used to create responsive web pages for different screen sizes and resolution for various devises like mobile, laptops, tablets, etc..
+
+    Sytax : 
+        @media screen (max-width/min-width and landscape/potrait ){
+            //css Stylings
+        }
+
+Key Frames 
+    It is used to create animation, it will control the element, how  it should be displayed in different stages
+    Ways
+        % -> 0% {} 50%{} 100%{}
+        From-to -> From{}to{}
+
+    Animation   
+        It is the property which applies to the @Keyframes
+        Animation properties
+            animation-name (eg: move)
+            animation-duration (no., s/ms)
+            animation-delay (no., s/ms)
+            animation-iteration-count (no., infinite)
+            animation-direction (normal, reverse, alternate, alternate-reverse)
+            animation-timimg-funtion (linear, ease, ease-in, ease-out, ease-in-out)
+
+Transform   
+    It is the property which is used to change in position, size, rotation/shape
+     of an element without affecting the document flow
+     Transform properties
+        translate(x,y) / translateX(x) / translateY(y) / translateZ() -> move in up / down / top-right(3ds)
+        rotate(45deg) -> rotate an element
+        scale(0.5 / 1 / 1.5/ 1.05) -> change in size
+        skew(10deg) -> Tilts an element
+
+Transition
+    It is used perform transform properties smoothly over a perid of of time, insted of chaging instanlt
+    Transform properties
+        transition : property duration timing-funtion delay; [transition : width 2s ease-in 1s]

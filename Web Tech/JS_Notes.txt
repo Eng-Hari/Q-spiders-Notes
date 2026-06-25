@@ -1,0 +1,604 @@
+JavaScript
+    It is the light weight, scripting and interpreted language,
+     which is majorly used to provide Functionalities to the html elements
+
+Scope
+    Scope determines where a variable can be accessed in our code 
+    Types
+        Block Scope 
+            The area inside the {} -> block,
+             the variables which are delclared inside can't be access it from outside of the scope except var
+
+        Local / Functional scope
+            The area inside the Function block, it belongs to that particular Function we can't access it from outside
+        
+        Global scope
+            The area outside the Functions and any block are called global scope
+        
+        Lexical scope
+            the inner Function can access to the variables of its parent scope
+
+Closure
+        The inner Function will remember the outer Function variables even after the outer Function executed
+
+variable Declaration
+    Types   
+        var
+            Redeclaration & Reinitialization is posiible
+            while declaring initialization is not mandatory
+            variables will hoisted and initialixed as undefined
+            It follows global scope
+        Let
+            Redeclaration is not possible while Reinitialization is possible
+            while declaring initialization is not mandatory
+            variable will hoisted but remains uninitialized in Temprory dead zone
+            It follows Function scope
+        Const
+            Redeclaration and Reinitialization is not possible
+            while declaring initialization is mandatory
+            variable will hoised but remains uninitialized in tempropry dead zone
+            It follows Function scope
+        
+Hoisting
+    The process of moving the declaration part to the top of the scope
+
+TDZ
+    Tempropry dead zone, It is the period of time btw declaration and initialization
+
+Datatype
+    Datatype define which type of data can be stored in the variable,
+     In js we don't need to mention the Datatype while declaring, Datatype will addded dynamically during runtime
+    Types  
+        Primitive (7)-> number, bigint, string, boolean, undefined, null, symbol
+        Non-Primitive (3)-> Object, Function, Array 
+
+Template Literals
+    Template literals is also called as backtrics, which is used to write multiline string as well as used to perform string interpolation
+
+String interpolation
+    The proces of inserting variables/Expression directly into the string with the help of ${}
+
+Difference b/w == / === -> Equality comparition operator 
+    == -> it will check based on the data 
+    === -> it will check based on the Datatype
+
+Function
+    It is the set of instruction/ block of code, which is used to perform a particular task
+    Types
+        Named Function
+            A Function which having name is called as named Function
+                function add(a,b){
+                    return a+b;
+                }
+
+        Anonymos Function
+            A Function without name is called as Anonymos Function
+                function (a,b){
+                    return a*b;
+                }
+
+        Function Expression
+            A Function delclared inside the variable is called Function Expression
+                const add = named/ Anonymos Function
+
+        Arrow Function
+            A function which is created using arrow insted of function keyword is called as arrow function
+                let add = (a,b)=>{
+                    return a+b;
+                }
+
+        IIFE (Immediate invoked Function Expression)
+            This Function will executed suddenly at once ofter its declaration and it should be ended with semicolan
+                ((a,b)=>{
+                    retutn a+b;
+                })(10,20);
+
+        Higher Order Function
+            A Function which accept another Function as argument and also return a another Function is called as Higher order Function
+                function multiple(a, addFun){
+                    return a * addFun(2,4);
+                }    
+
+                function addFun(a,b){
+                    return a+b;
+                }
+
+        Call back Function
+            Function which is passed as argument for the another Function is called call back Function
+                function multiple(a, addFun){
+                    return a * addFun(2,4);
+                }    
+
+                function addFun(a,b){
+                    return a+b;
+                }
+
+                    addFun -> is the callback Function, this will called by the another Function during execution
+
+        Nested Function
+            A Function inside the another Function is called as nested Function
+                function add(a,b){
+                    function inner(){
+                        console.log("inner Function);
+                    }
+
+                    inner();
+                }
+                
+        Generator Function
+            It is the special type of Function, where we can stop the execution in midway and we can resume it later, where it is stoped
+             by using yeild and next()
+            It is represented by * along with function keyword
+                function* genObj(){
+                    clg("start")
+                        yeild 1;
+                    clg("running")
+                        yeild 2;
+                    clg("finished")
+                }
+
+                let gen = genObj()
+                gen.next() //-> {value : 1, done : false}
+                gen.nex() //-> {value : 2, done : false}
+                gen.next() // -> {value : finished, done : true}
+
+        Constructor Function
+            It is used to create and initialize multiple object with the same structure, which was used before ES6
+            Now we can create using class syntax
+                Constructor function => function Person(name, age){
+                                        this.name = name;
+                                        this.age = age;
+                                      }
+                class => class Person{
+                    Constructor(name, age){
+                        this.name  = name;
+                        this.age = age;
+                    }
+                }
+
+        Async Function
+            It is used to work with asyncronous operation, It returns promises
+             It allow to use await keyword which make asyncronous code look like syncronous code
+                async function greet(){
+                    return "Hello";
+                }
+
+String  
+    Strings are Primitive Datatype in JavaScript which is used to store sequence of characters 
+    String Methods(12)
+        .length -> Returns the no. of character in a string 
+        .toLowerCase() -> convert all character to lowercase
+        .toUpperCase() -> convert all character to uppercase
+        .indexOf(value) -> returns the index of the first occurence of given value
+        .includes() -> check wheather a string contains a value, return boolean
+        .startsWith(value) ->  check wheather a string start with the value
+        .endsWith(value) -> check wheather a string end with the value
+        .concat(value) -> Used to merge Strings
+
+        .split(expression) -> Convert a string  into an Array
+        .slice(start, end) -> Extract a part of string, negative index supported
+        .substring(start, end) -> Same as slice but doesn't support negative index
+        .replace(old, new) -> Replace the first occurence of a value
+        .trim() -> Remove the empty space from start to end of the string
+       
+Array
+    Array is non primitive leaner Data structure, where we can store data in a continous manner
+    In js Array, we can store both homogeneous and heterogeneous type of data
+    Array index start from 0
+    Array Methods(13)
+        .length -> Used to find the length of the Array
+        .index0f(value) -> Used to get the index of given no.
+        .lastIndexof(value) -> used to get the index of last occurence of given no.
+        .includes(value) -> Used to check the value is present/ not, return boolean value
+
+        .push(value) -> Used to add elements in the array from the last, it returns length of the modified array
+        .pop(value) -> Used to remove the element from the last, it return removed element
+        .unshift(value) -> Used to add element from the first, it returns length of the modified array
+        .shift(value) -> Used to remove element from the first, it returns the removed element
+        
+        .concat(value) -> Used to merge two arrays, it return new array
+        .reverse() -> Used to reverse the array, it will modify the original array
+        .join(expression) -> Used to convert array into string
+        .slice(start, end) -> Used to copy a portion of array without modifing the original array 
+        .splice() 
+             Used to add/remove/replace the element in the original array, it return new modified array
+                .splice(start_index, delete_count) -> Used to delete the element in the original array, it returns new array
+                .splice(start_index, delete_count(0), insert_value) -> Used to insert new value into the array from the start_index
+                .splice(start_index, delete_count, replace_values) -> Used to replace value in the array, from the start_index
+
+Loops
+    There are some JS special loops,
+        for (of) 
+            Used to iterate over values of Array and string
+               let arr[] = {1,2,3,4,5}
+                for(let n : arr){
+                    console.log(n) // 1 2 3 4 5
+                }
+
+        for (in)  
+            Used to iterate over keys/index of Array, string and object
+                 for(let n : arr){
+                    console.log(n) // 0 1 2 3 4
+                }
+
+        forEach()
+            It is a higher order array method used to traverse through the array, which takes callback funtion as parameter,
+             that callback funtion takes upto 3 arguments like element, index, array.
+            We can modify the original array with the help of that callback funtion
+                arr.forEach((element, index, array)=>{
+                    console.log(element, index, array) // 0 1 [1,2,3,4,5] ...
+                })
+
+        .map()
+            It is a higher order method used to treaverse through the array, it returns new array
+            It take one callback funtion as parameter, that callback funtion can take upto 3 arguments like element, index, array        
+            We can modify the original array with the help of that callback funtion
+  
+                arr.map((e, i, arr)=>{
+                    console.log(e, i, arr); // 0 1 [1,2,3,4,5]
+                })
+
+        .filter()
+            It is a higher order funtion, which is used to traverse through the array with a condition,
+             it return a new array of element, which satisfied that condition            
+            It take one callback funtion as parameter, that callback funtion can take upto 3 arguments like element, index, array
+            We can modify the original array with the help of callback funtion
+
+                arr.filter((e)=>{
+                    return e%2==0;
+                })
+
+        .reduce()
+            It is a higher order funtion, which is used convert the array into a single value
+            It take one callback funtion as parameter, that callback funtion can take upto 4 arguments like accumaltor, element,index,  array
+            Accumalator default value is the first element of arr,
+              but we can assign the value as a 2nd parameter for reduce method
+                arr.reduce((acc, e)=>{
+                    return acc+e; // 15
+                },0)  // 0 is the user assigned default value for Accumalator
+        
+        .sort()
+            It is used to sort the element of array, by default it converts array element into stirng and sort them in alphabetic order,
+             it returns new array
+
+                Ass ->  arr.sort((a,b) => a - b)
+                Dec ->  arr.sort((a,b) => b - a)
+
+        .toSorted() 
+            It  was introduce in 2023, which return a new array with sorted order without converting to string
+                let arr1 = {5,4,3,2,1}
+                arr1.toSorted() //  [1,2,3,4,5]
+
+Object
+
+    Object is a collection of key and value pairs used to store related data
+    We can store multiple object inside an Array
+
+        let emp = {
+            name : "Hariharan",
+            id : 1,
+            isMarried : false,
+            skils : ["java", "HTML"]
+            degree : {
+                    ug : "B.Tech"
+                    department : "Cybersecurity"
+                        }
+            wish : ()=>{
+                console.log("Hii Hari..)
+            }
+        }
+
+    Value of object can be accessed/add/modify/delete by using  object_name.value
+        Access
+            clg(emp.name)
+            clg(emp.degree.ug)
+            emp.wish()
+        Add 
+            emp.mobile = 987654321 // if the key not present, it will be addded to object
+        Modify
+            emp.id = 2 //if the key is alredy present, it just get modified
+        Delete
+            delete emp.isMarried
+
+    We can use map/for(in) to traverse through object but we can't use for(of)
+        emp.map((e)=>{
+            console.log(e) // print all the key and its value
+        })
+
+
+    Object Methods(9)
+        Object.keys() -> Used to fetch all the keys from the object in the form of array 
+        Object.values() -> USed to get alll the values from the object in the form of array
+        Object.entries() -> It return one nested array, where each key-value pairs are stored as individual array
+        Object.freeze() -> Used to freeeze the object, in which we can't add/delete/modify the data
+        Object.isFrozen() ->  Used to check the object is freeed/not, return boolean value
+        Object.seal() -> It won't allow to add/delete data of the object, only modification is allowed
+        Object.isSealed() -> Used to check the object is Sealed/not, return boolean value
+        Object.assign() -> Used to add two/more object together, it return new object
+                            let newObj = Object.assign({}, emp, eng)
+        object_name.hasOwnProprerty() -> Used to check the key is present inside the object/not, it returns boolean value
+
+JSON
+    JavaScript Object Notation, which is lightweight format used to store and exchange data btw application, server and API's
+    JSON is string type
+
+    JSON Methods
+        JSON.stringify(object) -> Used to convert any JS object into json string
+        JSON.parse() -> Used to convert json string data into JS object
+
+DOM
+    Document Object Model, It is a programming interface that represent an HTML Document as a tree structure
+    It is used to manipulate HTML from JS like 
+        Access to the element
+        Modify the content
+        changing Styles
+        Add/ remove element
+    
+    Selecting Element 
+    
+        Document.getElementById() -> Targetting to the element based in its id, it return element object
+        Document.getElementByClassName() -> Targetting to the element based on it class name,
+                                             it return HTMLcollections(which is array-like collection of HTML elements)
+        Document.getElementByTagName() -> Targetting to the element based on the Tag name,
+                                            it return HTMLcollections(which is array-like collection of HTML elements)
+        Document.querySelector() -> Targetting to the first matching element based on tag/id/class, it return element object
+        Document.querySelectorAll() -> Targetting to the all matching element based on tag/id/class,
+                                         it returns NodeList(Which is array-like DOM nodes, node means object)
+
+    DOM Manipulation methods
+
+        Documet.createElement("tagName") -> Used to create HTML element dynamically
+        .append() -> Used to add content inside the element as last child
+        .prepend() -> Used to add content inside elementas as first child,
+        .after("") -> Used to add content outside, after the element
+        .before("") -> Used to add content outside,  before the element
+        .innerText -> Used to get/set visible TEXT to an element
+        .innerHTML -> Used to get/set HTML content to an element
+     
+    HTML Manipulation
+      
+        .style.props -> Used to add style to the element (targeted_element[index].style.color = "red")
+        .classList -> Used to add/remove/toggle/check the CSS class on the HTML element
+            .classList.add(class_name) -> Used to add new class to the HTML element
+            .classList.remove(class_name) -> Used to remove the class of the HTML element
+            .classList.toggle(class_name) -> Used to add/remove, if it present then remove else add a new class to the HTML element
+            .classList.contains(class_name) -> Used to check the class is present/not
+            .classList.replace(old, new) -> Used to replace the exsisting class name
+            .className = "class_name" -> Used to change all the exsisting class name of elements, not recomended 
+
+Event
+    It ia a keyword, It is an action/occurence that happens in the browser and that can be detected by JS
+
+Event parameter
+    The event parameter is an object which is automatically passed by JS to the Event handler funtion when an event occurs
+
+    Mouse Events 
+        onClick        
+            This event occurs when the user click on the element for once
+
+        ondblClick
+            This event occurs when user click the element for twice
+
+        onmouseover
+            This event occurs when the pointer enters an element
+
+        onmouseout
+            This event occurs when the pointer leaves an element
+
+        onmousemove
+            This event occurs when the pointer mover over the element
+
+    Keyboard Events
+        onkeydown
+            This event occurs when the key is pressed down
+
+        onkeyup
+            This event occurs when the key is relesed
+
+    Event Object 
+         When Keyboard event occurs, JS provide an event object which containing information about the key pressed 
+
+            event.key 
+                It return actual key pressed
+
+            event.code  
+                It return physical key on the keyword(enter,space,keyA,shift...)
+
+            event.ctrlKey
+                It return boolean when ctrl key is pressed
+
+            event.shiftkey
+                It return boolean when shift key is pressed
+
+            event.altkey
+                It return boolean when the alt key is pressed
+            
+            event.preventDefault()
+                It is used to stop the default behaviour of an element
+
+            event.target
+                It return the HTML element which is triggerd by the event
+
+            target.value
+                It return the value of targeted element
+
+            event.type  
+                It return the event name of the element
+
+    Event Listner 
+        It is a method which is used to attach the event to an HTML element using JS
+        syntax
+            Add
+                targeted_element.addEventListner("events_name", funtion_name/funtion)
+            remove
+                    targeted_element.removeEventListner("events_name", funtion_name)
+        
+        Events 
+            Mouse + Keyboard event Types
+            input
+                This event occurs for every keystroke while typing
+            
+            change
+                This event occurs when value changes and focus leave the feild
+
+            focus
+                This event occurs when an element gains focus
+
+            blur
+                This event occurs when an element loses focus
+
+            submit
+                This event occurs when a form gets submitted
+            
+Timing function
+    Timing funtion is JS method used to execute code after a speciffic delay/ repetedly at fixed time intravals
+    Functions
+        setTimeout()
+            It is a timing funtion that execute a funtion only once after speciic delay, return timer ID
+        
+        clarTimeout()
+            It is used to cancel a timeout before it executes
+        
+        setInterval()
+            It is a timing function that executes a funtion repeatedly after a fixed time interval, return interval ID
+
+        clearInterval()
+            It is used to stop a running interval
+    
+Date Object 
+    Data object is a built-in JS object used to work with dates and times
+    Syntax -> let now = new Date()
+    Date Methods
+        getHours() -> return the current time in 24hrs format(0-23)
+        getMinutes() -> return the current minutes(0-59)
+        getSeconds() -> return the current seconds(0-59)
+        getMilliseconds() -> return the current milliseconds(0-999)
+        getFullYear() -> return the current year
+        getDate() -> return date (1-31)
+        getMonth()  -> return the month index(0-11)
+        getDay() -> return the day index(0-6)
+        toLocaleTimeString() -> current time in redable format
+        toLocaleDateString() -> return current date ina redable format
+
+
+Math Object
+    A built-in JavaScript object that provides mathematical constants and methods.
+    Math methods
+        getMonth()
+            Returns the month index (0-11).
+
+        getDay()
+            Returns the day index (0-6).
+
+        Math.ceil()
+            Rounds a number upward to the nearest integer.
+
+        Math.floor()
+            Rounds a number downward to the nearest integer.
+
+        Math.round()
+            Rounds a number to the nearest integer.
+
+        Math.random()
+            Returns a random number between 0 and 1.
+
+Promise
+    A Promise is a JavaScript object that represents the eventual success or failure of an asynchronous operation.
+    Syntax -> let p1 = new Promise((resolve, reject)=>{resolve("") reject("")})
+
+    States of Promise
+        1. Pending -> Promise under execution
+        2. Fulfilled -> Promise Resolved (success)
+        3. Rejected -> Promise Rejected (failure)
+
+    Promise Handling Methods
+        .then()      → worked as callback funtion for when promise is successfully Resolved (Fulfilled-> Handles success)
+        .catch()     → Worked as callback funtionn for when promise is fails (Rejected -> Handles failure)
+        .finally()   → Executes regardless of result
+
+             p1.then((data)=>{clg(data)}).then((err)=>clg(err)).finally(clg("Handled"))
+    
+        .resolve() -> Used to Creates a fulfilled promise.
+        .reject() -> Used Creates a rejected promise.
+
+            let p2 = Promise.resolve("").reject("")
+
+        .all() -> Waits for all promises to succeed.
+        .allSettled() -> Waits for all promises to complete.
+        .race() -> Returns the first settled/executed promise.
+        .any() -> Returns the first fulfilled promise.
+
+            Promise.all/.any/.allSettled/.race([p1,p2]).then().catch
+
+    Uses
+        API Calls, Database Operations, File Handling, Timers,Network Requests
+
+
+fetch()
+
+    A built-in JavaScript function used to send HTTP requests and communicate with APIs or servers.
+        fetch() ->  returns a Promise<Response>.
+    When the frontend requests data, the server usually sends the data in JSON format instead of a JavaScript object.
+    To convert the JSON response into JavaScript data, we use:
+        response.json() -> returns a Promise that resolves to the actual JavaScript Object or Array.
+
+        let fetchData = fetch(url);
+        fetchData.then((data)=>{
+            let jsonData = data.json()
+            jsonData.then((data)=>{
+                data.map(e)=>{
+                    clg(e)
+                }
+            }).catch((err)=>{clg(err)})
+        }).catch((err)=>{clg(err)})
+
+async/await
+
+    It is a modern way to handle Promises and write asynchronous code in a synchronous-looking manner.
+    We need to use try-catch inside the async funtion to handle promise rejections
+
+    async
+        It is a asynchronous funtion which always return a promise
+
+    await
+        It is a keyword inside an async function.
+        It pauses the execution of the function until the Promise is resolved and returns the resolved value.
+
+  
+            let getData = async ()=>{
+                try{
+                    let res = await fetch(url)
+                    let data = await res.json()
+                    data.map((e)=>{
+                        clg(e)
+                    }) 
+                }catch(err){
+                    clg(err)
+                }
+            }
+
+Destructure
+
+    Rest Parameter 
+        Collects multiple arguments into a single array.
+
+    Shallow Copy
+        Copies the reference of an array/object.
+
+    Deep Copy
+        Creates a completely independent copy.
+
+    Spread Operator
+        Expands elements of an array/object.
+
+    Object Destructuring
+        Extracts object properties into variables.
+    
+    Array Destructuring
+        Extracts array elements into variables.
+
+    JSON.stringify()
+        Converts Object → JSON String
+
+    JSON.parse()
+        Converts JSON String → Object

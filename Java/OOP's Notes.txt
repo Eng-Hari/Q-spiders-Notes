@@ -1,0 +1,715 @@
+OOP's :
+
+    Stands for object oriented programming  
+    It provides machanishm to makes the program deppending on the object insted of deppending on logic
+    In java, object is the memory block which is created inside the heep memory during run time of the program
+
+Pillars of oop's :
+
+    Encasulation
+    Inheritance
+    Polymorphism
+    Abstraction
+
+Encasulation :
+
+    It is the process of Binding/Wrapping the states/data and behaviour of an object in a single unit
+     and to protecting from direct outer acces
+    
+
+
+
+     class Person{
+        //Instance variable
+        private String name;
+        
+        //setters 
+        public void setName(){
+            this.name = name;
+        }
+
+        //getters
+        public String getName(){
+            return name;
+        }
+     }
+
+
+Singleton class :
+
+    A class which allow to create only one Instance for that class is called Singleton class
+    If we try to create multiple instance, it will return Instance which is  alredy created
+
+    class Singleton{
+        //instance variable declaration statement
+        private Singleton instance;
+
+        private Singleton{
+            System.out.println("Singleton Construtor must be private");
+        }
+
+        public Singleton getInstance(){
+            
+            //if not created earlier then create new instance
+            if(instance != null){
+                instance = new Singleton();
+            }
+            return instance;
+        }
+    }
+
+new : 
+
+    new is the keyword/special operator which is used to create instance of class by dynamically allacting memory in heep ar runtime
+
+Relationship :
+    It is the connection between two objects, where one object is connected with one / more object is called Relationship
+
+    Types : 
+        HAS-A Relationship
+           // It is top-down approach
+            One class uses/having Instance of another class
+                -> Composition (Strong connection)
+                        Parent class create object for child class to acces its properties
+
+                -> Aggregation (Week connection)
+                        Parent class just use the child class properties, without creating object for child class
+
+        IS-A Relationship
+            //It is bottom-up approach
+            One class inherit the properties of another class using extends keyword
+
+Inheritance : 
+    The process of accquiring states and behaviour of one object into another object /
+    The properties of one class is accquired by another class by using extends keyword 
+    It is top down implementation
+    It follows IS-A Relationship
+
+    Types :
+
+        Single-Level Inheritance 
+            One class extends from one Parent class
+
+        Multi-Level Inheritance
+            Inheritance happens in more than one Level
+
+        Hiararchial Inheritance
+            Multiple child class extends from single parent class in same Level
+
+        Multiple Inheritance
+            One child class extends from multiple parent class
+            It is not possible in java using class, bcoz it cause Diamond problem
+            It can be archive with Interface
+
+        Hybrid Inheritance
+            Combination of any two Inheritance 
+
+This : 
+
+    This is the keyword and refrence variable to refer the current object
+    It cannot be used inside static context
+
+Instance variable :
+
+    It refers to the non-static members
+    non-static Variable which is inside the class block but outside the static method block
+
+Refrence variable :
+
+    Variable which holds the instance address and used to acces the properties of that instance created class
+    We can create multiple Refrence variable for the class also we can store it into another Refrence variable
+
+Construtor chaining : 
+
+    The process of calling one Construtor from another Construtor
+ 
+       From same class : 
+            this() is used to call another construtor in same class
+            this() should be the very first statement of current construtor
+
+
+            class A{
+                public A(){
+                    // Calling another construtor from current construtor using this()
+                    this(hari,21); 
+                    Sout("No argument construtor");
+                }
+                public  A(String name, int age){
+                    this(hariharan,21,56789);
+                    SOut("Two argument Construtor");
+                }
+                public A(String name, int age, int mob){
+                    Sout("Three argument Construtor");
+                }
+            }
+
+            Output : Three argument Construtor
+                    Two argument Construtor
+                    No argument construtor
+
+        From Another class :
+            BOth class should be in IS-A Relationship
+            super() is used to perform construtor chaining from other class
+            super() should be the very first statement of current construtor
+            
+
+            class A{
+                public a(){
+                    Sout("Parent Construtor");
+                }
+            }
+            class B extends A{
+                public B(){
+                    //super() used to call construtor of immediate parent class
+                    super(); 
+                    Sout("child construtor");
+                }
+            }
+
+            Output : Parent Construtor
+                     child construtor
+
+super() : 
+
+    Super is the keyword which is used to perform construtor chaining with different classes
+
+Why child can acces parent props. but parent can't acces child props. ?
+
+    It follows IS-A Relationship, its a bottom up approach
+    Parent class act as a blueprint for its child class which can be extends from exsisting blueprint
+    Parent class will loaded to heap before all its child class
+
+Non-Primitive Typecasting :
+
+    The process of converting one class type of refrence to another  class type of refrence is called NP Typecasting
+    IS-A Relationship is mandotory
+
+    Types :
+        Upcasting (Implicitly  possible)
+
+            It is the process of creating child class object refrence into parent class reference type 
+            It will allow to acces only the parent specifyied props. using that refrence variable 
+
+            Purpose :
+                Allow to Use one common type to handle different object
+
+                class Animal{
+                    void sound(){
+                        Sout("Animal make sound");
+                    }    
+                }
+
+                class Dog extends Animal{
+                    @override
+                    void Sound(){
+                        Sout("Dog will Bark");
+                    }
+                }
+
+                class Cat extends Animal{
+                    @override
+                    void Sound(){
+                        Sout("Cal=t will Meeww");
+                    }
+                }
+
+                class Main{
+
+                    static void Upcast(Animal a){
+                        //Different object with same (Animal) type
+                        a.sound();
+                    }
+
+                    public static void main(String[]args){
+                        //Implicitly Upcasting is happening
+                        Upcast(new Dog());
+                        Upcast(new Cat());
+
+                    }
+                }
+
+        Downcasting (Explicitly possible)
+
+            It is the process of converting a parent class refrence type back to child class reference type.
+            Only possible after attaining Upcasting
+            We need to perform Explicitly using Typecast operator, it may througn ClassCastException
+
+            Purpose : 
+                It will allow to acces both  parent and child specifyied props.
+
+                class Animal {
+                    void sound() {
+                        System.out.println("Animal makes sound");
+                    }
+                }
+
+                class Dog extends Animal {
+
+                    @Override
+                    void sound() {
+                        System.out.println("Dog will bark");
+                    }
+
+                    void breed() {
+                        System.out.println("Country Dog");
+                    }
+
+                    void parentSound() {
+                        // sound() is overridden, so access parent version using super
+                        super.sound();
+                    }
+                }
+
+                public class Main {
+                    public static void main(String[] args) {
+
+                        // Implicit upcasting
+                        Animal a = new Dog();
+
+                        a.sound();   // Calls overridden Dog method
+
+                        // a.breed();  // ERROR
+                        // Parent reference cannot access child-specific methods
+
+                        // Explicit downcasting
+                        Dog d = (Dog) a;
+
+                        d.breed();        // Child method
+                        d.sound();        // Dog version
+                        d.parentSound();  // Parent version
+                    }
+                }
+
+instanceof :
+
+    "instanceof" is the operator used to known any object is belong to that class or its subclass
+    It will return Boolean value
+
+    public class Main {
+        public static void main(String[] args) {
+
+            Animal a = new Dog();// Upcasting
+
+            System.out.println(a instanceof Dog);   //true
+            System.out.println(a instanceof Animal);     //true
+    }
+}
+
+Polymorphism :
+
+    The ability of an object having members with same name but in different forms is calles Polymorphism
+
+    Types : Bassed on Binding
+
+        Compile Time Polymorphism (Static/Early Binding) :
+
+            The binding is done by JVM during compile time for the Polymorphism state program
+            It can be archive by Method Overloading
+
+            Types :
+                Method Overloading :
+                    The class which is having methods with same name but different formal arguments
+                    Arguments can be differ in No. ,Datatype, sequence/Order
+
+                        class Student{
+                            static String name = "Hariharan";
+                            static int age = 22;
+
+                            void Display(String name){
+                                SOut(name);
+                            }
+
+                            void Display(String name, int age){
+                                SOut(name +" "+age);
+                            }
+
+                            void Display(int age, String name){
+                                SOut(name +" "+age);
+
+                            }
+                        }
+
+                Construtor Overloading :
+                    The class which is having multiple construtor with differ formal arguments
+
+                        class Student{
+                            public Student;
+                            static int age;
+
+                            public Student(String name){
+                                this.name = name;
+                            }
+
+                            public Student(String name, int age){
+                                this.name = name;
+                                this.age = age;
+                            }
+
+                            public Student(int age, String name){
+                               this.age = age;
+                               this.name = name;
+                            }
+                        }
+
+                Variable Shadowing :
+
+                    The process of namming local variable as smae as Instance variable is called variable shadowing
+                    The local variable will overshadown the Instance variable
+
+                        class Student{
+                            static String name;
+
+                            Student(String name){
+                                this.name = name;
+                            }
+
+                            public void PrintName(String name){
+                                // Here local parameter shadowed  the Instance variable
+                                SOut(name); // This will not affect the instance variable
+                            }
+
+                            public void UpdateName(String name){
+                                // this keyword bypass variable shadowing to acces the instance variable 
+                                SOut(this.name); // this  will affect the instance variable
+                            }
+
+                        }
+
+                Method shadowing/Hiding :
+                    It is possible only with the staic methods
+                    the process of having same named static method in both parent and
+                             child class is called method shadowing
+
+                      class Subject {
+
+                                public static void details(String title) {
+                                    System.out.println(title);
+                                }
+
+                                public void staff() {
+                                    System.out.println("Hariharan");
+                                }
+                            }
+
+                            class Student extends Subject {
+
+                                // Static method can't override, so it will be hidden
+                                // Method Hiding(Static method)
+                                public static void details(String title) {
+                                    System.out.println("Student Subject: " + title);
+                                }
+
+                                //Non staic method only can override
+                                // Method overriding (non-static)
+                                @Override
+                                public void staff() {
+                                    System.out.println("Asma");
+                                }
+                            }
+
+                            public class Test {
+                                public static void main(String[] args) {
+
+                                    Subject obj = new Student();   // upcasting
+
+                                    obj.staff();      //Asma             // overridden method
+                                    obj.details("Java");  //Parent static method    // hidden static method
+                                }
+                            }
+
+
+        Run Time Polymorphism (Dynamic/Lazy Binding) :
+
+           The binding done by the JVM during runtime for Polymorphism state program 
+           It can be archive by Method overriding
+
+                Method Overriding :
+                    If the parent and child class having same non-static method declaration but with
+                             different implementation is calles Method overriding  
+                    IS-A Relationship is mandotory
+
+                        class Vehicle{
+                            void Engine(){
+                                SOut("Vehicle has Engine");
+                            }
+                        }
+                        class Car extends Vehicle{
+                            @override
+                            void Engine(){
+                                SOut("Car has Engine");
+                            }
+                        }
+                        class Main{
+                            public staic void main(String[] args){
+                                //Eveen refrence type is parent the non-static method is overridden in child class,
+                                    // that will be called during runtime
+                                Vehicle v = new Car();
+                                v.Engine(); // Car has Engine
+
+                            }
+                        }
+
+
+Acces Modifiers for child class : 
+
+    For perfoming Polymorphism child class class should have same/higher visibility than parent class
+
+Final :
+    
+    It is a keyword used as Modifiers to archive immutability (can't change/ inherit)
+    It can apply to class, methods and variable
+
+        Final variable :
+            Variable become constant, the value cannot be re-assign once initialized
+            It should be initialized using default constant, when it declarared in class scope,  
+
+                final String FatherName = "Hari"; // value cannot be change 
+
+        Static final variable :
+            Variable become constant for that entier class, It is belongs to class block, it should be initialized
+            Unlike final variable, static final variable cannot initialize inside the construtor.
+            Default value is not applicable even inside the class block 
+
+                class Data{ // it cannot be un initialized
+                    static final long Aadhar = 12346789045;
+                }
+
+        Final method :  
+            Prevent the method from being overridden by subclass
+
+                final void Display(){   // this method cannot be overridden by child class
+                    Sout("Father name is Hariharan");
+                }        
+
+        Final class :
+            Prevent the class from extended(inherited)
+
+                public final class Parent{
+                    
+                }       
+
+                class Children extends Parent{
+                    // It is not possible, final won't allow to extends fron the 'Parent' class
+                }
+
+Is Main method overriding  is possible ?
+
+    Yes, but JVM always look for the strict method signature entry point which is having (String[] args)
+
+        class Main{
+            //JVM will alwayslook for this specific methods signature
+            public static void main(String[] args){}
+
+            @override
+            public static void main(int a){}
+
+            @Override
+            public static void main(String name, int age){}
+        }
+
+    Main method is static, so it can be hidden by child class Main method
+
+Variable Arguments :
+
+    It is also called as Varargs, which convert the multiple parameter into an array for that method argument
+
+      import java.util.Arrays;
+
+        class Main {
+
+            public static void varargs(int a, int b, int... c) {
+                System.out.println(a);  // 10
+                System.out.println(b);  // 20
+                System.out.println(Arrays.toString(c)); //[30, 40, 50, 60, 70]
+            }
+
+            public static void main(String[] args) {
+                varargs(10, 20, 30, 40, 50, 60, 70);
+            }
+        }
+
+Concrete method :
+
+    Method with complete structure. Method signature and its implementation enclosed with {} is said to be Concrete method
+
+Concrete Implementation :
+    
+    Overriding the abstract method to give the implementation for that is said to be Concrete implementation
+                
+
+Abstraction :
+
+    The process of providing  Essential features by Hiding the implementation is called as Abstraction
+
+    We can perfom Abstraction in two ways :
+
+        Abstraction Class :
+            The class which is prefixed with Abstract keyword/Modifiers and contains Abstract methods is called Abstract class
+
+                abstract class Vehicle{}
+
+        Abstract Method :
+            The Method which is prefixed with Abstract keyword/Modifiers & contains onlt the method declarared
+                     without method body is called abstract method
+            Only the non static methods are allowded to be a abstract method
+            Follows Is-A Relationship
+            We cannot create instance for Abstract class and also Abstract class can have Concrete methods
+            Abstract method cannot be private/staic/final, those will not allow to overridden
+
+                abstract  class Vehicle{
+                    
+                    abstract void Engine();
+                    abstract void FuelType();
+                    String brand;
+
+                    // non-static Concrete method
+                    // Its non abstract method, so it can be static/final/private
+                    void ManufatureYear(){
+                        SOut("2025")
+                    }
+                    // staic Concrete method
+                    static void Type(){
+                        Sout("BS6");
+                    }
+                    // Construtor of Abstract class for initialize Instance variable
+                    Vehicle(String brand){
+                        this.brand = brand
+                    }
+                    // Abstract class can have concrete method with private/final/staic
+                    private static final void Colour(){
+                        Sout("Blac is default Colour");
+                    }
+                }
+
+                public class Car extends Vehicle{
+                    @override
+                    void Engine(){ // Concrete Implementation
+                        Sout("Car has V8 engine");
+                    }
+
+                    @override
+                    void FuelType(){ //Actual implementation of abstract methods
+                        Sout("Car fuel type is petrol");
+                    }
+
+                    // We cannot Instantiate Abstract class but we can initialize instance variable using
+                            // super() from its child class
+                    Car(String brand){
+                        super(brand);
+                    }
+                }
+
+
+Interface :
+    Interface is the refrence type that act as blueprint for classes, which containing mainly static and
+             abstract method to achive Abstraction and multiple Inheritance
+    Any the variable in the Interface will prefixed with "public static final" by default during compile time
+    Methods without body in an interface are implicitly become public abstract.
+    Interfaces can have private and static methods, but cannot have final methods.
+
+    Construtor can have :
+        Abstract methods
+        Constant fields (internal converted to public staic final)
+        Default method
+        Static methods
+        private method (internal Purpose only)
+    
+    Construtor cannot have :
+        Construtor
+        Instance variable
+        Non- static methods
+        final method (Abstract method can be overridden)
+
+
+    Connection :
+        Interface to Interface => extends
+        class to class => extends
+        Interface to class => implements
+
+               
+                // 1. Define a base interface
+                interface Vehicle {
+
+                    int MAX_SPEED = 120;  // Constant Variable (implicitly become public static final)
+
+                    void startEngine();   // Abstract method (internal, "public abstract" will added to method declararation)
+
+                    // Default Method (introduced in Java 8 - has a body)
+                    default void blowHorn() {       // Helps add new features without breaking implementing classes
+
+                        System.out.println("BEEP BEEP! (Default horn sounds)");
+                    }
+                }
+
+                interface GPS System {
+
+                    void trackLocation();
+
+                    // Default method that uses an internal private helper method (Java 9+)
+                    default void rebootGPS() {
+
+                        logSystemCheck();    // Calling the private method
+                        System.out.println("GPS System rebooted successfully.");
+                    }
+
+                    // Private Method (introduced in Java 9)
+                    private void logSystemCheck() {       // Used to share repetitive logic strictly within the interface itself
+
+                        System.out.println("[INTERNAL LOG]: Running satellite diagnostic checks...");
+                    }
+                }
+
+                interface TechSupport {
+
+                    // Static Method (introduced in Java 8)
+                    static void displayHelpLine() {     // Belongs to the interface utility space, not to the object instance
+                        System.out.println("For assistance, call support at: 1-800-JAVA-HELP");
+                    }
+                }
+
+                // 4. A concrete class achieving Multiple Inheritance by implementing multiple interfaces
+                class SmartCar implements Vehicle, GPSSystem {
+
+                    // Overriding the abstract method from Vehicle interface
+                    @Override
+                    public void startEngine() {
+                        System.out.println("SmartCar: Engine started silently. Maximum allowed speed is " + MAX_SPEED + " km/h.");
+                    }
+
+                    // Overriding the abstract method from GPSSystem interface
+                    @Override
+                    public void trackLocation() {
+                        System.out.println("SmartCar: Fetching coordinates from GPS satellites...");
+                    }
+
+                    // Optional: Overriding the default method to provide custom behavior
+                    @Override
+                    public void blowHorn() {
+                        System.out.println("SmartCar: Custom futuristic electric horn sound!");
+                    }
+                }
+
+                public class Main {
+                    public static void main(String[] args) {
+
+                        SmartCar myCar = new SmartCar();
+
+                        System.out.println("--- Executing Abstract Method Implementations ---");
+                            myCar.startEngine();
+                            myCar.trackLocation();
+
+                        System.out.println("\n--- Executing Default Methods ---");
+
+                            myCar.blowHorn();   // Overridden default method
+
+                            // Inherited default method (which internally uses the private method)
+                            myCar.rebootGPS(); 
+
+                        System.out.println("\n--- Executing Interface Static Method ---");
+
+                            // Static methods are called directly using the Interface name
+                            TechSupport.displayHelpLine();
+                    }
+                }
+
+8

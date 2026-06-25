@@ -1,0 +1,99 @@
+HTML 
+    Hypertext markup languge, which is used to provide context and structure for the web page
+
+Tag 
+    Tag is a keyword which is  enclosed with angle brackets
+    Types
+        Paired tags
+            which has openning and clossing tags (heading, para, div, span)
+        UnPaird tags    
+            which doesn't have clossing tags (br, hr, link, img, input)
+
+Element 
+    Element is the fundamental building block which refer everything from the openning tag to closing tag,
+         which means complete structure of any tags
+
+formeting tags
+     It is used to style the content without css and its properties
+        (b, i, u, em, strong, del, mark, pre, q)
+
+Sematic tags
+    It is used to define the context to the browser and developer
+    (header, nav, main, aside, footer)
+
+Anchor Tag  
+    It is used to create hyperlinks which helps to navigate btw webpages/ specific section of current webpage
+    Important attributes (href, target)
+
+Morquee tag
+    this tag  is used to create scrolling text in horizontal/vetrical direction accross the webpage
+
+Tabel 
+    It is used to display the data in the form of rows and collumns
+    Tags ->(table, th, tr, td)
+    Tabel sematic tags  
+         caption, thead, tbody, tfoot
+    Attributes
+        width, height, border, align, rowspan, colspan, cellpadding, cellspacing
+
+List
+    It is used to group the related items together
+        Ordered list
+            It is used to group the related items in sequence Ordered
+            (type,start,reversed) (ol, li)
+
+        UnOrdered list  
+            It is used to gruop the unrelated items in non sequence order
+            (type) (ul li)
+
+        Description list
+            it is used to provide terms and its description
+            (dl dt dd)
+
+
+Media tag
+    It is used to add audio, video, image & other files in the webpage
+
+    img
+        Image tag is used to add the images into the webpage
+        Important artibutes :
+            src, alt, height, width
+    
+    video
+        Video tag is used to add video files into webpage   
+            Important artibutes :
+                src, controls, autoplay, loop, muted
+    
+    Audio 
+        Audio tag is used to add audio files into webpage   
+            Important attributes :
+                src, control, autoplay, loop, muted
+
+    Iframe tag
+        It is used to embed another webpage into current webpage
+        Useful for (google maps, youtube)
+
+Form 
+    It is used to collect the user information
+    Attributes
+        method, action    
+    Tags
+        label(for), input(type[text, password, email, number, checkbox, radio, tel, url]
+        , name, value, placeholders, min, max, min-length, max-length, disables, readonly, required),
+         text-area(name, rows, cols, maxLength, placeholders, required), button(type, value),
+          select(name, multiple, size, required), option(value, selected)
+
+
+Display : block
+    Always start from new line  
+    It will take entire parent width and it won't allow other contet in that same line
+    We can modify the width and height (p,h, sematic tags, div,list)
+
+Display : Inline
+    It will take only the content width, It allow the other content in the same line 
+    we can't modify the width and height(a,span, all formeting tags)
+
+Display : Inline- block   
+    It will take only the content width, It will allow the other content in the same line
+    we can modify the width and height(form tags and media tags)
+
