@@ -1,0 +1,1218 @@
+Object class
+    It is a Super most parent class present in java.lang package.
+     It provide bluprint which is used to create individual object
+    When a class is created, compiler will add extends object implecitly
+    since, Every class inherits from object class, it offers Generalization(common behaviour)
+    It consist of Non-static method, that can be inherit by all the classes
+        
+        toString()
+            Default toString() will return the refrence of the object (className@Hexadecimal) value
+            It can be override to get the states of the object
+
+            @Override
+            public String toString() {
+            return "ID = " + id ;
+            }
+
+        equals(object obj)
+            Default equals() compares the refrence of two objects
+            It can be overriden to compare the contents of two objects for that we need to downcast to convert object type into child class type
+
+                @Override
+                public boolean equals(Object obj) {
+                Student s = (Student) obj;
+                return this.id == s.id;
+                }
+
+        hascode() 
+            Default hascode() generate a unique integer typically bassed on the object's refrence
+            It can be overriden to generate a unique integer typically bassed on the object's internal data
+            hascode() should be overriden when equals() is overriden, because they tightly bounded together
+
+                @Override
+                public int hashCode(){
+                    return Object.hash(id);
+                }
+
+        clone()
+            It is a method used to create a copy of an object
+            To archive cloning ,a class should implement cloneable  marker interface then override the clone()
+             which throws checked exception called classNotSupportException
+            Types
+                shallow copy
+                    It create new objct but copies the refrence of nessted object insted of creating new copy of them
+
+                    Student s2 = (Student) s1.clone();
+                    @Override
+                    public Object clone() throws CloneNotSupportedException {
+                        return super.clone();
+                    }
+
+                Deep copy
+                    It create new object and also create new copy of nessted object
+
+                    @Override
+                    public Object clone() throws classNotSupportException{
+                        Student copy = (Student) super.clone();
+                        copy.address = (Address) address.clone();
+                        return copy;
+                    }
+
+        wait(), notify(), notifyall() -> These are the methods used to handle Thread in java
+
+Garbage Collection
+    GC is the automatic memory management process in java that removes unused object from heep area to free up 
+    gc will call finalize() internally so we can override that method, but newer version it was deprecateed
+
+        Syntax -> System.gc(); 
+
+getClass()
+    It is used to return the current runtime class of the object
+
+
+String
+    It is a sequence of character enclose with double quotes,
+    It is a Non-primitive and a final class present inside java.lang package
+    since, Its a final class, it can't be inherited
+    Strings are immutable which means once String object is created its values cannot be changed
+    String class override methods like toString(), equals(), hashCode() from object class
+    Strings are loaded in a specific area present inside heep area called String constant pool
+    String can be created in two ways
+        String  literals
+            It will directly stored inside SCP, if same literals present. java will reuse it
+          
+            String s1 = "Hello";
+
+        String class
+            It will create String object inside heep and String literals also stored inside SCP if it doesn't exisit
+             The refrence variable refers to the heep object
+
+            String s2 = new String("Hello Java");
+
+    String constructor
+        String() -> create empty string object
+        String(String literals) -> create String object and initialize with value  
+        String(char[] ch) -> convert character array into String
+        String(byte[] arr) -> convert byte array into String
+        String(StringBuilder) -> convert StringBuilder into String
+        String(StringBuffer) -> convert StringBuffer into String
+
+StringBuffer
+    It is a mutable class present inside the Java.lang package ussed to create and modify Strings
+    It is Synchronized, so it is thread-safe
+    It perform slower than StringBuilder
+    It  does not have SCP and does not override equals() and hashCode()
+
+    StringBuffer sb = new StringBuffer(); 
+        -> create StringBuffer object with initial capacity of 16
+
+    StringBuffer constructor
+        StringBuffer() -> Create an empty StringBuffer with Default capacity of 16
+        StringBuffer(String str) -> Create a StringBuffer initialized with String
+        StringBuffer(int capacity) -> Create a StringBuffer with initial capacity 
+        StringBuffer(charSequence seq) -> Create a StringBuffer initialized with charSequence
+
+StringBuilder
+    It is a mutable class present inside JAva.lang packkage used to create and modify the string efficiently,
+     without creating new object we can change the contents.
+    It is Not Synchronized, so it is not Thread-safe.
+    It perform faster than StringBuffer
+    It  does not have SCP and does not override equals() and hashCode()
+
+    StringBuilder sb = new StringBuilder(); 
+        -> create StringBuilder object with initial capacity of 16
+
+    StringBuilder constructor
+        StringBuilder() -> Create an empty StringBuilder with Default capacity of 16
+        StringBuilder(String str) -> Create a StringBuilder initialized with String
+        StringBuilder(int capacity) -> Create a StringBuilder with initial capacity 
+        StringBuilder(charSequence seq) -> Create a StringBuilder initialized with charSequence
+
+Wrapper class   
+    It is a class which wraps a primitive data type inside an object.
+    There're 8 primitive Data types which are stred as value, It affect the state of 100% Object Oriented language to overcome this we're using wrapper class
+    Type Conversion Mechanism
+        Boxing
+            It is the process of manually converting primitive to non primitive data Type by using valueOf()
+                    int n = 25; // Primitive
+                    Interger num = Integer.valueOf(n); // Non-Primitive
+        
+        UnBoxing
+            It is the process of manually converting non primitive to primitive data tybe by using Value()
+                    Integer num = Integer.valueOf(n);
+                    int n = num.intValue(); // byteValue(), doubleValue(), longValue(), etc...
+        
+        AutoBoxing
+            It is the process of Automatically handling the Conversion between primitive and non Primitive
+                    Integer n = 25; // Non primitive
+                    int num = n;  // Primitive
+        
+        Parsing
+            It is the process of converting string into  a primitive data type
+                String DOB = "2003";
+                int dob = Integer.parseInt(DOB); // (String)Non primitive to Primitive
+
+Exception
+    It is an unwanted and unexpected event that accours during execution of the program(runtime) which distrub the normal flow 
+    When an error accours within a method, the program creates an object called Exception object which contains information about the error
+
+    Exception handling
+        The process of handling the exception is called exception handling, it can be archive by using Try-catch block
+        We can have multiple catch block but we can have only one try block
+        Types
+            Checked Exception
+                When the compiler aware about the error accouring statemets
+                    Eg : FillNotFound, IO Exceptioon
+
+            Unchecked Exception
+                When the compiler doesn't aware about the error accouring statemets 
+                    Eg : Arithmatic, NullPointer, ArrayIndexOutofBound
+                
+    Handling methods
+        Exceptions can be handled immediatly by using Try-catch block or we can probacate the exception
+
+    Exception Probacation
+        The process if transfering the Exception handling to an another method
+
+    throw  
+        It is a keyword which is used to explicitly throw an exception object form a method
+
+    throws
+        It is a keyword used in the method declartion to inform the caller that this method may throw an exception
+        It is mainly used in Exception Probacation which simply passes the responsibility
+
+    finally
+        It is a block which is used to execute code whether an excetion occurs / not
+    
+Throwable class
+    It is a Parent class(root/superclass) of Exception and error which inherit Object class
+    Methods
+        e.getMessage() -> Return the exception message
+        e.printStackTrace() -> Print the complete exception details
+        e.toString() -> Return the Exception class name along with the message
+
+Custom Exception
+    It is an Exception which is created by the programmer for handling the application specific errors
+    Types
+        Checked Exception
+            To create manual Checked exception, we need to extends Exception
+        Unchecked Exception
+            To create manual UncheckedException, we need to extends RuntimeException
+
+Collections
+    It is a Utillity class present inside the Java.util package
+    It provide static methods to perform Operations on collection object
+
+Collection
+    It is an interface which exrends from Iterable interface, it stores and manage group of object as a single unit.
+    It present in the Java.Util package
+
+    Collection Framework
+    The combination of classes, objects, interfaces and some build-in methods provided by java to
+     perform CRUD operation with Collection effectively 
+
+    Need of Collection  
+    It is a Collection of objects so we can use this to store many no. of objects
+
+List
+    List is the sub-interface of Collection.
+    It is used to store a collection of objects in an ordered manner.
+
+    Advantages of List
+        It allows duplicate elements.
+        It maintains insertion order.
+        It supports index-based access.
+        It allows multiple null values.
+        It supports dynamic resizing.
+
+    Types
+        ArrayList
+            Uses a dynamic array internally.
+            Fast for retrieving elements (get()).
+            Slow for insertion and deletion in the middle.
+            Not synchronized.
+            Best suited for frequent read operations.
+
+        LinkedList
+            Uses a doubly linked list internally.
+            Fast for insertion and deletion.
+            Slow for random access (get()).
+            Not synchronized.
+            Can also be used as a Queue and Deque.
+
+        Vector
+            Uses a dynamic array internally.
+            Synchronized (thread-safe).
+            Slower than ArrayList due to synchronization.
+            Legacy class.
+
+        Stack
+            Subclass of Vector.
+            Follows the LIFO (Last In, First Out) principle.
+            Common methods:
+                push()
+                pop()
+                peek()
+
+    Common Methods
+        add(E e)
+            Adds an element.
+
+        add(int index, E e)
+            Inserts an element at a specific index.
+
+        get(int index)
+            Returns the element at the given index.
+
+        set(int index, E e)
+            Replaces the element at the given index.
+
+        remove(int index)
+            Removes an element using its index.
+
+        remove(Object o)
+            Removes the specified object.
+
+        contains(Object o)
+            Checks whether the element is present.
+
+        size()
+            Returns the number of elements.
+
+        isEmpty()
+            Checks whether the list is empty.
+
+        clear()
+            Removes all elements.
+
+        indexOf(Object o)
+            Returns the index of the first occurrence.
+
+        lastIndexOf(Object o)
+            Returns the index of the last occurrence.
+
+    Ways to Traverse List
+        Using for loop
+        Using enhanced for-each loop
+        Using Iterator
+        Using ListIterator
+        Using forEach() method (Java 8)
+
+    Difference Between ArrayList and LinkedList
+
+        ArrayList
+            Dynamic Array
+            Fast retrieval
+            Slow insertion/deletion
+            Less memory usage
+
+        LinkedList
+            Doubly Linked List
+            Slow retrieval
+            Fast insertion/deletion
+            More memory usage
+
+    Interview Points
+        List is an interface.
+        It extends the Collection interface.
+        It stores objects in insertion order.
+        Duplicate elements are allowed.
+        Null values are allowed.
+        It supports index-based operations.
+        ArrayList is the most commonly used implementation.
+
+Set
+    Set is the sub-interface of Collection.
+    It is used to store a collection of unique objects.
+
+    Advantages of Set
+        It does not allow duplicate elements.
+        It allows at most one null value (depends on implementation).
+        It provides fast searching.
+        It is used to store unique elements.
+
+    Types
+        HashSet
+            Uses a Hash Table internally.
+            Does not maintain insertion order.
+            Allows one null value.
+            Best for fast insertion, deletion, and searching.
+            Not synchronized.
+
+        LinkedHashSet
+            Uses a Hash Table and Linked List internally.
+            Maintains insertion order.
+            Allows one null value.
+            Slower than HashSet.
+
+        TreeSet
+            Uses a Red-Black Tree internally.
+            Stores elements in sorted (ascending) order.
+            Does not allow null values.
+            Slower than HashSet.
+            Implements the NavigableSet interface.
+
+    Common Methods
+        add(E e)
+            Adds an element.
+
+        remove(Object o)
+            Removes the specified element.
+
+        contains(Object o)
+            Checks whether an element exists.
+
+        size()
+            Returns the number of elements.
+
+        isEmpty()
+            Checks whether the set is empty.
+
+        clear()
+            Removes all elements.
+
+        iterator()
+            Returns an iterator to traverse the set.
+
+    Ways to Traverse Set
+        Using enhanced for-each loop
+        Using Iterator
+        Using forEach() method (Java 8)
+
+    Difference Between HashSet and LinkedHashSet
+
+        HashSet
+            Does not maintain insertion order.
+            Faster.
+            Uses Hash Table.
+
+        LinkedHashSet
+            Maintains insertion order.
+            Slightly slower.
+            Uses Hash Table + Linked List.
+
+    Difference Between HashSet and TreeSet
+
+        HashSet
+            Unordered.
+            Allows one null value.
+            Faster (O(1) average).
+
+        TreeSet
+            Sorted.
+            Does not allow null values.
+            Slower (O(log n)).
+
+    Interview Points
+        Set is an interface.
+        It extends the Collection interface.
+        It stores only unique elements.
+        Duplicate elements are not allowed.
+        HashSet is unordered.
+        LinkedHashSet maintains insertion order.
+        TreeSet maintains sorted order.
+
+Queue
+    Queue is the sub-interface of Collection.
+    It is used to store a collection of objects in FIFO (First In, First Out) order.
+
+    Advantages of Queue
+        It follows the FIFO principle.
+        It allows duplicate elements.
+        It is used for processing elements in sequence.
+        It is suitable for scheduling and task processing.
+        Most implementations do not support index-based access.
+
+    Types
+        PriorityQueue
+            Stores elements based on priority.
+            By default, elements are sorted in ascending order.
+            Does not maintain insertion order.
+            Does not allow null values.
+            Not synchronized.
+
+        ArrayDeque
+            Uses a dynamic array internally.
+            Faster than Stack for stack operations.
+            Can be used as both Queue and Stack.
+            Does not allow null values.
+            Not synchronized.
+
+        LinkedList
+            Implements the Queue interface.
+            Maintains insertion order.
+            Allows null values when used as a List, but Queue operations generally discourage nulls.
+            Can also be used as a Deque.
+
+    Common Methods
+        add(E e)
+            Inserts an element.
+            Throws an exception if insertion fails.
+
+        offer(E e)
+            Inserts an element.
+            Returns false if insertion fails.
+
+        remove()
+            Removes and returns the head element.
+            Throws an exception if the queue is empty.
+
+        poll()
+            Removes and returns the head element.
+            Returns null if the queue is empty.
+
+        element()
+            Returns the head element.
+            Throws an exception if the queue is empty.
+
+        peek()
+            Returns the head element.
+            Returns null if the queue is empty.
+
+        size()
+            Returns the number of elements.
+
+        isEmpty()
+            Checks whether the queue is empty.
+
+        clear()
+            Removes all elements.
+
+    Ways to Traverse Queue
+        Using enhanced for-each loop
+        Using Iterator
+        Using forEach() method (Java 8)
+
+    Difference Between add() and offer()
+
+        add()
+            Throws an exception if insertion fails.
+
+        offer()
+            Returns false if insertion fails.
+
+    Difference Between remove() and poll()
+
+        remove()
+            Throws an exception if the queue is empty.
+
+        poll()
+            Returns null if the queue is empty.
+
+    Difference Between element() and peek()
+
+        element()
+            Throws an exception if the queue is empty.
+
+        peek()
+            Returns null if the queue is empty.
+
+    Interview Points
+        Queue is an interface.
+        It extends the Collection interface.
+        It follows the FIFO (First In, First Out) principle.
+        It allows duplicate elements.
+        It does not support index-based access.
+        PriorityQueue stores elements based on priority.
+        ArrayDeque can be used as both Queue and Stack.
+
+Map
+    Map is an interface in the Java Collection Framework.
+    It is used to store data in the form of Key-Value pairs.
+    Map does not extend the Collection interface.
+
+    Advantages of Map
+        Stores data as Key-Value pairs.
+        Keys are unique.
+        Values can be duplicated.
+        Provides fast searching using keys.
+        Efficient for storing and retrieving data.
+
+    Types
+        HashMap
+            Uses a Hash Table internally.
+            Does not maintain insertion order.
+            Allows one null key.
+            Allows multiple null values.
+            Not synchronized.
+            Best for fast retrieval.
+
+        LinkedHashMap
+            Uses a Hash Table and Linked List internally.
+            Maintains insertion order.
+            Allows one null key.
+            Allows multiple null values.
+            Not synchronized.
+
+        TreeMap
+            Uses a Red-Black Tree internally.
+            Stores keys in sorted (ascending) order.
+            Does not allow null keys.
+            Allows multiple null values.
+            Slower than HashMap.
+
+        Hashtable
+            Uses a Hash Table internally.
+            Does not maintain insertion order.
+            Does not allow null keys.
+            Does not allow null values.
+            Synchronized (Thread-safe).
+            Legacy class.
+
+    Common Methods
+        put(K key, V value)
+            Inserts or updates a key-value pair.
+
+        get(Object key)
+            Returns the value associated with the key.
+
+        remove(Object key)
+            Removes the key-value pair.
+
+        containsKey(Object key)
+            Checks whether the key exists.
+
+        containsValue(Object value)
+            Checks whether the value exists.
+
+        keySet()
+            Returns all keys.
+
+        values()
+            Returns all values.
+
+        entrySet()
+            Returns all key-value pairs.
+
+        size()
+            Returns the number of entries.
+
+        isEmpty()
+            Checks whether the map is empty.
+
+        clear()
+            Removes all entries.
+
+    Ways to Traverse Map
+        Using keySet()
+        Using values()
+        Using entrySet()
+        Using forEach() method (Java 8)
+        Using Iterator
+
+    Difference Between HashMap and LinkedHashMap
+
+        HashMap
+            Does not maintain insertion order.
+            Faster.
+            Allows one null key.
+
+        LinkedHashMap
+            Maintains insertion order.
+            Slightly slower.
+            Allows one null key.
+
+    Difference Between HashMap and TreeMap
+
+        HashMap
+            Unordered.
+            Allows one null key.
+            O(1) average search.
+
+        TreeMap
+            Sorted by keys.
+            Does not allow null keys.
+            O(log n) search.
+
+    Difference Between HashMap and Hashtable
+
+        HashMap
+            Not synchronized.
+            Allows one null key.
+            Allows multiple null values.
+            Faster.
+
+        Hashtable
+            Synchronized.
+            Does not allow null keys.
+            Does not allow null values.
+            Slower.
+
+    Interview Points
+        Map is an interface.
+        It stores data as Key-Value pairs.
+        Keys are unique.
+        Duplicate keys are not allowed.
+        Values can be duplicated.
+        Map does not extend the Collection interface.
+        HashMap is the most commonly used implementation.
+
+Iterable
+    Iterable is the root interface of the Java Collection Framework.
+    It is present in the java.lang package.
+    It is used to traverse (iterate) elements one by one.
+    Any class that implements Iterable can be used in a for-each loop.
+
+    Advantages
+        Supports enhanced for-each loop.
+        Provides a standard way to traverse collections.
+        Returns an Iterator object for iteration.
+        Can be implemented by custom collection classes.
+
+    Method
+        iterator()
+            Returns an Iterator object to traverse the elements.
+
+        forEach(Consumer action)
+            Performs the given action for each element.
+            Introduced in Java 8.
+
+        spliterator()
+            Returns a Spliterator object for sequential or parallel traversal.
+            Introduced in Java 8.
+
+    Implementing Classes
+        Collection
+            List
+                ArrayList
+                LinkedList
+                Vector
+                Stack
+
+            Set
+                HashSet
+                LinkedHashSet
+                TreeSet
+
+            Queue
+                PriorityQueue
+                ArrayDeque
+                LinkedList
+
+    Interview Points
+        Iterable is an interface.
+        Package: java.lang
+        It is the parent interface of Collection.
+        It contains one abstract method: iterator().
+        It enables the enhanced for-each loop.
+        Map does not implement Iterable directly.
+
+Iterator
+    Iterator is an interface in the java.util package.
+    It is used to traverse (iterate) the elements of a Collection one by one.
+    It supports only forward direction traversal.
+
+    Advantages
+        Traverses elements one by one.
+        Works with all Collection objects.
+        Supports safe removal of elements during iteration.
+        Prevents ConcurrentModificationException in many removal scenarios.
+
+    Methods
+        hasNext()
+            Returns true if the next element is available.
+
+        next()
+            Returns the next element.
+
+        remove()
+            Removes the last element returned by next().
+            Optional operation.
+
+        forEachRemaining(Consumer action)
+            Performs the given action for all remaining elements.
+            Introduced in Java 8.
+
+    How Iterator Works
+
+        Collection
+            │
+            ▼
+        iterator()
+            │
+            ▼
+        Iterator Object
+            │
+        hasNext()
+            │
+        next()
+            │
+        Repeat until hasNext() becomes false
+
+    Example
+        ArrayList<String> list = new ArrayList<>();
+        list.add("Java");
+        list.add("Python");
+        list.add("SQL");
+
+        Iterator<String> itr = list.iterator();
+
+        while (itr.hasNext()) {
+            System.out.println(itr.next());
+        }
+
+    Output
+        Java
+        Python
+        SQL
+
+    Advantages over for Loop
+        Works with all Collection implementations.
+        No need for index.
+        Can safely remove elements while iterating.
+
+    Limitations
+        Supports only forward traversal.
+        Cannot add or replace elements.
+        Mainly used for Collection objects.
+
+    Iterator vs ListIterator
+
+        Iterator
+            Forward traversal only.
+            Works with all Collection types.
+            Can remove elements.
+            Cannot add or update elements.
+
+        ListIterator
+            Forward and backward traversal.
+            Works only with List.
+            Can add, remove, and update elements.
+
+    Interview Points
+        Iterator is an interface.
+        Package: java.util
+        Obtained using iterator() method.
+        Supports only forward traversal.
+        Common methods:
+            hasNext()
+            next()
+            remove()
+        Used with List, Set, and Queue.
+        Map uses entrySet().iterator() for traversal.
+
+Generics
+    Generics is a feature introduced in Java 5.
+    It allows us to specify the type of objects at compile time.
+    It provides type safety and eliminates the need for explicit type casting.
+
+    Advantages
+        Provides type safety.
+        Detects type mismatch at compile time.
+        Eliminates explicit type casting.
+        Improves code readability.
+        Increases code reusability.
+
+    Syntax
+        <>
+            Called the Diamond Operator.
+
+        Example
+            ArrayList<String>
+            ArrayList<Integer>
+            HashMap<Integer, String>
+
+    Types of Generics
+        Generic Class
+            A class with a type parameter.
+
+            Example
+                class Box<T>
+
+        Generic Method
+            A method with a type parameter.
+
+            Example
+                public <T> void display(T value)
+
+        Generic Interface
+            An interface with a type parameter.
+
+            Example
+                interface Printable<T>
+
+    Type Parameters
+        T
+            Type
+
+        E
+            Element
+
+        K
+            Key
+
+        V
+            Value
+
+        N
+            Number
+
+    Wildcards
+        <?>
+            Unknown type.
+
+        <? extends Class>
+            Upper bounded wildcard.
+            Accepts the specified class and its subclasses.
+
+        <? super Class>
+            Lower bounded wildcard.
+            Accepts the specified class and its superclasses.
+
+    Advantages Without Generics
+        Requires explicit type casting.
+        May cause ClassCastException at runtime.
+
+    Advantages With Generics
+        No type casting required.
+        Compile-time type checking.
+        Prevents ClassCastException.
+
+    Example
+
+        Without Generics
+
+            ArrayList list = new ArrayList();
+            list.add("Java");
+            String s = (String) list.get(0);
+
+        With Generics
+
+            ArrayList<String> list = new ArrayList<>();
+            list.add("Java");
+            String s = list.get(0);
+
+    Interview Points
+        Generics were introduced in Java 5.
+        Package: java.lang (language feature).
+        Provides compile-time type checking.
+        Prevents ClassCastException.
+        Improves code reusability.
+        Works with classes, interfaces, and methods.
+        Uses angle brackets <> to specify the type.
+
+Comparable
+    Comparable is an interface in the java.lang package.
+    It is used to define the natural sorting order of objects.
+    The sorting logic is written inside the class itself.
+
+    Advantages
+        Provides natural sorting.
+        Allows only one sorting logic.
+        Used with Collections.sort() and Arrays.sort().
+        Easy to implement.
+
+    Method
+        compareTo(T obj)
+
+            Returns
+                Negative value
+                    Current object is smaller than the given object.
+
+                Zero
+                    Both objects are equal.
+
+                Positive value
+                    Current object is greater than the given object.
+
+    How Comparable Works
+
+        Class
+            │
+            ▼
+        implements Comparable<ClassName>
+            │
+            ▼
+        Override compareTo()
+            │
+            ▼
+        Collections.sort(list)
+
+    Example
+
+        class Student implements Comparable<Student> {
+
+            int id;
+
+            Student(int id) {
+                this.id = id;
+            }
+
+            @Override
+            public int compareTo(Student s) {
+                return this.id - s.id;
+            }
+        }
+
+    Sorting Order
+
+        Ascending
+            return this.id - s.id;
+
+        Descending
+            return s.id - this.id;
+
+    Advantages
+        Natural ordering.
+        Easy to use.
+        No separate Comparator class required.
+        Suitable when only one sorting order is needed.
+
+    Limitations
+        Supports only one sorting logic.
+        Sorting logic must be inside the class.
+        Cannot have multiple sorting criteria.
+
+    Interview Points
+        Comparable is an interface.
+        Package: java.lang
+        Method: compareTo(T obj)
+        Used for natural sorting.
+        Implemented by the class whose objects are to be sorted.
+        Used with Collections.sort() and Arrays.sort().
+
+Comparator
+    Comparator is an interface in the java.util package.
+    It is used to define custom sorting logic for objects.
+    The sorting logic is written outside the class.
+
+    Advantages
+        Supports multiple sorting logics.
+        Does not modify the original class.
+        Suitable when objects need to be sorted in different ways.
+        Used with Collections.sort() and Arrays.sort().
+
+    Method
+        compare(T o1, T o2)
+
+            Returns
+                Negative value
+                    First object is smaller than the second object.
+
+                Zero
+                    Both objects are equal.
+
+                Positive value
+                    First object is greater than the second object.
+
+    How Comparator Works
+
+        Class
+            │
+            ▼
+        Create Comparator Class
+            │
+            ▼
+        Override compare()
+            │
+            ▼
+        Collections.sort(list, comparator)
+
+    Example
+
+        class StudentAgeComparator implements Comparator<Student> {
+
+            @Override
+            public int compare(Student s1, Student s2) {
+                return s1.age - s2.age;
+            }
+        }
+
+        Collections.sort(studentList, new StudentAgeComparator());
+
+    Sorting Order
+
+        Ascending
+            return s1.age - s2.age;
+
+        Descending
+            return s2.age - s1.age;
+
+    Advantages
+        Supports multiple sorting criteria.
+        Sorting logic is separate from the original class.
+        No need to modify the existing class.
+        Easy to reuse different sorting strategies.
+
+    Limitations
+        Requires creating a separate Comparator class
+        (or using a lambda expression).
+
+    Interview Points
+        Comparator is an interface.
+        Package: java.util
+        Method: compare(T o1, T o2)
+        Used for custom sorting.
+        Sorting logic is written outside the class.
+        Supports multiple sorting logics.
+        Used with Collections.sort(list, comparator).
+
+Functional Interface
+    A Functional Interface is an interface that contains exactly one abstract method.
+    It is introduced in Java 8.
+    It is mainly used to support Lambda Expressions and Method References.
+
+    Advantages
+        Supports Lambda Expressions.
+        Supports Method References.
+        Reduces boilerplate code.
+        Improves code readability.
+        Enables functional programming in Java.
+
+    Annotation
+        @FunctionalInterface
+            Ensures the interface contains only one abstract method.
+            Generates a compile-time error if more than one abstract method is added.
+
+    Rules
+        Must contain exactly one abstract method.
+        Can contain multiple default methods.
+        Can contain multiple static methods.
+        Can contain methods inherited from Object.
+
+    Example
+
+        @FunctionalInterface
+        interface Demo {
+
+            void display();
+
+            default void show() {
+                System.out.println("Default Method");
+            }
+
+            static void test() {
+                System.out.println("Static Method");
+            }
+        }
+
+    Common Functional Interfaces
+
+        Predicate<T>
+            Tests a condition.
+            Method:
+                test(T t)
+
+        Consumer<T>
+            Consumes an object.
+            Method:
+                accept(T t)
+
+        Supplier<T>
+            Supplies an object.
+            Method:
+                get()
+
+        Function<T, R>
+            Converts one object into another.
+            Method:
+                apply(T t)
+
+        UnaryOperator<T>
+            Takes one argument and returns the same type.
+            Method:
+                apply(T t)
+
+        BinaryOperator<T>
+            Takes two arguments of the same type and returns the same type.
+            Method:
+                apply(T t1, T t2)
+
+    Built-in Functional Interfaces
+        Runnable
+        Comparator
+        Callable
+        Predicate
+        Consumer
+        Supplier
+        Function
+
+    Advantages
+        Supports lambda expressions.
+        Improves code reusability.
+        Makes code concise.
+        Eliminates anonymous inner classes.
+
+    Interview Points
+        Functional Interface is an interface.
+        Introduced in Java 8.
+        Contains exactly one abstract method.
+        Can have multiple default methods.
+        Can have multiple static methods.
+        Annotated with @FunctionalInterface.
+        Used with Lambda Expressions and Method References.
+
+Conversion (Collection Conversion)
+    Conversion is the process of converting one collection type into another.
+    It is used when different collection implementations are required for different operations.
+
+    Advantages
+        Easy data transformation.
+        Improves interoperability between collections.
+        Helps remove duplicates.
+        Converts data into the required collection type.
+
+    Common Conversions
+
+        Array → List
+            Arrays.asList(array)
+
+        List → Array
+            list.toArray()
+
+        List → Set
+            new HashSet<>(list)
+            Removes duplicate elements.
+
+        Set → List
+            new ArrayList<>(set)
+
+        List → Queue
+            new LinkedList<>(list)
+
+        Queue → List
+            new ArrayList<>(queue)
+
+        Set → Queue
+            new LinkedList<>(set)
+
+        Queue → Set
+            new HashSet<>(queue)
+
+        Map → Set
+            map.entrySet()
+            map.keySet()
+
+        Map → Collection
+            map.values()
+
+    Conversion Methods
+
+        Arrays.asList()
+            Converts an array into a List.
+
+        toArray()
+            Converts a List into an Array.
+
+        new ArrayList<>(collection)
+            Converts any Collection into an ArrayList.
+
+        new LinkedList<>(collection)
+            Converts any Collection into a LinkedList.
+
+        new HashSet<>(collection)
+            Converts any Collection into a HashSet.
+            Removes duplicate elements.
+
+        new TreeSet<>(collection)
+            Converts any Collection into a TreeSet.
+            Sorts the elements.
+
+    Interview Points
+        Arrays.asList() converts an Array to a List.
+        toArray() converts a List to an Array.
+        HashSet removes duplicate elements.
+        TreeSet sorts elements in ascending order.
+        ArrayList maintains insertion order.
+        LinkedList can be used as both a List and a Queue.
+    
