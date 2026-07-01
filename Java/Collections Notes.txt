@@ -27,7 +27,7 @@ Object class
         hascode() 
             Default hascode() generate a unique integer typically bassed on the object's refrence
             It can be overriden to generate a unique integer typically bassed on the object's internal data
-            hascode() should be overriden when equals() is overriden, because they tightly bounded together
+            hascode() should be overrid when equals() is overriden, because they tightly bounded together
 
                 @Override
                 public int hashCode(){
@@ -62,7 +62,7 @@ Object class
 
 Garbage Collection
     GC is the automatic memory management process in java that removes unused object from heep area to free up 
-    gc will call finalize() internally so we can override that method, but newer version it was deprecateed
+    gc will call finalize() internally so we can override that method, but in newer version it was deprecateed
 
         Syntax -> System.gc(); 
 
@@ -76,7 +76,9 @@ String
     since, Its a final class, it can't be inherited
     Strings are immutable which means once String object is created its values cannot be changed
     String class override methods like toString(), equals(), hashCode() from object class
+
     Strings are loaded in a specific area present inside heep area called String constant pool
+
     String can be created in two ways
         String  literals
             It will directly stored inside SCP, if same literals present. java will reuse it
@@ -98,7 +100,8 @@ String
         String(StringBuffer) -> convert StringBuffer into String
 
 StringBuffer
-    It is a mutable class present inside the Java.lang package ussed to create and modify Strings
+    It is a mutable class present inside the Java.lang package ussed to create and modify Strings effectively
+     without creating new object we can change the contents.
     It is Synchronized, so it is thread-safe
     It perform slower than StringBuilder
     It  does not have SCP and does not override equals() and hashCode()
@@ -113,7 +116,7 @@ StringBuffer
         StringBuffer(charSequence seq) -> Create a StringBuffer initialized with charSequence
 
 StringBuilder
-    It is a mutable class present inside JAva.lang packkage used to create and modify the string efficiently,
+    It is a mutable class present inside Java.lang packkage used to create and modify the string efficiently,
      without creating new object we can change the contents.
     It is Not Synchronized, so it is not Thread-safe.
     It perform faster than StringBuffer
@@ -129,8 +132,8 @@ StringBuilder
         StringBuilder(charSequence seq) -> Create a StringBuilder initialized with charSequence
 
 Wrapper class   
-    It is a class which wraps a primitive data type inside an object.
-    There're 8 primitive Data types which are stred as value, It affect the state of 100% Object Oriented language to overcome this we're using wrapper class
+    It is a class which wraps a primitive data types inside an object.
+    There're 8 primitive Data types which are directly stored as value, It affect the state of 100% Object Oriented language to overcome this we're using wrapper class
     Type Conversion Mechanism
         Boxing
             It is the process of manually converting primitive to non primitive data Type by using valueOf()
@@ -150,11 +153,11 @@ Wrapper class
         Parsing
             It is the process of converting string into  a primitive data type
                 String DOB = "2003";
-                int dob = Integer.parseInt(DOB); // (String)Non primitive to Primitive
+                int dob = Integer.parseInt(DOB); // (String)Non primitive to (int)Primitive
 
 Exception
-    It is an unwanted and unexpected event that accours during execution of the program(runtime) which distrub the normal flow 
-    When an error accours within a method, the program creates an object called Exception object which contains information about the error
+    It is an unexpected event that accours during execution of the program(runtime) which distrub the normal flow 
+    When an error accours within a method, compiler will return Exception type object which contains information about the error
 
     Exception handling
         The process of handling the exception is called exception handling, it can be archive by using Try-catch block
@@ -172,18 +175,19 @@ Exception
         Exceptions can be handled immediatly by using Try-catch block or we can probacate the exception
 
     Exception Probacation
-        The process if transfering the Exception handling to an another method
+        The process of transfering the Exception handling to an another method 
 
     throw  
         It is a keyword which is used to explicitly throw an exception object form a method
 
     throws
         It is a keyword used in the method declartion to inform the caller that this method may throw an exception
-        It is mainly used in Exception Probacation which simply passes the responsibility
+        It is mainly used for Exception Probacation which simply passes the responsibility
+        we can handle multiple exception using throws keyword
 
     finally
         It is a block which is used to execute code whether an excetion occurs / not
-    
+      
 Throwable class
     It is a Parent class(root/superclass) of Exception and error which inherit Object class
     Methods
@@ -200,11 +204,11 @@ Custom Exception
             To create manual UncheckedException, we need to extends RuntimeException
 
 Collections
-    It is a Utillity class present inside the Java.util package
+    It is a Utillity class present inside the Java.util package 
     It provide static methods to perform Operations on collection object
 
 Collection
-    It is an interface which exrends from Iterable interface, it stores and manage group of object as a single unit.
+    It is an interface which extends from Iterable interface, it stores and manage group of object as a single unit.
     It present in the Java.Util package
 
     Collection Framework
@@ -284,7 +288,7 @@ List
 
         clear()
             Removes all elements.
-
+ 
         indexOf(Object o)
             Returns the index of the first occurrence.
 
@@ -648,17 +652,16 @@ Map
         HashMap is the most commonly used implementation.
 
 Iterable
-    Iterable is the root interface of the Java Collection Framework present in the java.lang package.
-    It is used to traverse (iterate) elements one by one. it allow to use for-each loop to traverse
-    It contain one abstract method called iterator()
+    Iterable is the parent interface of the  Collection interface present in the java.lang package.
+    It contain one abstract method called iterator() which allow to use for-each loop to traverse
 
     Method
         iterator()
             Returns an Iterator object to traverse the elements.
 
 Iterator
-    Iterator is an interface present in the java.util package.
-    It is used to traverse (iterate) the elements of a Collection one by one.
+    Iterator is the  interface present inside util package
+    It contains method which are used to traverse(iterate) the elements of a Collection one by one.
     It supports only forward direction traversal.
 
     Methods
@@ -682,10 +685,8 @@ Iterator
 
 ListIterator
     ListIterator is an interface present in the java.util package.
-    It is used only with List to traverses in both forward and backward directions.
+    It works only with List implementations such as ArrayList, LinkedList, and Vector to traverses in both forward and backward directions.
     It is obtained using the listIterator() method.
-    It works only with List implementations such as ArrayList, LinkedList, and Vector.
-
     Methods
         hasNext() -> Returns true if the next element is available.
         next() -> Returns the next element.
@@ -759,15 +760,14 @@ Generics
 
 Comparable
     Comparable is an functional interface present in the java.lang package. 
-    It contains compareTo() which helps on default sorting logic
-
+    It contains only one abstract method called compareTo() which helps on default sorting logic
+    The class should implements Comparable interface and Override compareTo()
     Method
         compareTo(T obj)
             Returns
-                Negative value -> Current object is smaller than the given object.
+                Negative value -> Current object < given object.
                 Zero            -> Both objects are equal.
-                Positive value -> Current object is greater than the given object.
-
+                Positive value -> Current object > given object.
     Example
 
         class Student implements Comparable<Student> {
@@ -791,12 +791,13 @@ Comparable
             return s.id - this.id;
 
 Comparator
-    Comparator is an interface in the java.util package.
-    It is used to define custom sorting logic for objects.
+    Comparator is a Functional interface in the java.util package.
+     It contains only one abstract method called compare() which helps on custom sorting logic on objects
+    The class should implements Comparator interface and Override compare()
     The sorting logic is written outside the class.
 
     Method
-        compareTo(T obj)
+        compare(T obj)
             Returns
                 Negative value -> Current object is smaller than the given object.
                 Zero            -> Both objects are equal.
@@ -822,7 +823,7 @@ Comparator
 
 Functional Interface
     A Functional Interface is an interface that contains exactly one abstract method
-     mainly used to support Lambda Expressions and Method References.
+     It  allow us to use lambda Expression (->)
     It is introduced in Java 8.
 
     Annotation 

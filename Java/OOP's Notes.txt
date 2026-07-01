@@ -144,8 +144,8 @@ Construtor chaining :
             }
 
             Output : Three argument Construtor
-                    Two argument Construtor
-                    No argument construtor
+                     Two argument Construtor
+                     No argument construtor
 
         From Another class :
             BOth class should be in IS-A Relationship
@@ -712,4 +712,3 @@ Interface :
                     }
                 }
 
-8
