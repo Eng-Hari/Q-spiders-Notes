@@ -648,96 +648,25 @@ Map
         HashMap is the most commonly used implementation.
 
 Iterable
-    Iterable is the root interface of the Java Collection Framework.
-    It is present in the java.lang package.
-    It is used to traverse (iterate) elements one by one.
-    Any class that implements Iterable can be used in a for-each loop.
-
-    Advantages
-        Supports enhanced for-each loop.
-        Provides a standard way to traverse collections.
-        Returns an Iterator object for iteration.
-        Can be implemented by custom collection classes.
+    Iterable is the root interface of the Java Collection Framework present in the java.lang package.
+    It is used to traverse (iterate) elements one by one. it allow to use for-each loop to traverse
+    It contain one abstract method called iterator()
 
     Method
         iterator()
             Returns an Iterator object to traverse the elements.
 
-        forEach(Consumer action)
-            Performs the given action for each element.
-            Introduced in Java 8.
-
-        spliterator()
-            Returns a Spliterator object for sequential or parallel traversal.
-            Introduced in Java 8.
-
-    Implementing Classes
-        Collection
-            List
-                ArrayList
-                LinkedList
-                Vector
-                Stack
-
-            Set
-                HashSet
-                LinkedHashSet
-                TreeSet
-
-            Queue
-                PriorityQueue
-                ArrayDeque
-                LinkedList
-
-    Interview Points
-        Iterable is an interface.
-        Package: java.lang
-        It is the parent interface of Collection.
-        It contains one abstract method: iterator().
-        It enables the enhanced for-each loop.
-        Map does not implement Iterable directly.
-
 Iterator
-    Iterator is an interface in the java.util package.
+    Iterator is an interface present in the java.util package.
     It is used to traverse (iterate) the elements of a Collection one by one.
     It supports only forward direction traversal.
 
-    Advantages
-        Traverses elements one by one.
-        Works with all Collection objects.
-        Supports safe removal of elements during iteration.
-        Prevents ConcurrentModificationException in many removal scenarios.
-
     Methods
-        hasNext()
-            Returns true if the next element is available.
-
-        next()
-            Returns the next element.
-
-        remove()
-            Removes the last element returned by next().
-            Optional operation.
-
-        forEachRemaining(Consumer action)
-            Performs the given action for all remaining elements.
-            Introduced in Java 8.
-
-    How Iterator Works
-
-        Collection
-            │
-            ▼
-        iterator()
-            │
-            ▼
-        Iterator Object
-            │
-        hasNext()
-            │
-        next()
-            │
-        Repeat until hasNext() becomes false
+        hasNext() ->  Returns true if the next element is available.
+        next() ->  Returns the next element.
+        remove() ->  Removes the last element returned by next() (Optional operation)
+        forEachRemaining(Consumer action) ->  Performs the given action for all remaining elements.
+                                                 Introduced in Java 8.
 
     Example
         ArrayList<String> list = new ArrayList<>();
@@ -748,106 +677,74 @@ Iterator
         Iterator<String> itr = list.iterator();
 
         while (itr.hasNext()) {
-            System.out.println(itr.next());
+            System.out.println(itr.next());  // Java Python SQL
         }
 
-    Output
-        Java
-        Python
-        SQL
+ListIterator
+    ListIterator is an interface present in the java.util package.
+    It is used only with List to traverses in both forward and backward directions.
+    It is obtained using the listIterator() method.
+    It works only with List implementations such as ArrayList, LinkedList, and Vector.
 
-    Advantages over for Loop
-        Works with all Collection implementations.
-        No need for index.
-        Can safely remove elements while iterating.
+    Methods
+        hasNext() -> Returns true if the next element is available.
+        next() -> Returns the next element.
+        hasPrevious() -> Returns true if the previous element is available.
+        previous() -> Returns the previous element.
+        add(E e) -> Inserts an element at the current position.
+        remove() -> Removes the last element returned by next() or previous().
+        set(E e) -> Replaces the last element returned by next() or previous().
+        nextIndex() -> Returns the index of the next element.
+        previousIndex() -> Returns the index of the previous element.
 
-    Limitations
-        Supports only forward traversal.
-        Cannot add or replace elements.
-        Mainly used for Collection objects.
+    Example
 
-    Iterator vs ListIterator
+        ArrayList<String> list = new ArrayList<>();
 
-        Iterator
-            Forward traversal only.
-            Works with all Collection types.
-            Can remove elements.
-            Cannot add or update elements.
+        list.add("Java");
+        list.add("Python");
+        list.add("SQL");
 
-        ListIterator
-            Forward and backward traversal.
-            Works only with List.
-            Can add, remove, and update elements.
+        ListIterator<String> litr = list.listIterator();
 
-    Interview Points
-        Iterator is an interface.
-        Package: java.util
-        Obtained using iterator() method.
-        Supports only forward traversal.
-        Common methods:
-            hasNext()
-            next()
-            remove()
-        Used with List, Set, and Queue.
-        Map uses entrySet().iterator() for traversal.
+        // Forward Traversal
+        while (litr.hasNext()) {
+            System.out.println(litr.next());   // Java Python SQL
+        }
+
+        // Backward Traversal
+        while (litr.hasPrevious()) {
+            System.out.println(litr.previous());   // SQL Python Java
+        }
 
 Generics
-    Generics is a feature introduced in Java 5.
-    It allows us to specify the type of objects at compile time.
+    Generics is used to specify the type of objects at compile time present in Java.lang package
     It provides type safety and eliminates the need for explicit type casting.
-
-    Advantages
-        Provides type safety.
-        Detects type mismatch at compile time.
-        Eliminates explicit type casting.
-        Improves code readability.
-        Increases code reusability.
-
-    Syntax
-        <>
-            Called the Diamond Operator.
-
+    It is  specified with <> brackets  Used to Prevents ClassCastException.
         Example
-            ArrayList<String>
-            ArrayList<Integer>
-            HashMap<Integer, String>
+               ArrayList<String>, ArrayList<Integer>, HashMap<Integer, String>
 
     Types of Generics
-        Generic Class
-            A class with a type parameter.
-
+        Generic Class -> A class with a type parameter.
             Example
                 class Box<T>
 
-        Generic Method
-            A method with a type parameter.
-
+        Generic Method -> A method with a type parameter.
             Example
                 public <T> void display(T value)
 
-        Generic Interface
-            An interface with a type parameter.
-
+        Generic Interface -> An interface with a type parameter.
             Example
                 interface Printable<T>
 
     Type Parameters
-        T
-            Type
+        T ->  Type
+        E ->  Element
+        K ->  Key
+        V ->  Value
+        N ->  Number
 
-        E
-            Element
-
-        K
-            Key
-
-        V
-            Value
-
-        N
-            Number
-
-    Wildcards
+    Wildcards / Bounded Generic
         <?>
             Unknown type.
 
@@ -859,74 +756,17 @@ Generics
             Lower bounded wildcard.
             Accepts the specified class and its superclasses.
 
-    Advantages Without Generics
-        Requires explicit type casting.
-        May cause ClassCastException at runtime.
-
-    Advantages With Generics
-        No type casting required.
-        Compile-time type checking.
-        Prevents ClassCastException.
-
-    Example
-
-        Without Generics
-
-            ArrayList list = new ArrayList();
-            list.add("Java");
-            String s = (String) list.get(0);
-
-        With Generics
-
-            ArrayList<String> list = new ArrayList<>();
-            list.add("Java");
-            String s = list.get(0);
-
-    Interview Points
-        Generics were introduced in Java 5.
-        Package: java.lang (language feature).
-        Provides compile-time type checking.
-        Prevents ClassCastException.
-        Improves code reusability.
-        Works with classes, interfaces, and methods.
-        Uses angle brackets <> to specify the type.
 
 Comparable
-    Comparable is an interface in the java.lang package.
-    It is used to define the natural sorting order of objects.
-    The sorting logic is written inside the class itself.
-
-    Advantages
-        Provides natural sorting.
-        Allows only one sorting logic.
-        Used with Collections.sort() and Arrays.sort().
-        Easy to implement.
+    Comparable is an functional interface present in the java.lang package. 
+    It contains compareTo() which helps on default sorting logic
 
     Method
         compareTo(T obj)
-
             Returns
-                Negative value
-                    Current object is smaller than the given object.
-
-                Zero
-                    Both objects are equal.
-
-                Positive value
-                    Current object is greater than the given object.
-
-    How Comparable Works
-
-        Class
-            │
-            ▼
-        implements Comparable<ClassName>
-            │
-            ▼
-        Override compareTo()
-            │
-            ▼
-        Collections.sort(list)
+                Negative value -> Current object is smaller than the given object.
+                Zero            -> Both objects are equal.
+                Positive value -> Current object is greater than the given object.
 
     Example
 
@@ -945,71 +785,24 @@ Comparable
         }
 
     Sorting Order
-
         Ascending
             return this.id - s.id;
-
         Descending
             return s.id - this.id;
-
-    Advantages
-        Natural ordering.
-        Easy to use.
-        No separate Comparator class required.
-        Suitable when only one sorting order is needed.
-
-    Limitations
-        Supports only one sorting logic.
-        Sorting logic must be inside the class.
-        Cannot have multiple sorting criteria.
-
-    Interview Points
-        Comparable is an interface.
-        Package: java.lang
-        Method: compareTo(T obj)
-        Used for natural sorting.
-        Implemented by the class whose objects are to be sorted.
-        Used with Collections.sort() and Arrays.sort().
 
 Comparator
     Comparator is an interface in the java.util package.
     It is used to define custom sorting logic for objects.
     The sorting logic is written outside the class.
 
-    Advantages
-        Supports multiple sorting logics.
-        Does not modify the original class.
-        Suitable when objects need to be sorted in different ways.
-        Used with Collections.sort() and Arrays.sort().
-
     Method
-        compare(T o1, T o2)
-
+        compareTo(T obj)
             Returns
-                Negative value
-                    First object is smaller than the second object.
-
-                Zero
-                    Both objects are equal.
-
-                Positive value
-                    First object is greater than the second object.
-
-    How Comparator Works
-
-        Class
-            │
-            ▼
-        Create Comparator Class
-            │
-            ▼
-        Override compare()
-            │
-            ▼
-        Collections.sort(list, comparator)
+                Negative value -> Current object is smaller than the given object.
+                Zero            -> Both objects are equal.
+                Positive value -> Current object is greater than the given object.
 
     Example
-
         class StudentAgeComparator implements Comparator<Student> {
 
             @Override
@@ -1021,45 +814,18 @@ Comparator
         Collections.sort(studentList, new StudentAgeComparator());
 
     Sorting Order
-
         Ascending
             return s1.age - s2.age;
 
         Descending
             return s2.age - s1.age;
 
-    Advantages
-        Supports multiple sorting criteria.
-        Sorting logic is separate from the original class.
-        No need to modify the existing class.
-        Easy to reuse different sorting strategies.
-
-    Limitations
-        Requires creating a separate Comparator class
-        (or using a lambda expression).
-
-    Interview Points
-        Comparator is an interface.
-        Package: java.util
-        Method: compare(T o1, T o2)
-        Used for custom sorting.
-        Sorting logic is written outside the class.
-        Supports multiple sorting logics.
-        Used with Collections.sort(list, comparator).
-
 Functional Interface
-    A Functional Interface is an interface that contains exactly one abstract method.
+    A Functional Interface is an interface that contains exactly one abstract method
+     mainly used to support Lambda Expressions and Method References.
     It is introduced in Java 8.
-    It is mainly used to support Lambda Expressions and Method References.
 
-    Advantages
-        Supports Lambda Expressions.
-        Supports Method References.
-        Reduces boilerplate code.
-        Improves code readability.
-        Enables functional programming in Java.
-
-    Annotation
+    Annotation 
         @FunctionalInterface
             Ensures the interface contains only one abstract method.
             Generates a compile-time error if more than one abstract method is added.
@@ -1086,72 +852,10 @@ Functional Interface
             }
         }
 
-    Common Functional Interfaces
-
-        Predicate<T>
-            Tests a condition.
-            Method:
-                test(T t)
-
-        Consumer<T>
-            Consumes an object.
-            Method:
-                accept(T t)
-
-        Supplier<T>
-            Supplies an object.
-            Method:
-                get()
-
-        Function<T, R>
-            Converts one object into another.
-            Method:
-                apply(T t)
-
-        UnaryOperator<T>
-            Takes one argument and returns the same type.
-            Method:
-                apply(T t)
-
-        BinaryOperator<T>
-            Takes two arguments of the same type and returns the same type.
-            Method:
-                apply(T t1, T t2)
-
-    Built-in Functional Interfaces
-        Runnable
-        Comparator
-        Callable
-        Predicate
-        Consumer
-        Supplier
-        Function
-
-    Advantages
-        Supports lambda expressions.
-        Improves code reusability.
-        Makes code concise.
-        Eliminates anonymous inner classes.
-
-    Interview Points
-        Functional Interface is an interface.
-        Introduced in Java 8.
-        Contains exactly one abstract method.
-        Can have multiple default methods.
-        Can have multiple static methods.
-        Annotated with @FunctionalInterface.
-        Used with Lambda Expressions and Method References.
-
 Conversion (Collection Conversion)
     Conversion is the process of converting one collection type into another.
     It is used when different collection implementations are required for different operations.
-
-    Advantages
-        Easy data transformation.
-        Improves interoperability between collections.
-        Helps remove duplicates.
-        Converts data into the required collection type.
-
+    
     Common Conversions
 
         Array → List
