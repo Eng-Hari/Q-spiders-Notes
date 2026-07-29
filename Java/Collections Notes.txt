@@ -58,6 +58,10 @@ Object class
                         return copy;
                     }
 
+        getClass()
+            It is used to return the current runtime class of the object
+           
+        finalize() -> This method will be called by GC
         wait(), notify(), notifyall() -> These are the methods used to handle Thread in java
 
 Garbage Collection
@@ -65,9 +69,6 @@ Garbage Collection
     gc will call finalize() internally so we can override that method, but in newer version it was deprecateed
 
         Syntax -> System.gc(); 
-
-getClass()
-    It is used to return the current runtime class of the object
 
 
 String
@@ -132,16 +133,18 @@ StringBuilder
         StringBuilder(charSequence seq) -> Create a StringBuilder initialized with charSequence
 
 Wrapper class   
-    It is a class which wraps a primitive data types inside an object.
-    There're 8 primitive Data types which are directly stored as value, It affect the state of 100% Object Oriented language to overcome this we're using wrapper class
-    Type Conversion Mechanism
+    The process of  wrapping a primitive data types inside an object.
+    There're 8 primitive Data types which are directly stored as value,
+         It affect the state of 100% Object Oriented language to overcome this we're using wrapper class
+    
+    Conversion Mechanism
         Boxing
             It is the process of manually converting primitive to non primitive data Type by using valueOf()
                     int n = 25; // Primitive
                     Interger num = Integer.valueOf(n); // Non-Primitive
         
         UnBoxing
-            It is the process of manually converting non primitive to primitive data tybe by using Value()
+            It is the process of manually converting non primitive to primitive data type by using Value()
                     Integer num = Integer.valueOf(n);
                     int n = num.intValue(); // byteValue(), doubleValue(), longValue(), etc...
         
@@ -151,25 +154,23 @@ Wrapper class
                     int num = n;  // Primitive
         
         Parsing
-            It is the process of converting string into  a primitive data type
+            It is the process of converting string into a primitive data type
                 String DOB = "2003";
                 int dob = Integer.parseInt(DOB); // (String)Non primitive to (int)Primitive
 
 Exception
     It is an unexpected event that accours during execution of the program(runtime) which distrub the normal flow 
     When an error accours within a method, compiler will return Exception type object which contains information about the error
-
-    Exception handling
-        The process of handling the exception is called exception handling, it can be archive by using Try-catch block
+    These Exception can be handled by using Try-catch block in that
         We can have multiple catch block but we can have only one try block
-        Types
-            Checked Exception
-                When the compiler aware about the error accouring statemets
-                    Eg : FillNotFound, IO Exceptioon
+    Types
+        Checked Exception
+            When the compiler aware about the error accouring statemets
+            Eg : FillNotFound, IO Exceptioon
 
-            Unchecked Exception
-                When the compiler doesn't aware about the error accouring statemets 
-                    Eg : Arithmatic, NullPointer, ArrayIndexOutofBound
+        Unchecked Exception
+            When the compiler doesn't aware about the error accouring statemets 
+                Eg : Arithmatic, NullPointer, ArrayIndexOutofBound
                 
     Handling methods
         Exceptions can be handled immediatly by using Try-catch block or we can probacate the exception
@@ -178,11 +179,11 @@ Exception
         The process of transfering the Exception handling to an another method 
 
     throw  
-        It is a keyword which is used to explicitly throw an exception object form a method
+        It is a keyword which is used to explicitly throw an exception object form a Method
 
     throws
         It is a keyword used in the method declartion to inform the caller that this method may throw an exception
-        It is mainly used for Exception Probacation which simply passes the responsibility
+        It is mainly used for Exception Probacation which simply passes the responsibility of handling exception
         we can handle multiple exception using throws keyword
 
     finally
@@ -656,8 +657,9 @@ Iterable
     It contain one abstract method called iterator() which allow to use for-each loop to traverse
 
     Method
-        iterator()
-            Returns an Iterator object to traverse the elements.
+        iterator() -> Returns an Iterator object to traverse the elements.(abstract methods)
+        forEach() -> Used to traverse through collection object (non-static method)
+        splitrator() -> (non-static method)
 
 Iterator
     Iterator is the  interface present inside util package
@@ -670,6 +672,13 @@ Iterator
         remove() ->  Removes the last element returned by next() (Optional operation)
         forEachRemaining(Consumer action) ->  Performs the given action for all remaining elements.
                                                  Introduced in Java 8.
+
+Core Structure
+
+    public interface Iterable<T> {
+    // This method returns an object of a class that implements Iterator
+    Iterator<T> iterator(); 
+    }
 
     Example
         ArrayList<String> list = new ArrayList<>();
@@ -684,7 +693,7 @@ Iterator
         }
 
 ListIterator
-    ListIterator is an interface present in the java.util package.
+    ListIterator is an interface which extends Interator interface and present in the java.util package.
     It works only with List implementations such as ArrayList, LinkedList, and Vector to traverses in both forward and backward directions.
     It is obtained using the listIterator() method.
     Methods
