@@ -1,0 +1,160 @@
+SQL
+    SQl stands for Structured query language, which is a language used to communicate with DB
+
+Data
+    Data is a raw facts  which describe the attributes of an entity
+
+DataBase
+    DataBase is a palce/Medium which is used to store data in the Systamatic and organized manner
+    CRUD Operation
+        Create/Insert
+        Read/Retrival
+        Update/Modify
+        Delete/Drop
+
+DBMS
+    DBMS stands for  DataBase management system 
+    It is a software which is used to maintain and manage DB
+    It offers Security and Authorization
+    In DBMS datas are stored in the form of Files
+    Query language is used to communicate
+    Types
+        Network DBMS
+        Hiaracial DBMS
+        Object oriented DBMS
+        Relation DBMS
+
+RDBMS
+    RDBMS stands for Reletional Database management system
+    It is a type of software which is used to maintain and manage the DB
+    It offers security and Authorization
+    In RDBMS, datas are stored in the form of tables
+    Structured query language is used to communicate and intract with DB
+    It follows EF codd Rules, It is a set of rules which help user to store data in the form of tables
+    These rules are given by Data Scientist named Edgar Frank codd
+    Any DBMS software which follows EF codd rule is said to be RDBMS 
+
+Table
+    A logical organization of Rows, columns and cell is known as Tables
+
+Cell 
+    It is a small unit of table or Intersection of row and column is called as Cell
+
+EF codd Rules
+    1 -> Data entered in the cell must be a single value/ atomic value
+    2 -> In RDBMS, datas are stored in the form of table including meta data
+          Meta Data
+            It is a further information about the data, it is auto generated and stored in meta tables   
+    3 -> In RDBMS we can store data in multiple tabels, if nessesory we can establish the connection/Relation
+             btw those tables using KEY attributes
+    4 -> The data entered inside the table or a column must be validate in two steps
+            By assigning DataType
+            By assigning constrains
+
+DataType
+    DataType define the type of data that can ba stored in the variable
+    Types
+        char
+        varchar/varchar2
+        Date
+        Timestamp
+        number
+        Large Object 
+            Character large Object
+            Binary large Object
+
+        char 
+            Syntax -> char(size)
+            It is used to store character values
+            It is mandatory to enclose wiith single quotes
+            using char datatype we can store upto 200 characters
+            it follows fixed length memory allocation
+        varchar
+            Syntax -> varchar(size)
+            It is used to store character values
+            It is mandatory to enclose with single quotes
+            using varchar datatype we can store upto 200 characters
+            It follows variable length memory allocation
+        varchar2
+            Syntax -> varchar2(size)
+            same as varchar
+            using varchar2 we can store upto 400 characters
+            for any column we assigned varchar datatype Internally it will converted to varchar2 datatype
+        Date    
+            Date datatype is used to store date values in Oracle specified formate
+            It is mandatory to enclose with single quotes
+            Syntax -> 'dd-mom-yyyy' , 'dd-mon-yy'
+        Timestamp
+            It is used to store date values along with Timestamp
+            It is mandatory to enclose with single quotes
+            Syntax -> 'dd-mon-yyyy hh:mi:ss' , 'dd-mon-yy hh:mi:ss'
+        number
+            It is used to store numarical values
+            Syntax -> number(precision[scale]) 
+             precision 
+                Used to specify the integer value
+                its range from 1 to 38
+             scale
+                Used to specify the decimal values
+                its range from -84 to 127
+                #scale is optional and its default value is 0
+        Large Object
+            used to store huge amount of data
+                character Large Object
+                    It is used to store character values upto 4gb
+                    Syntax -> "CLOB"
+                Binary large Object
+                    It is used to store Binary values upto 4gb 
+                    Syntax -> "BLOB"
+
+Constrains
+    Constrains are the rules given to the column of the table to validate the values before storing it
+    Types 
+        UNIQUE
+        NOTNULL
+        CHECK
+        PRIMARYKEY
+        FORIEGNKEY
+
+        UNIQUE
+            It is type of contrains which is used to avoid repeted ot duplicated values to be inserted in the column
+            Syntax -> "UNIQUE"
+        NOTNULL
+            It is a type of contrains which is used to avoid entering null values in the column
+            Syntax -> "NOTNULL"
+        CHECK
+            It is a type of constrains which is used to validate the data based on the conditions
+            Syntax -> "CHECK(condition)"
+        PRIMARYKEY
+            It is a type of constrains which is used to indentify the records uniqly from the table
+            Characteristic of PRIMARYKEY
+                It doesn't allow repeted/ duplicated values
+                It doesn't allow null values
+                It is a combination of UNIQUE and NOTNULL constrains
+                In a table we can have only on PK
+                It is also known as UNIQUE KEY
+        FORIEGNKEY
+            It is a type of constrains which is used to establish the connection/ Relation btn two tabels
+            Characteristic of FORIEGNKEY
+                It allow null vallus
+                It allow duplicated values
+                It is not a combination of UNIQUE and NOTNULL constrains
+                In a table we can have multiple FK
+                It is also known as Refrential intergrity constrains
+
+                Refrential Intergrity constrains
+                    We can't destroy the parent table untill the child table is depending on parent tabel is known as 
+                        Refrential intergrity constrains 
+
+        
+
+
+
+
+
+
+
+
+
+
+
