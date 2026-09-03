@@ -1,0 +1,20 @@
+React
+    React is a JS library and its a single page application
+    library refers collection of Modules which contains predefined codes like classes and Functions
+    These modules are stored in node
+
+React folder structure
+    Node modules -> it consist of modules which  are  necessary for React project
+    Public -> here we can store the static files like images, videos, audios, etc...
+    src -> Here we have actual code / react logics
+    Packeage.json -> It is a configuration files for the react project which includes project name, version , dependencies, etc...
+    index.html -> In react its a only one html files where all the logics will be appended
+
+Element
+    Element is the fundamental building blocks which is used to provide content and structure to react,
+     In react elements are consider as object
+
+        It can create in 2 ways
+            1) React.createElement()
+                For Paired elements, it will accept 3 arguments which are element, attribute object and displaying content
+                For Unpaired element, it will accept 2 arguments which are element, attribute object

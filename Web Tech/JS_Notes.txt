@@ -503,7 +503,7 @@ Math Object
             Returns a random number between 0 and 1.
 
 Promise
-    A Promise is a JavaScript object that represents the eventual success or failure of an asynchronous operation.
+    A Promise is a JavaScript object that represents the future/eventual success or failure of an asynchronous operation.
     Syntax -> let p1 = new Promise((resolve, reject)=>{resolve("") reject("")})
 
     States of Promise
@@ -541,7 +541,7 @@ fetch()
     When the frontend requests data, the server usually sends the data in JSON format instead of a JavaScript object.
     To convert the JSON response into JavaScript data, we use:
         response.json() -> returns a Promise that resolves to the actual JavaScript Object or Array.
-
+                            .json() -> used to handle non-synchronous event
         let fetchData = fetch(url);
         fetchData.then((data)=>{
             let jsonData = data.json()
@@ -562,7 +562,7 @@ async/await
 
     await
         It is a keyword inside an async function.
-        It pauses the execution of the function until the Promise is resolved and returns the resolved value.
+        It pauses the execution of the function until the Promise get resolves and returns the resolved value.
 
   
             let getData = async ()=>{
@@ -578,27 +578,34 @@ async/await
             }
 
 Destructure
+    Assigning separate variables for elements and properties of array/object
 
-    Rest Parameter 
-        Collects multiple arguments into a single array.
+         Object Destructuring
+            Extracts object properties into variables.
+        
+        Array Destructuring
+            Extracts array elements into variables.
 
-    Shallow Copy
-        Copies the reference of an array/object.
 
-    Deep Copy
-        Creates a completely independent copy.
+        Rest Parameter 
+            Collects multiple arguments into a single array.
 
-    Spread Operator
-        Expands elements of an array/object.
+        Shallow Copy
+            Copies the reference of an array/object.
 
-    Object Destructuring
-        Extracts object properties into variables.
-    
-    Array Destructuring
-        Extracts array elements into variables.
+        Deep Copy
+            Creates a completely independent copy.
 
-    JSON.stringify()
-        Converts Object → JSON String
+        Spread Operator
+            Expands elements of an array/object.
 
-    JSON.parse()
-        Converts JSON String → Object
+       
+        JSON.stringify()
+            Converts Object → JSON String
+
+        JSON.parse()
+            Converts JSON String → Object
+
+Event Delegation
+    The proces of providing the single event handler funtion to the parent element insted of providing to each child element.
+    we can target each child based on tagName and also with "data-id"
