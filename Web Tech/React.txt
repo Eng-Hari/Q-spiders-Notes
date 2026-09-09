@@ -1,20 +1,312 @@
+
 React
-    React is a JS library and its a single page application
-    library refers collection of Modules which contains predefined codes like classes and Functions
-    These modules are stored in node
+    React is a JavaScript library used to build user interfaces
+    Library refers to a collection of reusable modules that contain predefined code such as functions and classes.
+    These modules/packages are stored in node_modules.
 
 React folder structure
-    Node modules -> it consist of modules which  are  necessary for React project
+    Node modules -> Contains the installed packages and dependencies required by the project.
     Public -> here we can store the static files like images, videos, audios, etc...
     src -> Here we have actual code / react logics
     Packeage.json -> It is a configuration files for the react project which includes project name, version , dependencies, etc...
     index.html -> In react its a only one html files where all the logics will be appended
 
 Element
-    Element is the fundamental building blocks which is used to provide content and structure to react,
-     In react elements are consider as object
+    A React element is a fundamental building block that describes the structure and content of the UI.
+     In React, elements are represented as JavaScript objects.
 
         It can create in 2 ways
-            1) React.createElement()
-                For Paired elements, it will accept 3 arguments which are element, attribute object and displaying content
-                For Unpaired element, it will accept 2 arguments which are element, attribute object
+            1) React.createElement() -> Creates a React element
+                    const element = React.createElement("h1",{id:"title"} ,"Hello")
+            
+            2) JSX
+                JSX Stands for JavaScript XMl, It allow to write HTML-like syntax inside JavaScript
+
+                Rules
+                    In React, JSX expression must return as single root (parent) element.
+                    Inside the root element, we can create multiple child elements               
+                    Root element can be a html element or fragment, returning multiple child element without single parent/root element cause error
+                    Fragment can be use as emptyFragment <></> or React.Fragment <React.Fragment><React.Fagment/>
+                    HTML element name should be in lowercase and its attributes name should be in camelcase
+                    In jsx some HTML attribute have diffeerent names, for -> htmlFor and class -> className
+                    All the tags must be closed
+
+    React.createRoot 
+                It create a react root for the exsisting DOM element, It tells React to manage and render the application inside the DOM element
+          
+Fragment
+        A Fragment is used to group multiple elements without adding an extra DOM element.
+        It can be created in 2 ways
+        1) emptyFragment    
+                <></> -> can't accept props/attributes
+        2) React.Fragment
+                <React.Fragment><React.Fragment/> -> can accept props such as key.
+
+Expression/ JSX Expression
+        A JSX expression is used to access JavaScript variables, properties, function results, and perform operations inside JSX using {}.    Rules
+        In JSX expression, We can't declare variable but we can access the declared variable
+        we can't directly use if/else/swith but we can use ternary operator and logical operator like &&
+        Function declarations cannot be written directly inside a JSX expression,
+         but functions can be called inside JSX expressions.
+         
+Component   
+    A React component is an independent, reusable piece of code that represents a specific part of the user interface.
+     It can contain its own logic, JSX, and CSS.
+    It behaves like a JavaScript function that accepts data from its parent as props and returns JSX that describes the UI to be rendered.
+    Rules
+        Component name should be in pascal case
+        It generally returns JSX describing the UI to be rendered.
+        We need to call component by using tags
+    
+Keys
+    A key is a special prop in React used to uniquely identify elements among their siblings.
+     It helps React efficiently identify and update elements when rendering a list.
+
+Props
+    Props (Properties) are used to transfer data from a parent component to a child component in a unidirectional manner.
+    Props are passed as JSX attributes from the parent component and received as the props parameter in the child component.
+
+Event
+    Events are actions or interactions that happen between the user and the web page.
+    In React, events are handled using Synthetic Events, which provide a consistent event behavior across browsers.
+    Diff btn JS event and React event
+        Event name should be in camel case
+        Event handler should be passed, not called
+        Event handler should be passed inside {} not as String
+
+Conditional rendering
+    It is the process of displaying the JSX element/ component based on the Condition
+    
+Virtual DOM 
+    Virtual DOM is a lightweight JavaScript representation of the actual DOM.
+    When the state or props change, React creates a new Virtual DOM representation.
+
+Diffing
+    React compares the previous Virtual DOM with the new Virtual DOM to identify what has changed. This process is called Diffing.
+
+Diffing Alogorithm
+    The algorithm React uses to compare the old and new tree is called the Diffing Algorithm.
+
+Reconciliation
+    The overall process of comparing the previous UI representation with the new one and determining what changes need to be applied to the actual DOM.
+
+React Fiber
+    It is React's reconciliation engine that breaks rendering work into smaller units, allowing React to prioritize, pause, resume, or discard rendering work when required.
+
+Hooks
+    Hooks are functions that allow function components to use React features such as state, context, refs, and effects.
+    Common Hooks: useState, useRef, useContext, useReducer, useEffect, useMemo, useCallback, useLayoutEffect, useInsertionEffect
+    Rules of Hooks
+        Hook names should start with use.
+        Hooks should be called inside React function components or custom Hooks.
+        Hooks should be called at the top level, not inside conditions, loops, or nested functions/callbacks.
+
+State
+    State is dynamic data that belongs to a component.
+    Whenever the state changes, React re-renders the component.
+    Re-render means React calls the component again with the updated state value and updates the UI accordingly.
+    This State is created and managed using useState hook
+
+useState
+    useState is a Hook used to create and manage state in a function component.
+    It accepts one argument: the initial state value.
+    It returns an array that containing Current state value and State update function
+    When the update function is called, React updates the state and re-renders the component.
+
+            syntax -> let[search, setSearch] = useState(")
+
+useRef
+    Reference is used to directly access or target DOM elements.
+    It is used to store mutable data.
+    The data stored in a Ref persists across re-renders.
+    Updating a Ref does not cause the component to re-render.
+    It can also be used to create uncontrolled form components.
+
+    controlled forms
+        In controlled forms, form data is handled by React state.
+        The input value is controlled using the value prop.
+        The state is updated using an event handler such as onChange.
+            Controlled → State → React controls the value
+
+    uncontrolled forms
+        In uncontrolled forms, form data is handled by the DOM.
+        We use Ref (useRef) to directly access the actual DOM element.
+        The input value is accessed using ref.current.value.
+            Uncontrolled → Ref → DOM controls
+
+Context API
+    Context API is used to share data between components without passing it through props at every level.
+    It helps to avoid prop drilling.
+    It is commonly used for data that needs to be accessed by multiple components, such as theme or user information.
+
+    Props Drilling
+        Prop drilling is the process of passing data through multiple nested components using props.
+        Example:    App → Parent → Child → Grandchild
+        The intermediate components may not need the data but must pass it to the next component.
+
+    Steps in Contect API
+        1. CREATE CONTEXT
+            createContext() is a function used to create a Context object.
+            The returned Context object should be exported so that other components can use it.
+                export let myContext = createContext();
+            
+        2. PROVIDE CONTEXT
+            The Context object provides a Provider through which we share data with child components.
+            The data to be shared is passed using the value prop.
+                <myContext.Provider value={data}>
+                    <Child />
+                </myContext.Provider>
+            In newer React versions, you may also see <myContext value={data}> as the provider syntax, but Context.Provider is the traditional and widely recognized syntax.
+
+        3. CONSUME CONTEXT
+            Import the Context object into the component where the data is needed.
+            Pass the Context object to the useContext() Hook.
+            useContext() returns the value provided by the nearest matching Provider.
+                import { useContext } from "react";
+                import { myContext } from "./filename";
+
+                let data = useContext(myContext);
+
+    Flow
+        Create Context → Provide Data → Consume Data
+        createContext() → Provider → useContext()
+
+Life cycle 
+    Lifecycle refers to the different stages a component goes through during its lifetime.
+    There are three phases:
+        Mounting → Component is added to the DOM.
+        Updating → Component is re-rendered due to changes in state or props.
+        Unmounting → Component is removed from the DOM.
+
+    Functional Components — useEffect
+        1. Mountig ->  Runs after the component is mounted.
+            Use an empty dependency array [].
+                useEffect(() => {
+                // mounting logic
+                }, []);
+
+        2. Updating -> Runs when the specified state or prop changes.
+                useEffect(() => {
+                // updating logic
+                }, [state1, state2]);
+
+        3. UnMounting -> The cleanup function runs when the component is removed from the DOM.
+                useEffect(() => {
+                return () => {
+                    // cleanup logic
+                };
+                }, []);
+
+UseEffect
+    useEffect is a Hook used to handle side effects in React function components by performing operations after rendering and handling cleanup;
+     it accepts a callback function and a dependency array, and side effects include API requests, timers, subscriptions, and DOM operations.
+        syntax
+            useEffect(() => {
+            // side effect
+            }, [dependencies]);
+        Dependency Array
+            1. Empty dependency array [] -> Effect runs after the initial render.    
+            2. Dependency array with state -> Effect runs after the initial render
+                                            and whenever the specified dependency changes.
+            3. No dependency array -> Effect runs after every render.
+
+    UnMounting/ CleanUp
+        To perform cleanup when the component unmounts, return a cleanup function from useEffect.
+        The cleanup function can be used for clearing timers, removing event listeners, unsubscribing, etc.
+            useEffect(() => {
+            return () => {
+                // cleanup
+            };
+            }, []);
+
+    Easy flow:
+        Render → useEffect → Side Effect → Dependency Changes
+         → useEffect runs again → Unmount → Cleanup
+
+Memorization
+    Memorization is an optimization technique used to avoid unnecessary calculations, function recreations, and re-rendering of components.
+    React provides three commonly used memoization techniques:
+        memo
+        useMemo
+        useCallback
+
+    memo
+        memo is a Higher-Order Component (HOC)
+        that accepts a component and returns a memoized component to avoid unnecessary re-rendering
+        when the child component's props have not changed.
+            const Child = memo(function Child({ name }) {
+                return <h1>{name}</h1>;
+            });
+
+    UseMemo
+    useMemo is a Hook used to memoize a calculated value and avoid unnecessary expensive recalculations;
+        the calculation runs again only when its dependencies change.
+            function sum(a, b) {
+                return a + b;
+            }
+            let sumValue = useMemo(() => {
+                return sum(10, 5);
+            }, []);
+
+    useCallBack
+        useCallback is a Hook used to memoize a function reference, preventing unnecessary function recreation
+        on re-renders, especially when passing functions to memoized child components;
+        the function is recreated when its dependencies
+        Syntax:
+            const handleClick = useCallback(() => {
+                console.log("Clicked");
+            }, []);
+
+useReducer
+    useReducer is an alternative to useState for managing complex state with multiple actions.
+    It accepts two arguments: reducer function and initial state.
+    It returns an array containing current state and a dispatch function.
+    The dispatch function accepts an action.
+    When dispatch is called, it passes the action to the reducer function.
+    The reducer function accepts two parameters: current state and action.
+    The reducer function contains the state update logic for different actions.
+    Syntax
+
+        //Outside component
+        function reducer(state, action) {
+                action.type // state update logic
+                return state
+                }
+
+        //Inside component
+        let [state, dispatch] = useReducer(reducer, initialState);
+            dispatch(action);
+
+    Easy flow:
+        dispatch(action) → reducer(state, action) → new state → component re-renders
+
+
+
+
+
+
+
+
+            
+Diff btm Props / States / Hooks
+
+    Props
+        Used to transfer data from parent component to child component.
+        Props are passed from the parent and received by the child.
+        Props are read-only and should not be modified by the child.
+
+    State
+        Used to store dynamic data inside a component.
+        State is managed by the component itself.
+        When state changes, the component re-renders with the updated value.
+
+    Hooks
+        Hooks are functions that provide React features to function components.
+        Hooks are used to create/manage state and other React features.
+        Examples: useState, useEffect, useRef, useContext.
+
+    Easy to Remember
+        Props → Parent gives data
+        State → Component manages data
+        Hooks → Functions that provide React features
+

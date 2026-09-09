@@ -1,0 +1,767 @@
+# Node Js
+
+**step 1 → npm init -y**
+
+    npm → Node Package Manager used to install libraries and frameworks of JS/Node Js
+    init → Initializes a new Node.js project
+    -y → Automatically accepts all the default values
+    It creates a **package.json** file.
+
+------------------------------------------------------------------------------------------------------------------------
+
+### package.json → It is a configuration file and it contains information about the project
+
+
+{
+    "name": "node_grooming",                 // → Name of the project/package
+    "version": "1.0.0",                      // → Version of the project/package
+    "main": "index.js",                      // → Entry point of the package
+
+    "scripts": {                             // → Defines commands that can be executed using npm
+        "dev": "nodemon index.js",           // → Runs index.js using nodemon
+        "test": "echo \"Error: no test specified\" && exit 1"  // → Default test script
+    },
+
+    "keywords": [],                          // → Keywords that describe the project/package
+    "author": "",                            // → Name of the project/package author
+    "license": "ISC",                        // → License of the project/package
+    "description": "",                       // → Short description of the project/package
+    "type": "",                              // → Defines the module system used by Node.js
+    "dependencies": {},                      // → Contains information and versions of libraries required by the project
+    "devDependencies": {}                    // → Contains dependencies required mainly during development
+}
+
+
+npm run dev → Executes the dev script → nodemon index.js
+    nodemon → Automatically restarts the Node.js application whenever changes are detected.
+
+"type": "commonjs" → **CommonJS** → Uses require() and module.exports
+
+"type": "module" → **ES6 Module** → Uses import and export → Used in package.json to enable ES6 Modules in Node.js.
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+# JavaScript Important Concepts
+
+## Asynchronous
+
+Asynchronous → Executes a task without blocking the execution of the next task; it allows other code to continue running while waiting for a task to complete.
+
+Example →
+
+js
+console.log("Start");
+
+setTimeout(() => {
+    console.log("Async Task");
+}, 2000);
+
+console.log("End");
+
+
+Output →
+
+text
+Start
+End
+Async Task
+
+
+setTimeout() → Executes the callback function after the specified delay.
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+## Synchronous
+
+Synchronous → Executes code line by line; the next line waits until the current line finishes execution.
+
+Example →
+
+js
+console.log("Start");
+
+console.log("Task");
+
+console.log("End");
+
+
+Output →
+
+text
+Start
+Task
+End
+
+
+Synchronous → Blocking execution
+
+Asynchronous → Non-blocking execution
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+## == and ===
+
+== → Loose equality operator → Compares values after performing type conversion if required.
+
+=== → Strict equality operator → Compares both value and data type without type conversion.
+
+Example →
+
+js
+5 == "5"       // → true
+5 === "5"      // → false
+
+
+== → Checks value after type conversion
+
+=== → Checks value + data type
+
+Example →
+
+js
+10 == 10       // → true
+10 === 10      // → true
+
+10 == "10"     // → true
+10 === "10"    // → false
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+## Fetch
+
+fetch() → Used to make HTTP requests and communicate with APIs/server.
+
+fetch() → Returns a **Promise**.
+
+Example →
+
+js
+fetch("https://example.com/data")
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.log(error));
+
+
+fetch(url) → Sends a request to the specified URL.
+
+response → Contains the response received from the server.
+
+response.json() → Converts the response body into JSON data.
+
+.then() → Executes when the Promise is successfully resolved.
+
+.catch() → Executes when an error occurs.
+
+fetch() → Commonly used with **GET, POST, PUT, PATCH and DELETE** requests.
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+## Spread Operator
+
+Spread Operator → Represented by ... → Used to expand/unpack the elements of an array or properties of an object.
+
+### Array
+
+js
+let arr1 = [10, 20, 30];
+
+let arr2 = [...arr1];
+
+console.log(arr2);
+
+
+Output →
+
+text
+[10, 20, 30]
+
+
+...arr1 → Expands/unpacks the elements of arr1.
+
+### Combining Arrays
+
+js
+let arr1 = [10, 20];
+let arr2 = [30, 40];
+
+let result = [...arr1, ...arr2];
+
+console.log(result);
+
+
+Output →
+
+text
+[10, 20, 30, 40]
+
+
+### Object
+
+js
+let user = {
+    name: "Hari",
+    age: 25
+};
+
+let newUser = {
+    ...user,
+    city: "Chennai"
+};
+
+
+...user → Copies/expands the properties of the user object into newUser.
+
+Spread Operator → Mainly used for **copying, combining and expanding arrays/objects**.
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+## 5. Event Delegation
+
+Event Delegation → A technique where we attach a single event listener to a parent element instead of adding separate event listeners to each child element.
+
+Example →
+
+let parent = document.querySelector("#parent");
+
+parent.addEventListener("click", (event) => {
+    if (event.target.matches(".btn")) {
+        console.log("Button clicked");
+    }
+});
+
+
+addEventListener() → Attaches an event listener to an element.
+
+event.target → Refers to the actual element on which the event occurred.
+
+Event Delegation → Works because of **Event Bubbling** → The event moves from the target element towards its parent elements.
+
+Main advantage → Reduces the number of event listeners and is useful when working with dynamically created elements.
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+## Storage
+
+Storage → Used to store data in the browser.
+
+Browser Storage → Mainly includes **Local Storage** and **Session Storage**.
+
+### Local Storage
+
+Local Storage → Stores data in the browser with **no automatic expiration**; the data remains even after closing and reopening the browser until it is manually removed.
+
+localStorage.setItem() → Stores data in Local Storage.
+
+localStorage.getItem() → Retrieves data from Local Storage.
+
+localStorage.removeItem() → Removes a specific item from Local Storage.
+
+localStorage.clear() → Removes all items from Local Storage.
+
+Example →
+
+
+localStorage.setItem("name", "Hari");        // → Stores data
+
+let name = localStorage.getItem("name");     // → Retrieves data
+
+localStorage.removeItem("name");              // → Removes the specific item
+
+localStorage.clear();                         // → Removes all stored items
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+### Session Storage
+
+Session Storage → Stores data only for the current browser tab/session; the data is removed when the tab/window session ends.
+
+sessionStorage.setItem() → Stores data in Session Storage.
+
+sessionStorage.getItem() → Retrieves data from Session Storage.
+
+sessionStorage.removeItem() → Removes a specific item.
+
+sessionStorage.clear() → Removes all items.
+
+Example →
+
+js
+sessionStorage.setItem("name", "Hari");       // → Stores data
+
+let name = sessionStorage.getItem("name");    // → Retrieves data
+
+sessionStorage.removeItem("name");            // → Removes the specific item
+
+sessionStorage.clear();                       // → Removes all stored items
+
+
+Local Storage → Data remains until manually removed.
+
+Session Storage → Data remains only for the current session/tab.
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+## Fetch Items
+
+Fetch Items → Used to retrieve data/items from an API or server using the fetch() method.
+
+fetch() → Sends an HTTP request and returns a **Promise**.
+
+Example →
+
+js
+fetch("https://example.com/items")
+    .then(response => response.json())       // → Converts response into JSON
+    .then(items => console.log(items))        // → Receives the fetched items
+    .catch(error => console.log(error));      // → Handles errors
+
+
+fetch(url) → Sends a request to the given URL.
+
+response.json() → Converts the server response into JavaScript data.
+
+items → Contains the data/items received from the API.
+
+.then() → Executes when the Promise is successfully resolved.
+
+.catch() → Handles errors when the request fails.
+
+Fetch → Commonly used to **fetch items/data from an API**.
+
+
+## `"use strict"` in JavaScript
+
+`"use strict"` → Enables **Strict Mode** in JavaScript → Makes JavaScript execute with stricter rules and helps identify common coding mistakes.
+
+Example →
+
+```js
+"use strict";
+
+x = 10;                         // → Error because variable is not declared
+```
+
+Without Strict Mode →
+
+```js
+x = 10;                         // → Creates a global variable
+```
+
+With Strict Mode →
+
+```js
+"use strict";
+
+let x = 10;                     // → Correct way to declare the variable
+```
+
+`"use strict"` → Prevents accidental creation of global variables.
+
+`"use strict"` → Throws errors for some previously silent JavaScript mistakes.
+
+`"use strict"` → Makes JavaScript code safer and easier to debug.
+
+`"use strict"` → Can be applied to the **entire script** or inside a **function**.
+
+Example →
+
+```js
+function test() {
+    "use strict";               // → Enables Strict Mode only inside this function
+
+    x = 10;                     // → Error because x is not declared
+}
+```
+
+### Important
+
+ES6 Modules → Automatically use **Strict Mode**, so `"use strict"` is generally not required when using `import`/`export`.
+
+CommonJS → Strict Mode is **not automatically enabled**, so `"use strict"` can be written explicitly when needed.
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+# How to Create Server Using Node.js
+
+`Express` → A Node.js framework used to create web servers and APIs easily.
+
+---
+
+## Step 1 → Import Express
+
+```js
+let express = require("express");             // → Imports Express
+```
+
+`require("express")` → Imports the Express package using CommonJS.
+
+---
+
+## Step 2 → Create Express Application
+
+```js
+let app = express();                           // → Creates an Express application
+```
+
+`express()` → Creates an Express application object.
+
+`app` → Used to configure the server, define routes, use middleware and start the server.
+
+---
+
+## Step 3 → Import CORS
+
+```js
+let cors = require("cors");                    // → Imports CORS middleware
+```
+
+`cors` → Middleware used to allow requests from different origins.
+
+CORS → Cross-Origin Resource Sharing → Allows a frontend running on one origin to communicate with a backend running on another origin.
+
+Example →
+
+```text
+Frontend → http://localhost:3000
+Backend  → http://localhost:5000
+```
+
+Different ports → Different origins → CORS may be required.
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+## Step 4 → Use CORS Middleware
+
+```js
+app.use(cors());                               // → Allows cross-origin requests
+```
+
+`app.use()` → Used to register middleware in the Express application.
+
+`cors()` → Creates the CORS middleware.
+
+⚠️ **Important →** Use `cors()` and not `cors`.
+
+```js
+app.use(cors());                               // → Correct
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+## Step 5 → Use JSON Middleware
+
+```js
+app.use(express.json());                       // → Converts incoming JSON request body into a JavaScript object
+```
+
+`express.json()` → Middleware that parses incoming JSON request data.
+
+`req.body` → Contains the parsed request data as a JavaScript object.
+
+Example →
+
+Frontend sends →
+
+```js
+{
+    "name": "Hari",
+    "gender": "Male"
+}
+```
+
+Backend receives →
+
+```js
+req.body
+```
+
+Output →
+
+```js
+{
+    name: "Hari",
+    gender: "Male"
+}
+```
+
+Without `express.json()` → `req.body` may not contain the parsed JSON request body.
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+# Step 6 → GET Request
+
+```js
+app.get("/students", (req, res) => {
+
+    res.status(200).json([{
+        name: "hariharan",
+        age: 23,
+        dept: "B.Tech",
+        branch: "CyberSecurity"
+    }]);
+
+});
+```
+
+`app.get()` → Creates a GET route.
+
+`"/students"` → Endpoint/path of the API.
+
+`req` → Request object → Contains information about the request sent by the client.
+
+`res` → Response object → Used to send a response back to the client.
+
+`res.status(200)` → Sets the HTTP status code to `200` → Request was successful.
+
+`.json()` → Sends JSON data as the response.
+
+Example request →
+
+```text
+GET http://localhost:5000/students
+```
+
+Response →
+
+```json
+[
+    {
+        "name": "hariharan",
+        "age": 23,
+        "dept": "B.Tech",
+        "branch": "CyberSecurity"
+    }
+]
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+# Step 7 → POST Request
+
+```js
+app.post("/students", (req, res) => {
+
+    console.log(req.body);                     // → Prints the data received from the frontend
+
+    res.status(201).json({
+        statusMSG: "Data created success"
+    });
+
+});
+```
+
+`app.post()` → Creates a POST route.
+
+`"/students"` → Endpoint/path of the API.
+
+`req.body` → Contains the JSON data sent by the frontend.
+
+`console.log(req.body)` → Displays the received data in the backend terminal.
+
+`res.status(201)` → Sets the HTTP status code to `201` → Resource/data was successfully created.
+
+`res.json()` → Sends a JSON response back to the frontend.
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+## Frontend → Backend POST Request
+
+Frontend →
+
+```js
+fetch("http://localhost:5000/students", {
+    method: "POST",                            // → Sends POST request
+
+    headers: {
+        "Content-Type": "application/json"     // → Tells server that body contains JSON
+    },
+
+    body: JSON.stringify({
+        name: "Hari",
+        gender: "Male",
+        phone: "9876543210",
+        email: "hari@gmail.com",
+        job: "Developer"
+    })
+});
+```
+
+Request flow →
+
+```text
+Frontend
+   ↓
+fetch()
+   ↓
+POST /students
+   ↓
+Express Server
+   ↓
+express.json()
+   ↓
+req.body
+   ↓
+app.post("/students")
+   ↓
+Response
+   ↓
+Frontend
+```
+
+Backend →
+
+```js
+console.log(req.body);
+```
+
+Output →
+
+```js
+{
+    name: "Hari",
+    gender: "Male",
+    phone: "9876543210",
+    email: "hari@gmail.com",
+    job: "Developer"
+}
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+# Step 8 → Start the Server
+
+```js
+app.listen(5000, () => {
+
+    console.log("Server is running : 5000");
+
+});
+```
+
+`app.listen()` → Starts the Express server and listens for incoming requests.
+
+`5000` → Port number on which the server runs.
+
+`callback function` → Executes after the server successfully starts.
+
+Server URL →
+
+```text
+http://localhost:5000
+```
+
+Students endpoint →
+
+```text
+http://localhost:5000/students
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+# Complete Server Code
+
+```js
+// How to create Server using Node.js
+
+let express = require("express");               // → Imports Express
+
+let app = express();                            // → Creates Express application
+
+let cors = require("cors");                     // → Imports CORS middleware
+
+app.use(cors());                                // → Allows requests from different origins
+
+app.use(express.json());                        // → Converts incoming JSON request body into JS object
+
+
+// GET Request
+app.get("/students", (req, res) => {
+
+    res.status(200).json([{
+        name: "hariharan",
+        age: 23,
+        dept: "B.Tech",
+        branch: "CyberSecurity"
+    }]);
+
+});
+
+
+// POST Request
+app.post("/students", (req, res) => {
+
+    console.log(req.body);                      // → Receives data sent by frontend
+
+    res.status(201).json({
+        statusMSG: "Data created success"
+    });
+
+});
+
+
+// Start Server
+app.listen(5000, () => {
+
+    console.log("Server is running : 5000");
+
+});
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+# Important Terms
+
+`Express` → Node.js framework used to create servers and APIs.
+
+`app` → Express application object.
+
+`app.use()` → Registers middleware.
+
+`cors()` → Middleware that handles Cross-Origin Resource Sharing.
+
+`express.json()` → Parses incoming JSON request data.
+
+`app.get()` → Creates a GET endpoint.
+
+`app.post()` → Creates a POST endpoint.
+
+`req` → Request received from the client.
+
+`req.body` → Data sent inside the request body.
+
+`res` → Response sent from the server to the client.
+
+`res.status()` → Sets the HTTP response status code.
+
+`res.json()` → Sends JSON response to the client.
+
+`app.listen()` → Starts the server on the specified port.
+
+`localhost:5000` → Address where the local server is running.
+
+`/students` → API endpoint used for student-related requests.
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+

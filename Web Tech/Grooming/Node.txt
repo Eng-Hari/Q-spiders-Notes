@@ -1,0 +1,235 @@
+# NODE.js
+
+### Node.js
+
+→ Node.js is a **runtime environment for JavaScript** that allows JavaScript to run **outside the browser** with the help of the **V8 JavaScript engine**.
+
+→ It is commonly used for tasks such as:
+
+* File reading/writing
+* Building REST APIs
+* Input/Output (I/O) operations
+* Server-side applications
+
+---
+
+# WebSockets
+
+→ WebSockets are used to **share data between client and server through a persistent connection**, without sending a new HTTP request for every message.
+
+→ First, a connection is established between the client and server. After that, **both sides can send data through the same connection**.
+
+→ WebSockets are mainly used for **real-time applications**, such as:
+
+* Chat applications
+* Live notifications
+* Online gaming
+* Live updates
+
+---
+
+# npm
+
+→ **npm** stands for **Node Package Manager**.
+
+→ It is used to **install, manage, and update packages/libraries** used in Node.js projects.
+
+Example:
+
+```bash
+npm install express
+```
+
+→ Installs the Express package into the project.
+
+---
+
+# package.json
+
+→ `package.json` is a **configuration file** that contains important information about a Node.js project.
+
+It can contain:
+
+* Project name
+* Version
+* Dependencies
+* Dev dependencies
+* Scripts
+* Entry point
+* Module type
+* Project description
+
+Example:
+
+```json
+{
+  "name": "my-project",
+  "version": "1.0.0",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
+```
+
+---
+
+
+dependencies
+    bcrypt - It is used to encrypt by hash all the sencitive data lik epassword,
+     in node js we use bcrypt in that we use .hash to encode and .conpare to decode th ehaed password
+        bcrypt.hash()
+        bcrypt.compare()
+    cors - cross origin resource Sharing, it is used to accepts request from fiff origin.
+             generally browser wont accept difer endpoit to recive ot send from two diff origin 
+             to accept the request from the different object we need to use  cors as a middle ware in backed server
+             eg : web page orign port 5000 and server origin port 3000 -> to  handle this difference we use cors as middleware
+    dotenv - 
+    express - it is the framework, which is used to build rest api server on top of node js 
+    express-rate-limit - It is a library, It is used to limit the http request from the particulalr users
+    helmet : It is a library and it is is used to mention the response type for the univeral respond friont he server to the browser
+    joi - I tis used for request bassed scheme validation( db data validation will be on befor db at backed)
+
+
+
+
+# .env File
+
+→ `.env` is a **configuration file used to store environment-specific values**, especially values that should not be hard-coded in the source code.
+
+Examples:
+
+* Database connection strings
+* API keys
+* JWT secrets
+* Port numbers
+* Other configuration values
+
+Example:
+
+```env
+DB_URL=mongodb://localhost:27017/mydb
+JWT_SECRET=mysecret
+PORT=5000
+```
+
+→ `.env` files are commonly added to `.gitignore` so sensitive values are not accidentally committed to Git.
+
+---
+
+# JWT
+
+→ **JWT** stands for **JSON Web Token**.
+
+→ JWT is a token format commonly used for **authentication and authorization** between the client and server.
+
+→ After successful authentication, the server can issue a JWT to the client. The client can then send the token with subsequent requests to access protected resources.
+
+---
+
+# Authentication
+
+→ **Authentication** verifies **who the user is**.
+
+Example:
+
+```text
+Username + Password
+        ↓
+Authentication
+        ↓
+User identity verified
+```
+
+→ In simple terms: **"Who are you?"**
+
+---
+
+# Authorization
+
+→ **Authorization** determines **what an authenticated user is allowed to access or perform**.
+
+Example:
+
+```text
+User authenticated
+        ↓
+Authorization
+        ↓
+Check user's permissions
+        ↓
+Allow / Deny access
+```
+
+→ In simple terms: **"What are you allowed to do?"**
+
+---
+
+# Access Token
+
+→ An **access token** is a token used to access protected resources/APIs.
+
+→ It is generally **short-lived** for security reasons.
+
+→ The client sends the access token with requests to protected endpoints.
+
+Example:
+
+```text
+Client → Access Token → Server
+                         ↓
+                  Verify token
+                         ↓
+                  Allow / Deny access
+```
+
+→ Access tokens are **not necessarily stored in localStorage**. They can be stored in different ways depending on the application's security design.
+
+---
+
+# Refresh Token
+
+→ A **refresh token** is generally **long-lived** and is used to obtain a new access token when the current access token expires.
+
+Example:
+
+```text
+Access Token
+     ↓
+Expires
+     ↓
+Refresh Token
+     ↓
+Request new Access Token
+     ↓
+Continue accessing APIs
+```
+
+→ Refresh tokens are often stored in **secure, HttpOnly cookies** so that JavaScript cannot directly access them.
+
+→ A refresh token itself normally does **not directly authorize every API request**. Its main purpose is to obtain a new access token.
+
+---
+
+# Authentication + Authorization Flow
+
+```text
+1. User logs in
+        ↓
+2. Server verifies credentials
+        ↓
+3. Authentication successful
+        ↓
+4. Server provides Access Token + Refresh Token
+        ↓
+5. Client sends Access Token with protected API requests
+        ↓
+6. Server verifies Access Token
+        ↓
+7. Authorization checks whether the user has permission
+        ↓
+8. Server allows or denies access
+        ↓
+9. If Access Token expires
+        ↓
+10. Refresh Token is used to obtain a new Access Token
+```

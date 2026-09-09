@@ -589,15 +589,22 @@ Destructure
 
         Rest Parameter 
             Collects multiple arguments into a single array.
-
-        Shallow Copy
-            Copies the reference of an array/object.
-
-        Deep Copy
-            Creates a completely independent copy.
-
+        
         Spread Operator
             Expands elements of an array/object.
+
+
+        value copy
+            copy the value of variable for primitive data Types
+
+        reference copy
+            copy tht reference of non-primitive data type
+
+        Shallow Copy
+            Creates a completely independent copy but copies the  nested object ref.
+            
+        Deep Copy
+            Copies the reference of an array/object and also for nested copy. so it will affect the original object
 
        
         JSON.stringify()
@@ -607,5 +614,10 @@ Destructure
             Converts JSON String → Object
 
 Event Delegation
-    The proces of providing the single event handler funtion to the parent element insted of providing to each child element.
-    we can target each child based on tagName and also with "data-id"
+        It is the process of attaching a single event handler to a parent element instead of attaching separate event handlers to each child element.
+        We can identify the specific child that triggered the event using properties such as event.target, tagName, or data-* attributes.
+
+Event Loop
+        The Event Loop continuously checks whether the Call Stack is empty.
+         When the Call Stack becomes empty, it moves pending callbacks from the appropriate queues to the Call Stack for execution.
+        Microtasks have higher priority than macrotasks, so the microtask queue is processed before the macrotask/callback queue.
