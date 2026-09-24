@@ -58,6 +58,19 @@ Component
         It generally returns JSX describing the UI to be rendered.
         We need to call component by using tags
     
+    Types
+        Class Based
+            complex syntax and structure,
+             need component class to create component,
+              statefull component(It has its own state),
+              Inbuild Lifecycle methods are available
+
+        Funtion Based
+            simple syntax and structure,
+             Don't need component class to create component,
+              stateless component(we need to use Hooks),
+              No Inbuild Lifecycle methods are available, can archive by using useEffect
+    
 Keys
     A key is a special prop in React used to uniquely identify elements among their siblings.
      It helps React efficiently identify and update elements when rendering a list.
@@ -118,43 +131,6 @@ useRef
         The input value is accessed using ref.current.value.
             Uncontrolled → Ref → DOM controls
 
-Context API
-    Context API is used to share data between components without passing it through props at every level.
-    It helps to avoid prop drilling.
-    It is commonly used for data that needs to be accessed by multiple components, such as theme or user information.
-
-    Props Drilling
-        Prop drilling is the process of passing data through multiple nested components using props.
-        Example:    App → Parent → Child → Grandchild
-        The intermediate components may not need the data but must pass it to the next component.
-
-    Steps in Contect API
-        1. CREATE CONTEXT
-            createContext() is a function used to create a Context object.
-            The returned Context object should be exported so that other components can use it.
-                export let myContext = createContext();
-            
-        2. PROVIDE CONTEXT
-            The Context object provides a Provider through which we share data with child components.
-            The data to be shared is passed using the value prop.
-                <myContext.Provider value={data}>
-                    <Child />
-                </myContext.Provider>
-            In newer React versions, you may also see <myContext value={data}> as the provider syntax, but Context.Provider is the traditional and widely recognized syntax.
-
-        3. CONSUME CONTEXT
-            Import the Context object into the component where the data is needed.
-            Pass the Context object to the useContext() Hook.
-            useContext() returns the value provided by the nearest matching Provider.
-                import { useContext } from "react";
-                import { myContext } from "./filename";
-
-                let data = useContext(myContext);
-
-    Flow
-        Create Context → Provide Data → Consume Data
-        createContext() → Provider → useContext()
-
 Life cycle 
     Lifecycle refers to the different stages a component goes through during its lifetime.
     There are three phases:
@@ -207,40 +183,6 @@ UseEffect
         Render → useEffect → Side Effect → Dependency Changes
          → useEffect runs again → Unmount → Cleanup
 
-Memorization
-    Memorization is an optimization technique used to avoid unnecessary calculations, function recreations, and re-rendering of components.
-    React provides three commonly used memoization techniques:
-        memo
-        useMemo
-        useCallback
-
-    memo
-        memo is a Higher-Order Component (HOC)
-        that accepts a component and returns a memoized component to avoid unnecessary re-rendering
-        when the child component's props have not changed.
-            const Child = memo(function Child({ name }) {
-                return <h1>{name}</h1>;
-            });
-
-    UseMemo
-    useMemo is a Hook used to memoize a calculated value and avoid unnecessary expensive recalculations;
-        the calculation runs again only when its dependencies change.
-            function sum(a, b) {
-                return a + b;
-            }
-            let sumValue = useMemo(() => {
-                return sum(10, 5);
-            }, []);
-
-    useCallBack
-        useCallback is a Hook used to memoize a function reference, preventing unnecessary function recreation
-        on re-renders, especially when passing functions to memoized child components;
-        the function is recreated when its dependencies
-        Syntax:
-            const handleClick = useCallback(() => {
-                console.log("Clicked");
-            }, []);
-
 useReducer
     useReducer is an alternative to useState for managing complex state with multiple actions.
     It accepts two arguments: reducer function and initial state.
@@ -263,6 +205,44 @@ useReducer
 
     Easy flow:
         dispatch(action) → reducer(state, action) → new state → component re-renders
+
+
+Context API
+    Context API is used to share data between components without passing it through props at every level.
+    It helps to avoid prop drilling.
+    It is commonly used for data that needs to be accessed by multiple components, such as theme or user information.
+
+    Props Drilling
+        Prop drilling is the process of passing data through multiple nested components using props.
+        Example:    App → Parent → Child → Grandchild
+        The intermediate components may not need the data but must pass it to the next component.
+
+    Steps in Contect API
+        1. CREATE CONTEXT
+            createContext() is a function used to create a Context object.
+            The returned Context object should be exported so that other components can use it.
+                export let myContext = createContext();
+            
+        2. PROVIDE CONTEXT
+            The Context object provides a Provider through which we share data with child components.
+            The data to be shared is passed using the value prop.
+                <myContext.Provider value={data}>
+                    <Child />
+                </myContext.Provider>
+            In newer React versions, you may also see <myContext value={data}> as the provider syntax, but Context.Provider is the traditional and widely recognized syntax.
+
+        3. CONSUME CONTEXT
+            Import the Context object into the component where the data is needed.
+            Pass the Context object to the useContext() Hook.
+            useContext() returns the value provided by the nearest matching Provider.
+                import { useContext } from "react";
+                import { myContext } from "./filename";
+
+                let data = useContext(myContext);
+
+    Flow
+        Create Context → Provide Data → Consume Data
+        createContext() → Provider → useContext()
 
 Routing
     Routing is the process of navigating between different pages or components based on the URL without reloading the entire browser page.
@@ -292,7 +272,7 @@ Routing
         
             useParams() 
                 It is used to access the dynamic route parameters.
-        I       It returns an object containing the parameters.
+                It returns an object containing the parameters.
                     import { useParams } from "react-router-dom";
                     let { id } = useParams();
                     console.log(id);
@@ -333,6 +313,7 @@ Suspense
             <Home />
         </Suspense>
 
+
 React Rendering process
 
     Virtual DOM 
@@ -349,7 +330,44 @@ React Rendering process
         The overall process of comparing the previous UI representation with the new one and determining what changes need to be applied to the actual DOM.
 
     React Fiber
-        It is React's reconciliation engine that breaks rendering work into smaller units, allowing React to prioritize, pause, resume, or discard rendering work when required.
+        It was introduced after React 16
+        It is React's reconciliation engine and it will do the task in asynchronous(doesn't block next execution) way.
+        It breaks rendering work into smaller units, allowing React to prioritize, pause, resume, or discard rendering work when required.
+
+Memorization
+    Memorization is an optimization technique used to avoid unnecessary calculations, function recreations, and re-rendering of components.
+    React provides three commonly used memoization techniques:
+        memo
+        useMemo
+        useCallback
+
+    memo
+        memo is a Higher-Order Component (HOC)
+        that accepts a component and returns a memoized component to avoid unnecessary re-rendering
+        when the child component's props have not changed.
+            const Child = memo(function Child({ name }) {
+                return <h1>{name}</h1>;
+            });
+
+    UseMemo
+    useMemo is a Hook used to memoize a calculated value and avoid unnecessary expensive recalculations;
+        the calculation runs again only when its dependencies change.
+            function sum(a, b) {
+                return a + b;
+            }
+            let sumValue = useMemo(() => {
+                return sum(10, 5);
+            }, []);
+
+    useCallBack
+        useCallback is a Hook used to memoize a function reference, preventing unnecessary function recreation
+        on re-renders, especially when passing functions to memoized child components;
+        the function is recreated when its dependencies
+        Syntax:
+            const handleClick = useCallback(() => {
+                console.log("Clicked");
+            }, []);
+
 
 Diff btn PROPS, STATE & HOOKS
     1. PROPS
