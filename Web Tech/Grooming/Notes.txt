@@ -1,17 +1,21 @@
 # Node Js
 
-**step 1 → npm init -y**
+## Step 1 → npm init -y
+        npm → Node Package Manager → Used to install and manage libraries/packages and frameworks used in JavaScript/Node.js.
+        init → Initializes a new Node.js project.
+        -y → Automatically accepts all the default values without asking each question.
 
-    npm → Node Package Manager used to install libraries and frameworks of JS/Node Js
-    init → Initializes a new Node.js project
-    -y → Automatically accepts all the default values
-    It creates a **package.json** file.
+npm init -y → Creates a **package.json** file with the default project information.
 
-------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------
 
-### package.json → It is a configuration file and it contains information about the project
+## package.json
 
+package.json → A configuration file that contains information about the project, scripts, dependencies, and other project-related details.
 
+Example →
+
+js
 {
     "name": "node_grooming",                 // → Name of the project/package
     "version": "1.0.0",                      // → Version of the project/package
@@ -27,248 +31,625 @@
     "license": "ISC",                        // → License of the project/package
     "description": "",                       // → Short description of the project/package
     "type": "",                              // → Defines the module system used by Node.js
-    "dependencies": {},                      // → Contains information and versions of libraries required by the project
-    "devDependencies": {}                    // → Contains dependencies required mainly during development
+    "dependencies": {},                      // → Contains libraries/packages required by the project
+    "devDependencies": {}                    // → Contains dependencies mainly required during development, such as development tools.
+
 }
 
+dev → Custom script used to run the project using nodemon.
+--------------------------------------------------------------------------------------------------------------------------
 
-npm run dev → Executes the dev script → nodemon index.js
-    nodemon → Automatically restarts the Node.js application whenever changes are detected.
 
-"type": "commonjs" → **CommonJS** → Uses require() and module.exports
+## npm run dev
 
-"type": "module" → **ES6 Module** → Uses import and export → Used in package.json to enable ES6 Modules in Node.js.
+npm run dev → Executes the dev script written inside package.json.
 
-------------------------------------------------------------------------------------------------------------------------
+text
+npm run dev
+      ↓
+"dev": "nodemon index.js"
+      ↓
+nodemon index.js
+
+
+nodemon → Automatically restarts the Node.js application whenever changes are detected in the source files.
+
+
+
+## Module System
+
+"type": "commonjs" → Uses the **CommonJS** module system.
+
+**CommonJS** → Uses `require()` to import modules and `module.exports` to export modules.
+
+Example →
+
+```js
+const express = require("express");       // → Imports express using CommonJS
+
+module.exports = express;                 // → Exports using CommonJS
+```
+
+`"type": "module"` → Enables the **ES6 Module** system in Node.js.
+
+**ES6 Module** → Uses `import` to import modules and `export` to export modules.
+
+Example →
+
+```js
+import express from "express";             // → Imports express using ES6 Module
+
+export default express;                    // → Exports using ES6 Module
+```
+
+--------------------------------------------------------------------------------------------------------------------------
 
 
 # JavaScript Important Concepts
 
-## Asynchronous
+## 1. Synchronous
 
-Asynchronous → Executes a task without blocking the execution of the next task; it allows other code to continue running while waiting for a task to complete.
-
-Example →
-
-js
-console.log("Start");
-
-setTimeout(() => {
-    console.log("Async Task");
-}, 2000);
-
-console.log("End");
-
-
-Output →
-
-text
-Start
-End
-Async Task
-
-
-setTimeout() → Executes the callback function after the specified delay.
-
-------------------------------------------------------------------------------------------------------------------------
-
-
-## Synchronous
-
-Synchronous → Executes code line by line; the next line waits until the current line finishes execution.
+Synchronous → Executes code line by line; the next line waits until the current operation is completed.
 
 Example →
 
-js
-console.log("Start");
+```js
+console.log("Start");                      // → Executes first
 
-console.log("Task");
+console.log("Task");                       // → Executes after Start
 
-console.log("End");
-
+console.log("End");                        // → Executes after Task
+```
 
 Output →
 
-text
+```text
 Start
 Task
 End
+```
+
+Synchronous → Blocking execution.
+
+--------------------------------------------------------------------------------------------------------------------------
 
 
-Synchronous → Blocking execution
+## 2. Asynchronous
 
-Asynchronous → Non-blocking execution
-
-------------------------------------------------------------------------------------------------------------------------
-
-
-## == and ===
-
-== → Loose equality operator → Compares values after performing type conversion if required.
-
-=== → Strict equality operator → Compares both value and data type without type conversion.
+Asynchronous → Executes a task without blocking the execution of the next task; other code can continue running while waiting for the asynchronous task to complete.
 
 Example →
 
-js
-5 == "5"       // → true
-5 === "5"      // → false
+```js
+console.log("Start");                      // → Executes first
+
+setTimeout(() => {
+    console.log("Async Task");             // → Executes later
+}, 2000);
+
+console.log("End");                        // → Executes without waiting for setTimeout
+```
+
+Output →
+
+```text
+Start
+End
+Async Task
+```
+
+`setTimeout()` → Executes the callback function after the specified delay.
+
+Asynchronous → Allows other code to continue executing while waiting for an operation to complete.
+
+Synchronous → Blocking execution.
+
+Asynchronous → Non-blocking execution.
+
+--------------------------------------------------------------------------------------------------------------------------
 
 
-== → Checks value after type conversion
+# 3. JavaScript Event Loop
 
-=== → Checks value + data type
+Event Loop → A mechanism that continuously checks the **Call Stack** and **Queues** and decides when asynchronous callbacks can be moved into the Call Stack for execution.
+
+Event Loop → Helps JavaScript perform asynchronous/non-blocking operations even though JavaScript execution is single-threaded.
+
+Basic flow →
+
+```text
+JavaScript Code
+      ↓
+  Call Stack
+      ↓
+ Web APIs / Node APIs
+      ↓
+    Queues
+      ↓
+  Event Loop
+      ↓
+  Call Stack
+```
+
+`Call Stack` → Executes JavaScript code.
+
+`Web APIs` → Handle asynchronous browser operations such as `setTimeout()`, DOM events and `fetch()`.
+
+`Queue` → Stores callbacks that are waiting to be executed.
+
+`Event Loop` → Checks whether the Call Stack is empty and moves eligible callbacks from the queues to the Call Stack.
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+## Call Stack
+
+Call Stack → A data structure used by JavaScript to keep track of function calls and execute synchronous code.
+
+Call Stack → Follows **LIFO (Last In, First Out)**.
 
 Example →
 
-js
-10 == 10       // → true
-10 === 10      // → true
+```js
+function first() {
+    console.log("First");
+}
 
-10 == "10"     // → true
-10 === "10"    // → false
+function second() {
+    console.log("Second");
+}
 
+first();
+second();
+```
 
-------------------------------------------------------------------------------------------------------------------------
+Execution →
 
+```text
+first()
+  ↓
+Call Stack
+  ↓
+console.log("First")
+  ↓
+first() removed
 
-## Fetch
+second()
+  ↓
+Call Stack
+  ↓
+console.log("Second")
+  ↓
+second() removed
+```
 
-fetch() → Used to make HTTP requests and communicate with APIs/server.
+`Call Stack` → Executes one function at a time.
 
-fetch() → Returns a **Promise**.
+`LIFO` → The last function added to the stack is the first function to be removed.
+
+--------------------------------------------------------------------------------------------------------------------------
+
+## Web APIs
+
+Web APIs → Features provided by the browser environment that allow JavaScript to perform operations outside the JavaScript Call Stack.
+
+Examples →
+
+`setTimeout()` → Timer API.
+
+`fetch()` → Used to make network requests.
+
+`DOM Events` → Used to handle events such as click, input and submit.
 
 Example →
 
-js
+```js
+console.log("Start");
+
+setTimeout(() => {
+    console.log("Timer");
+}, 2000);
+
+console.log("End");
+```
+
+`setTimeout()` → The timer is handled outside the Call Stack by the browser environment.
+
+After the timer finishes → Its callback is placed into the appropriate queue.
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+# Callback Queue
+
+Callback Queue → A queue that stores callbacks waiting to be executed after asynchronous operations are completed.
+
+Callback Queue → Also commonly referred to as the **Task Queue** or **Macrotask Queue** in browser JavaScript.
+
+Example →
+
+```js
+setTimeout(() => {
+    console.log("Timer");
+}, 0);
+```
+
+`setTimeout()` → After the timer completes, its callback is placed into the **Macrotask/Callback Queue**.
+
+The callback does not immediately execute.
+
+It must wait until:
+
+```text
+Call Stack → Empty
+      ↓
+Event Loop → Checks Queue
+      ↓
+Callback moves to Call Stack
+      ↓
+Callback executes
+```
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+# Microtask Queue
+
+Microtask Queue → A queue that stores **microtasks** that need to be executed after the current synchronous code finishes and before the next macrotask.
+
+Common Microtasks →
+
+`Promise.then()`
+
+`Promise.catch()`
+
+`Promise.finally()`
+
+`queueMicrotask()`
+
+Example →
+
+```js
+Promise.resolve().then(() => {
+    console.log("Promise");
+});
+```
+
+`.then()` → Its callback is placed into the **Microtask Queue**.
+
+Microtask Queue → Has higher priority than the Macrotask Queue.
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+# Macrotask Queue
+
+Macrotask Queue → A queue that stores callbacks from macrotask/asynchronous operations.
+
+Common Macrotasks →
+
+`setTimeout()`
+
+`setInterval()`
+
+DOM events such as `click`
+
+Some other task-based browser operations
+
+Example →
+
+```js
+setTimeout(() => {
+    console.log("Timer");
+}, 0);
+```
+
+`setTimeout()` callback → Goes into the **Macrotask Queue** after the timer completes.
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+# Microtask vs Macrotask
+
+Microtask → Higher priority.
+
+Macrotask → Lower priority compared with microtasks.
+
+Execution order →
+
+```text
+1. Synchronous Code
+        ↓
+2. Microtask Queue
+        ↓
+3. Macrotask Queue
+```
+
+Important → The Event Loop processes available microtasks before taking the next macrotask.
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+# Event Loop Example
+
+Example →
+
+```js
+console.log("Start");                         // → Synchronous
+
+setTimeout(() => {
+    console.log("Timeout");                   // → Macrotask
+}, 0);
+
+Promise.resolve().then(() => {
+    console.log("Promise");                   // → Microtask
+});
+
+console.log("End");                           // → Synchronous
+```
+
+Output →
+
+```text
+Start
+End
+Promise
+Timeout
+```
+
+Execution →
+
+```text
+console.log("Start")
+        ↓
+Call Stack
+        ↓
+Start
+
+
+setTimeout()
+        ↓
+Web API / Timer
+        ↓
+Macrotask Queue
+
+
+Promise.then()
+        ↓
+Microtask Queue
+
+
+console.log("End")
+        ↓
+Call Stack
+        ↓
+End
+```
+
+After synchronous code finishes →
+
+```text
+Call Stack → Empty
+       ↓
+Event Loop checks Microtask Queue
+       ↓
+Promise callback → Call Stack
+       ↓
+"Promise"
+       ↓
+Microtask Queue → Empty
+       ↓
+Event Loop checks Macrotask Queue
+       ↓
+setTimeout callback → Call Stack
+       ↓
+"Timeout"
+```
+
+Final Output →
+
+```text
+Start
+End
+Promise
+Timeout
+```
+
+### Important Event Loop Rule
+
+Synchronous Code → Executes first.
+
+Microtasks → Execute after synchronous code and before the next macrotask.
+
+Macrotasks → Execute after the microtask queue has been processed.
+
+Event Loop → Continuously checks the Call Stack and queues to coordinate asynchronous execution.
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+# 4. `==` and `===`
+
+`==` → Loose equality operator → Compares values after performing type conversion when required.
+
+`===` → Strict equality operator → Compares both value and data type without type conversion.
+
+Example →
+
+```js
+5 == "5"                                    // → true
+5 === "5"                                   // → false
+```
+
+`==` → Compares values after type conversion.
+
+`===` → Compares value + data type.
+
+Example →
+
+```js
+10 == 10                                    // → true
+10 === 10                                   // → true
+
+10 == "10"                                  // → true
+10 === "10"                                 // → false
+```
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+# 5. Fetch
+
+`fetch()` → Used to make HTTP requests and communicate with APIs/servers.
+
+`fetch()` → Returns a **Promise**.
+
+Example →
+
+```js
 fetch("https://example.com/data")
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.log(error));
+    .then(response => response.json())       // → Converts response body into JSON
+    .then(data => console.log(data))         // → Receives the converted data
+    .catch(error => console.log(error));     // → Handles errors
+```
+
+`fetch(url)` → Sends an HTTP request to the specified URL.
+
+`response` → Contains the response received from the server.
+
+`response.json()` → Converts the response body into JSON data.
+
+`.then()` → Executes when the Promise is successfully resolved.
+
+`.catch()` → Handles errors when the Promise is rejected.
+
+`fetch()` → Commonly used with **GET, POST, PUT, PATCH and DELETE** requests.
+
+--------------------------------------------------------------------------------------------------------------------------
 
 
-fetch(url) → Sends a request to the specified URL.
+# 6. Spread Operator
 
-response → Contains the response received from the server.
-
-response.json() → Converts the response body into JSON data.
-
-.then() → Executes when the Promise is successfully resolved.
-
-.catch() → Executes when an error occurs.
-
-fetch() → Commonly used with **GET, POST, PUT, PATCH and DELETE** requests.
-
-------------------------------------------------------------------------------------------------------------------------
-
-
-## Spread Operator
-
-Spread Operator → Represented by ... → Used to expand/unpack the elements of an array or properties of an object.
+Spread Operator → Represented by `...` → Used to expand/unpack elements of an array or properties of an object.
 
 ### Array
 
-js
+```js
 let arr1 = [10, 20, 30];
 
-let arr2 = [...arr1];
+let arr2 = [...arr1];                        // → Expands/copies elements of arr1
 
 console.log(arr2);
-
+```
 
 Output →
 
-text
+```text
 [10, 20, 30]
+```
 
-
-...arr1 → Expands/unpacks the elements of arr1.
+`...arr1` → Expands/unpacks the elements of `arr1`.
 
 ### Combining Arrays
 
-js
+```js
 let arr1 = [10, 20];
 let arr2 = [30, 40];
 
-let result = [...arr1, ...arr2];
+let result = [...arr1, ...arr2];             // → Combines both arrays
 
 console.log(result);
-
+```
 
 Output →
 
-text
+```text
 [10, 20, 30, 40]
-
+```
 
 ### Object
 
-js
+```js
 let user = {
     name: "Hari",
     age: 25
 };
 
 let newUser = {
-    ...user,
+    ...user,                                  // → Copies/expands properties of user
     city: "Chennai"
 };
+```
 
-
-...user → Copies/expands the properties of the user object into newUser.
+`...user` → Copies/expands the properties of the `user` object into `newUser`.
 
 Spread Operator → Mainly used for **copying, combining and expanding arrays/objects**.
 
-------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------
 
 
-## 5. Event Delegation
+# 7. Event Delegation
 
-Event Delegation → A technique where we attach a single event listener to a parent element instead of adding separate event listeners to each child element.
+Event Delegation → A technique where we attach a single event listener to a parent element instead of adding separate event listeners to every child element.
 
 Example →
 
-let parent = document.querySelector("#parent");
+```js
+let parent = document.querySelector("#parent");     // → Selects the parent element
 
-parent.addEventListener("click", (event) => {
-    if (event.target.matches(".btn")) {
+parent.addEventListener("click", (event) => {       // → Adds one event listener to parent
+
+    if (event.target.matches(".btn")) {             // → Checks whether clicked element has .btn
         console.log("Button clicked");
     }
 });
+```
 
+`document.querySelector()` → Selects an element from the DOM.
 
-addEventListener() → Attaches an event listener to an element.
+`addEventListener()` → Attaches an event listener to an element.
 
-event.target → Refers to the actual element on which the event occurred.
+`event` → Contains information about the event that occurred.
 
-Event Delegation → Works because of **Event Bubbling** → The event moves from the target element towards its parent elements.
+`event.target` → Refers to the actual element on which the event occurred.
+
+`matches(".btn")` → Checks whether the clicked element matches the `.btn` selector.
+
+Event Delegation → Works because of **Event Bubbling**.
+
+Event Bubbling → The event moves from the target element towards its parent elements.
 
 Main advantage → Reduces the number of event listeners and is useful when working with dynamically created elements.
 
-------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------
 
 
-## Storage
+# Storage
 
 Storage → Used to store data in the browser.
 
 Browser Storage → Mainly includes **Local Storage** and **Session Storage**.
 
-### Local Storage
+--------------------------------------------------------------------------------------------------------------------------
 
-Local Storage → Stores data in the browser with **no automatic expiration**; the data remains even after closing and reopening the browser until it is manually removed.
 
-localStorage.setItem() → Stores data in Local Storage.
+## 8. Local Storage
 
-localStorage.getItem() → Retrieves data from Local Storage.
+Local Storage → Stores data in the browser with **no automatic expiration**.
 
-localStorage.removeItem() → Removes a specific item from Local Storage.
+Local Storage → The stored data remains even after closing and reopening the browser until it is manually removed.
 
-localStorage.clear() → Removes all items from Local Storage.
+`localStorage.setItem()` → Stores data in Local Storage.
+
+`localStorage.getItem()` → Retrieves data from Local Storage.
+
+`localStorage.removeItem()` → Removes a specific item from Local Storage.
+
+`localStorage.clear()` → Removes all items from Local Storage.
 
 Example →
 
-
+```js
 localStorage.setItem("name", "Hari");        // → Stores data
 
 let name = localStorage.getItem("name");     // → Retrieves data
@@ -276,26 +657,36 @@ let name = localStorage.getItem("name");     // → Retrieves data
 localStorage.removeItem("name");              // → Removes the specific item
 
 localStorage.clear();                         // → Removes all stored items
+```
+
+`setItem(key, value)` → Stores a value using a key.
+
+`getItem(key)` → Retrieves the value using the key.
+
+`removeItem(key)` → Removes the value associated with the specified key.
+
+`clear()` → Removes all stored data from Local Storage.
+
+--------------------------------------------------------------------------------------------------------------------------
 
 
-------------------------------------------------------------------------------------------------------------------------
+## 9. Session Storage
 
+Session Storage → Stores data only for the current browser tab/session.
 
-### Session Storage
+Session Storage → The data is removed when the tab/window session ends.
 
-Session Storage → Stores data only for the current browser tab/session; the data is removed when the tab/window session ends.
+`sessionStorage.setItem()` → Stores data in Session Storage.
 
-sessionStorage.setItem() → Stores data in Session Storage.
+`sessionStorage.getItem()` → Retrieves data from Session Storage.
 
-sessionStorage.getItem() → Retrieves data from Session Storage.
+`sessionStorage.removeItem()` → Removes a specific item from Session Storage.
 
-sessionStorage.removeItem() → Removes a specific item.
-
-sessionStorage.clear() → Removes all items.
+`sessionStorage.clear()` → Removes all items from Session Storage.
 
 Example →
 
-js
+```js
 sessionStorage.setItem("name", "Hari");       // → Stores data
 
 let name = sessionStorage.getItem("name");    // → Retrieves data
@@ -303,59 +694,73 @@ let name = sessionStorage.getItem("name");    // → Retrieves data
 sessionStorage.removeItem("name");            // → Removes the specific item
 
 sessionStorage.clear();                       // → Removes all stored items
+```
 
+`setItem(key, value)` → Stores a value using a key.
+
+`getItem(key)` → Retrieves the value using the key.
+
+`removeItem(key)` → Removes the value associated with the specified key.
+
+`clear()` → Removes all stored data from Session Storage.
 
 Local Storage → Data remains until manually removed.
 
 Session Storage → Data remains only for the current session/tab.
 
-------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------
 
 
-## Fetch Items
+# 10. Fetch Items
 
-Fetch Items → Used to retrieve data/items from an API or server using the fetch() method.
+Fetch Items → Used to retrieve data/items from an API or server using the `fetch()` method.
 
-fetch() → Sends an HTTP request and returns a **Promise**.
+`fetch()` → Sends an HTTP request and returns a **Promise**.
 
 Example →
 
-js
+```js
 fetch("https://example.com/items")
     .then(response => response.json())       // → Converts response into JSON
     .then(items => console.log(items))        // → Receives the fetched items
     .catch(error => console.log(error));      // → Handles errors
+```
 
+`fetch(url)` → Sends a request to the given URL.
 
-fetch(url) → Sends a request to the given URL.
+`response` → Contains the response received from the server.
 
-response.json() → Converts the server response into JavaScript data.
+`response.json()` → Converts the server response into JavaScript data.
 
-items → Contains the data/items received from the API.
+`items` → Contains the data/items received from the API.
 
-.then() → Executes when the Promise is successfully resolved.
+`.then()` → Executes when the Promise is successfully resolved.
 
-.catch() → Handles errors when the request fails.
+`.catch()` → Handles errors when the request fails.
 
 Fetch → Commonly used to **fetch items/data from an API**.
 
+--------------------------------------------------------------------------------------------------------------------------
 
-## `"use strict"` in JavaScript
 
-`"use strict"` → Enables **Strict Mode** in JavaScript → Makes JavaScript execute with stricter rules and helps identify common coding mistakes.
+# 11. `"use strict"` in JavaScript
+
+`"use strict"` → Enables **Strict Mode** in JavaScript.
+
+Strict Mode → Makes JavaScript execute with stricter rules and helps identify common coding mistakes.
 
 Example →
 
 ```js
 "use strict";
 
-x = 10;                         // → Error because variable is not declared
+x = 10;                                    // → Error because variable is not declared
 ```
 
 Without Strict Mode →
 
 ```js
-x = 10;                         // → Creates a global variable
+x = 10;                                    // → Creates a global variable
 ```
 
 With Strict Mode →
@@ -363,7 +768,7 @@ With Strict Mode →
 ```js
 "use strict";
 
-let x = 10;                     // → Correct way to declare the variable
+let x = 10;                                // → Correct way to declare the variable
 ```
 
 `"use strict"` → Prevents accidental creation of global variables.
@@ -378,9 +783,10 @@ Example →
 
 ```js
 function test() {
-    "use strict";               // → Enables Strict Mode only inside this function
 
-    x = 10;                     // → Error because x is not declared
+    "use strict";                          // → Enables Strict Mode only inside this function
+
+    x = 10;                                // → Error because x is not declared
 }
 ```
 
@@ -389,8 +795,6 @@ function test() {
 ES6 Modules → Automatically use **Strict Mode**, so `"use strict"` is generally not required when using `import`/`export`.
 
 CommonJS → Strict Mode is **not automatically enabled**, so `"use strict"` can be written explicitly when needed.
-
-------------------------------------------------------------------------------------------------------------------------
 
 
 # How to Create Server Using Node.js
@@ -440,8 +844,7 @@ Backend  → http://localhost:5000
 
 Different ports → Different origins → CORS may be required.
 
-------------------------------------------------------------------------------------------------------------------------
-
+---
 
 ## Step 4 → Use CORS Middleware
 
@@ -459,8 +862,7 @@ app.use(cors());                               // → Allows cross-origin reques
 app.use(cors());                               // → Correct
 ```
 
-------------------------------------------------------------------------------------------------------------------------
-
+---
 
 ## Step 5 → Use JSON Middleware
 
@@ -500,8 +902,7 @@ Output →
 
 Without `express.json()` → `req.body` may not contain the parsed JSON request body.
 
-------------------------------------------------------------------------------------------------------------------------
-
+---
 
 # Step 6 → GET Request
 
@@ -549,8 +950,7 @@ Response →
 ]
 ```
 
-------------------------------------------------------------------------------------------------------------------------
-
+---
 
 # Step 7 → POST Request
 
@@ -578,8 +978,7 @@ app.post("/students", (req, res) => {
 
 `res.json()` → Sends a JSON response back to the frontend.
 
-------------------------------------------------------------------------------------------------------------------------
-
+---
 
 ## Frontend → Backend POST Request
 
@@ -643,8 +1042,7 @@ Output →
 }
 ```
 
-------------------------------------------------------------------------------------------------------------------------
-
+---
 
 # Step 8 → Start the Server
 
@@ -674,8 +1072,7 @@ Students endpoint →
 http://localhost:5000/students
 ```
 
-------------------------------------------------------------------------------------------------------------------------
-
+---
 
 # Complete Server Code
 
@@ -726,8 +1123,7 @@ app.listen(5000, () => {
 });
 ```
 
-------------------------------------------------------------------------------------------------------------------------
-
+---
 
 # Important Terms
 
@@ -760,8 +1156,3 @@ app.listen(5000, () => {
 `localhost:5000` → Address where the local server is running.
 
 `/students` → API endpoint used for student-related requests.
-
-------------------------------------------------------------------------------------------------------------------------
-
-
-

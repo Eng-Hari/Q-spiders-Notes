@@ -128,7 +128,7 @@ Constrains
         PRIMARYKEY
             It is a type of constrains which is used to indentify the records uniqly from the table
             Characteristic of PRIMARYKEY
-                It doesn't allow repeted/ duplicated values
+                It doesn't allow repeted/ duplicated valuesw
                 It doesn't allow null values
                 It is a combination of UNIQUE and NOTNULL constrains
                 In a table we can have only on PK
@@ -142,9 +142,9 @@ Constrains
                 In a table we can have multiple FK
                 It is also known as Refrential intergrity constrains
 
-                Refrential Intergrity constrains
+                Refrential Intergrity constrain
                     We can't destroy the parent table untill the child table is depending on parent tabel is known as 
-                        Refrential intergrity constrains 
+                        Refrential intergrity constrain
 
         
 

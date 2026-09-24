@@ -45,7 +45,7 @@ Fragment
 Expression/ JSX Expression
         A JSX expression is used to access JavaScript variables, properties, function results, and perform operations inside JSX using {}.    Rules
         In JSX expression, We can't declare variable but we can access the declared variable
-        we can't directly use if/else/swith but we can use ternary operator and logical operator like &&
+        we can't directly use if/else/swith inside the JSX but we can use ternary operator and logical operator like &&
         Function declarations cannot be written directly inside a JSX expression,
          but functions can be called inside JSX expressions.
          
@@ -76,22 +76,6 @@ Event
 
 Conditional rendering
     It is the process of displaying the JSX element/ component based on the Condition
-    
-Virtual DOM 
-    Virtual DOM is a lightweight JavaScript representation of the actual DOM.
-    When the state or props change, React creates a new Virtual DOM representation.
-
-Diffing
-    React compares the previous Virtual DOM with the new Virtual DOM to identify what has changed. This process is called Diffing.
-
-Diffing Alogorithm
-    The algorithm React uses to compare the old and new tree is called the Diffing Algorithm.
-
-Reconciliation
-    The overall process of comparing the previous UI representation with the new one and determining what changes need to be applied to the actual DOM.
-
-React Fiber
-    It is React's reconciliation engine that breaks rendering work into smaller units, allowing React to prioritize, pause, resume, or discard rendering work when required.
 
 Hooks
     Hooks are functions that allow function components to use React features such as state, context, refs, and effects.
@@ -280,33 +264,113 @@ useReducer
     Easy flow:
         dispatch(action) → reducer(state, action) → new state → component re-renders
 
+Routing
+    Routing is the process of navigating between different pages or components based on the URL without reloading the entire browser page.
+    In React, routing can be done using React Router.
+ 
+    React Router
+        React Router is a library used to implement routing in React applications.
+        Install React Router using: npm install react-router-dom
 
+    BrowserRouter
+        BrowserRouter is a component that enables routing in a React application.
+    
+    Routes
+        Routes is a component that contains the route definitions.
+        It finds the route that matches the current URL and renders the corresponding component.
 
+    Route
+        Route is used to define a URL path and the component to render for that path.
+            path → defines the URL.
+            element → defines the component to display.
+            errorElement -> display a component when an error occurs while handling a route.
 
+    Dynamic Routing
+        Dynamic routing is used when a part of the URL changes dynamically.
+        The dynamic parameter starts with : followed by the parameter name.
+            <Route path="/user/:id" element={<User />} />
+        
+            useParams() 
+                It is used to access the dynamic route parameters.
+        I       It returns an object containing the parameters.
+                    import { useParams } from "react-router-dom";
+                    let { id } = useParams();
+                    console.log(id);
 
+    Nested Routing
+        Nested routing is used to define child routes inside a parent route.
+        Child routes are defined using the children concept in routing.
+        Outlet is used in the parent component to render the matching child route.
+            import { Outlet } from "react-router-dom";
 
+Navigation
+    Link
+        Link is used to navigate between routes without reloading the page.
+        The destination path is provided using the to attribute.
+            import { Link } from "react-router-dom";
+            <Link to="/about">About</Link>
 
+    useNavigate
+        useNavigate is a Hook that returns a function used for programmatic navigation.
+            import { useNavigate } from "react-router-dom";
+            let navigate = useNavigate();
+            navigate("/about");
 
-            
-Diff btm Props / States / Hooks
+Code Splitting
+    Code splitting is an optimization technique that divides a large JavaScript bundle into smaller chunks.
 
-    Props
-        Used to transfer data from parent component to child component.
+Lazy Loading
+    Lazy loading loads a component only when it is required.
+    lazy() is used to dynamically load a component.
+        import { lazy } from "react";
+        const Home = lazy(() => import("./Home"));
+
+Suspense
+    Suspense is used to display fallback content while a lazy-loaded component is loading.
+    fallback defines the content displayed during loading.
+        import { Suspense } from "react";
+        <Suspense fallback={<p>Loading...</p>}>
+            <Home />
+        </Suspense>
+
+React Rendering process
+
+    Virtual DOM 
+        Virtual DOM is a lightweight JavaScript representation of the actual DOM.
+        When the state or props change, React creates a new Virtual DOM representation.
+
+    Diffing
+        React compares the previous Virtual DOM with the new Virtual DOM to identify what has changed. This process is called Diffing.
+
+    Diffing Alogorithm
+        The algorithm React uses to compare the old and new tree is called the Diffing Algorithm.
+
+    Reconciliation
+        The overall process of comparing the previous UI representation with the new one and determining what changes need to be applied to the actual DOM.
+
+    React Fiber
+        It is React's reconciliation engine that breaks rendering work into smaller units, allowing React to prioritize, pause, resume, or discard rendering work when required.
+
+Diff btn PROPS, STATE & HOOKS
+    1. PROPS
+        Props are used to transfer data from a parent component to a child component.
         Props are passed from the parent and received by the child.
-        Props are read-only and should not be modified by the child.
+        Props are read-only.
+        The child component should not modify props.
 
-    State
-        Used to store dynamic data inside a component.
+    2. STATE
+        State is used to store and manage dynamic data inside a component.
         State is managed by the component itself.
-        When state changes, the component re-renders with the updated value.
+        State can be updated using state update functions.
+        When state changes, the component re-renders.
 
-    Hooks
-        Hooks are functions that provide React features to function components.
-        Hooks are used to create/manage state and other React features.
-        Examples: useState, useEffect, useRef, useContext.
-
-    Easy to Remember
+    3. HOOKS
+        Hooks are functions that allow function components to use React features.
+        Hooks can be used to manage state, effects, refs, context, etc.
+        Common Hooks are useState, useEffect, useRef, and useContext.
+        Hooks should be called at the top level of function components or custom Hooks.
+    
+    EASY TO REMEMBER
         Props → Parent gives data
         State → Component manages data
-        Hooks → Functions that provide React features
-
+        Hooks → Functions provide React features
