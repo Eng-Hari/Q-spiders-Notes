@@ -6,18 +6,18 @@ Data
 
 DataBase
     DataBase is a palce/Medium which is used to store data in the Systamatic and organized manner
-    CRUD Operation
-        Create/Insert
-        Read/Retrival
-        Update/Modify
-        Delete/Drop
+    In DB we can perform CRUD Operations like,
+                            Create/Insert
+                            Read/Retrival
+                            Update/Modify
+                            Delete/Drop
 
 DBMS
     DBMS stands for  DataBase management system 
     It is a software which is used to maintain and manage DB
     It offers Security and Authorization
     In DBMS datas are stored in the form of Files
-    Query language is used to communicate
+    Query language is used to communicate 
     Types
         Network DBMS
         Hiaracial DBMS
@@ -29,13 +29,13 @@ RDBMS
     It is a type of software which is used to maintain and manage the DB
     It offers security and Authorization
     In RDBMS, datas are stored in the form of tables
-    Structured query language is used to communicate and intract with DB
-    It follows EF codd Rules, It is a set of rules which help user to store data in the form of tables
+    SQL is used to communicate and intract with DB
+    It follows " EF codd Rules ", It is a set of rules which help user to store data in the form of tables
     These rules are given by Data Scientist named Edgar Frank codd
     Any DBMS software which follows EF codd rule is said to be RDBMS 
 
 Table
-    A logical organization of Rows, columns and cell is known as Tables
+    A logical organization of Rows and columns is known as Tables
 
 Cell 
     It is a small unit of table or Intersection of row and column is called as Cell
@@ -45,7 +45,7 @@ EF codd Rules
     2 -> In RDBMS, datas are stored in the form of table including meta data
           Meta Data
             It is a further information about the data, it is auto generated and stored in meta tables   
-    3 -> In RDBMS we can store data in multiple tabels, if nessesory we can establish the connection/Relation
+    3 -> In RDBMS we can store data in multiple tables, if nessesory we can establish the connection/Relation
              btw those tables using KEY attributes
     4 -> The data entered inside the table or a column must be validate in two steps
             By assigning DataType
@@ -117,7 +117,7 @@ Constrains
         FORIEGNKEY
 
         UNIQUE
-            It is type of contrains which is used to avoid repeted ot duplicated values to be inserted in the column
+            It is type of contrains which is used to avoid duplicated values to be inserted in the column
             Syntax -> "UNIQUE"
         NOTNULL
             It is a type of contrains which is used to avoid entering null values in the column
@@ -128,7 +128,7 @@ Constrains
         PRIMARYKEY
             It is a type of constrains which is used to indentify the records uniqly from the table
             Characteristic of PRIMARYKEY
-                It doesn't allow repeted/ duplicated valuesw
+                It doesn't allow duplicated values
                 It doesn't allow null values
                 It is a combination of UNIQUE and NOTNULL constrains
                 In a table we can have only on PK
@@ -146,10 +146,54 @@ Constrains
                     We can't destroy the parent table untill the child table is depending on parent tabel is known as 
                         Refrential intergrity constrain
 
-        
+SQL statements/Subsets/Languages
+
+    Data Definition Language(DDL)
+    Data Manipulation Language(DML)
+    Transaction COntrol Language(TCL)
+    Data Control Language(DCL)
+    Data Query Language(DQL)
+
+Data Query LAnguage(DQL)
+    It is used to fetch data from the DB or Table
+        Statements
+            SELECT      ->  It is used to display the output or used to fetch data from the table and display
+            PROJECTION  ->  It is the process of fetching the data from the tabel by selecting only the colu    qqwww33333333333333mns
+            SELECTION   ->  It is the process of fetching the data from the tabel by selecting both rows and columns
+            JOINS       ->  It is the process of fetching the data from multiple tables simultaneously
 
 
 
+Data Definition Language(DDL)
+     It is Used to Create/Modify the structure of the table in the DB
+        Statements 
+            CREATE   -> 
+            RENAME   ->
+            ALTER    ->
+            TRUNCATE ->   
+            DROP     ->
+
+Data Manipulation Language(DML)
+    It is used to manipulate the tables present in the DB
+        Statements
+            INSERT  ->  
+            UPDATE  ->   
+            DELETE  ->
+
+Transaction Control Language(TCL)
+    It is used to control the transaction like Insert, Update, Delete
+        Statements
+            COMMIT    ->
+            ROLLBACK  ->  
+            SAVEPOINT ->
+
+Data Control Language(DCL)
+    It is used to control the data flow b/w the user
+        Statements
+            GRANT   -> 
+            REVOKE  ->
+
+    
 
 
 

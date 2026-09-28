@@ -1,0 +1,319 @@
+Hibernate
+    Hibernate is a ORM framework used to communicate with a Relational DB using java object
+    it will takecare of generating/executing the require sql and communicating with the database
+ORM
+    ORM(Object Relational Mapping) is a technique that maps java object to database tables.
+    It maps class with table, object with row, variable with column.
+
+JPA
+    JPA(Java Persistence API) is a standard/specification that defines how java object should be stored,
+     retrived, updated and deleted from a relational database
+    It provided standard annotations such as @Entity, @ID, @Table and mapping annotations also 
+     it provides standard API's such as EntityManager to perform Persistence operations
+    
+Persistence
+    It is the process of storing an application's data permanently in DB/ other permanent storage
+
+How Hibernate Communicates with the Database
+    Working flow 
+        Java Code -> Hibernate -> JPA -> JDBC -> JDBC Driver -> PostgreSQL
+
+    Hibernate communicates with the database through JDBC.
+     It uses ORM to map Java objects to database tables.
+      JPA provides the standard APIs and rules for persistence, which Hibernate implements.
+       Hibernate uses these mappings and APIs to generate the required SQL,
+        and then uses JDBC APIs along with the database driver to execute the SQL against the database.
+
+Entity class    
+    An Entity class is a Java class that Hibernate/JPA maps to a database table.
+
+    EntityManagerFactory 
+        It is used to create and manage EntityManager object and the persistence environment
+        It is usually created once for the application because creating it is expensive.
+        It also initializes the persistence environment using the configuration from persistence.xml.
+        Synatx -> 
+            EntityManagerFactory emf = Persistence.createEntityFactoryManager("persistence-unit_name");
+        
+    EntityManager
+        EntityManager is used to perform persistence operations on entities.
+        Synatx -> 
+            EntityManager em = emf.createEntityManager();
+        Methods
+            em.persist(obj)                           -> INSERT   Persist(Store permanent) obj in the database
+            em.find(Entity_className.class, PK);      -> SELECT   
+            em.remove(obj);                           -> DELETE
+
+    EntityTranscation
+        EntityTransaction is used to control a transaction when using a resource-local EntityManager.
+        Synatx -> 
+            EntityTranscation et = em.getTransaction();
+        
+        Methods
+            et.begin()  -> This  start the database transaction
+            et.commit() -> Commit the transaction and make the changes permanent in DB 
+    
+    Work flow    
+        Persistence -> EntityManagerFactory -> EntityManager -> EntityTransaction -> begin() -> persist() -> commit() -> Database
+
+Composite Key
+    Composite key is the process of creating more than one primary key for a table
+     with the help of   
+        @EmbededId -> It is used to specify that the embeded object represents the Composite primary key of Entity
+        @Embedable -> It is used to define the class whose fiels can be embeded into an Entity
+
+JPQl
+    JPQL(Java Persistence Query Language) is an object-oriented query language used by JPA to query and manipulate entities using entity names
+     and thie fileds insted of DB tables and columns name
+
+    Methods 
+        em.createQuery()     -> Used to create JPQL query
+          .getResultList()   -> Used when the query can return multiple recods
+          .getSingleResilt() -> Used when the query return one record
+          .executeUpdate()   -> Used for UPDATE and DELETE JPQL queries
+          .setParamenter()   -> Used to pass values dynamically into a JPQL query
+
+    Synatx -> 
+        Student student = em.createQuery("SELECT s FROM Student s WHERE s.age = :age", Student.class)
+                            .setParameter("age", 23).getSingleResult();
+
+Query paramenter   
+    It is used to pass dynamic values into a JPQL query insed of directly writing the values inside the query
+    The values to be provided with the help of .setParamenter()
+    Types
+        Named Paramenter
+            A named parameter is a query parameter identified by its name suffixed with : instead of direct value.
+            Synatx -> "SELECT s FROM Student s WHERE s.age = :age"   => .setParamenter("age", 23);
+        
+        Positional Paramenter
+            A positional parameter is a query parameter identified by its position/number instead of a name.
+            Synatx ->  "SELECT s FROM Student s WHERE s.age = ?1"   =>  .setParamenter(1,23);
+        
+Generation Type
+    GenerationType is used to automatically generate values for a primary key (@Id).
+    Synatx ->   @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Generation type
+        AUTO     -> @GeneratedValue(strategy = GenerationType.AUTO)
+            Hibernate chooses the appropriate ID generation strategy based on the database and configuration.
+        
+        IDENTITY -> @GeneratedValue(strategy = GenerationType.IDENTITY)
+            The database generates the ID using its identity/auto-increment mechanism
+        
+        SEQUENCE -> @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bike_seq")
+            Hibernate uses a database sequence to generate ID values.
+            We can also specify a sequence explicitly
+                @SequenceGenerator( name = "bike_seq", sequenceName = "bike_sequence", allocationSize = 1, initalValue = 1 )
+        
+        TABLE    -> @GeneratedValue(strategy = GenerationType.TABLE)
+            Hibernate uses a separate database table to maintain and generate ID values.
+            we can also config the generator table explicitly
+                @TableGenerator( name = "bike_gen", table = "id_generator", pkColumnName = "gen_name", valueColumnName = "gen_value",
+                                 pkColumnValue = "bike_id", allocationSize = 1 )
+
+Owning Entity
+    It represent entity class that owns and controls the relationship btn entities in the DB
+
+Mapping
+    Hibernate mapping is the process of defining th relationship btn entities and thier corresponding DB tables
+    Mapping types
+        Uni-Directional
+            In unidirectional mapping, the relationship can be accessed only from one entity to another entity.
+
+        Bi-Directional
+            In bidirectional mapping, the relationship can be accessed from both entities.    
+            
+        Types
+            @OneToOne
+                One record in one table is associated with one record in another table.
+                    Uni-Directional
+                        In unidirectional mapping, one entity maintains a reference to another entity, which allows access in only one direction.
+                        Hibernate creates a relationship between the two tables by storing the primary key of the referenced entity as a foreign key
+                         in the table of the entity that maintains the reference.
+                        We can use @JoinColumn to specify the column name that is used to store the foreign key.
+                        
+                        Synatx -> 
+                            //In Person Entity
+                            @OneToOne
+                            @JoinColumn(name = "passport_id")
+                            private Passport passport;
+
+                    Bi-Directional
+                        In bidirectional mapping, both entities maintain a reference to each other, which allows access in both directions.
+                        Hibernate establishes the relationship between the two tables by storing the primary key of one entity as a foreign key in one of the tables.
+                        We use @JoinColumn on the owning side to specify the column name used to store the foreign key.
+                        We use mappedBy on the other side to indicate that the relationship is already managed by the owning entity.
+                         Therefore, Hibernate does not create another foreign-key column for the same relationship.
+                        
+                        Synatx -> 
+                            //In Person Entity — Owning Entity
+                            @OneToOne
+                            @JoinColumn(name = "passport_id")
+                            private Passport passport;
+
+                            //In Passport Entity — Inverse Entity
+                            @OneToOne(mappedBy = "passport")
+                            private Person person;
+
+            @OneToMany
+                One record in one table is associated with multiple records in another table.
+                    Unidirectional
+                        In unidirectional mapping, one entity maintains a reference to multiple entities, which allows access in only one direction.
+                        Hibernate creates a relationship between the two tables by using a foreign key in the table of the entity on the many side.
+                        We can use @JoinColumn to specify the column name that is used to store the foreign key.
+
+                        Syntax ->
+                            //In Department Entity
+                            @OneToMany
+                            @JoinColumn(name = "department_id")
+                            private List<Employee> employees;
+                                        
+                    Bidirectional
+                        In bidirectional mapping, both entities maintain a reference to each other, which allows access in both directions.
+                        Hibernate creates a relationship between the two tables by storing the primary key of the entity on the one side as a foreign key
+                         in the table of the entity on the many side.
+                        We use @JoinColumn on the owning side to specify the column name used to store the foreign key.
+                        We use mappedBy on the other side to indicate that the relationship is already managed by the owning entity.
+                         Therefore, Hibernate does not create another foreign-key relationship for the same association.
+
+                        Syntax:
+                            //In Employee Entity — Owning Entity
+                            @ManyToOne
+                            @JoinColumn(name = "department_id")
+                            private Department department;  
+                            
+                            //In Department Entity — Inverse Entity
+                            @OneToMany(mappedBy = "department")
+                            private List<Employee> employees;
+
+            @ManyToOne
+                Multiple records in one table are associated with one record in another table.
+                    Unidirectional
+                        In unidirectional mapping, one entity maintains a reference to another entity, which allows access in only one direction.
+                        Hibernate creates a relationship between the two tables by storing the primary key of the referenced entity as a foreign key
+                         in the table of the entity that maintains the reference.
+                        We can use @JoinColumn to specify the column name that is used to store the foreign key.
+
+                        Syntax ->
+                            //In Employee Entity
+                            @ManyToOne
+                            @JoinColumn(name = "department_id")
+                            private Department department;
+
+                    Bidirectional
+
+                        In bidirectional mapping, both entities maintain a reference to each other, which allows access in both directions.
+                        Hibernate creates a relationship between the two tables by storing the primary key of the entity on the one side as a foreign key
+                         in the table of the entity on the many side.
+                        We use @JoinColumn on the owning side to specify the column name used to store the foreign key.
+                        We use mappedBy on the other side to indicate that the relationship is already managed by the owning entity. Therefore,
+                         Hibernate does not create another foreign-key relationship for the same association.
+
+                        Syntax->
+                            //In Employee Entity — Owning Entity
+                            @ManyToOne
+                            @JoinColumn(name = "department_id")
+                            private Department department;
+
+                            //In Department Entity — Inverse Entity
+                            @OneToMany(mappedBy = "department")
+                            private List<Employee> employees;
+
+            @ManyToMany
+                Multiple records in one table are associated with multiple records in another table.                                                                           
+                    Unidirectional
+                        In unidirectional mapping, one entity maintains a reference to multiple entities, which allows access in only one direction.
+                        Since a many-to-many relationship cannot be represented directly using a single foreign key, Hibernate creates a separate join table
+                         to maintain the relationship between the two tables.
+                        We can use @JoinTable to specify the name of the join table and its foreign-key columns
+
+                        Syntax -> 
+                            //In Student Entity:
+                            @ManyToMany
+                            @JoinTable(
+                                name = "student_course",
+                                joinColumns = @JoinColumn(name = "student_id"),
+                                inverseJoinColumns = @JoinColumn(name = "course_id")
+                            )
+                            private List<Course> courses;
+                                    
+                    Bidirectional
+                        In bidirectional mapping, both entities maintain a reference to each other, which allows access in both directions.
+                        Hibernate uses a separate join table to maintain the many-to-many relationship between the two tables.
+                        We use @JoinTable on the owning side to specify the join table and its foreign-key columns.
+                        We use mappedBy on the other side to indicate that the relationship is already managed by the owning entity.
+                         Therefore, Hibernate does not create another join table for the same relationship.
+
+                        Syntax ->
+                            //In Student Entity — Owning Entity
+                            @ManyToMany
+                            @JoinTable(
+                                name = "student_course",
+                                joinColumns = @JoinColumn(name = "student_id"),
+                                inverseJoinColumns = @JoinColumn(name = "course_id")
+                            )
+                            private List<Course> courses; 
+
+                            //In Course Entity — Inverse Entity
+                            @ManyToMany(mappedBy = "courses")
+                            private List<Student> students;        
+                                                                
+    Mapping notes
+        @JoinTable          -> defines the intermediate/join table.
+        joinColumns         -> specifies the FK column referring to the owning entity.
+        inverseJoinColumns  -> specifies the FK column referring to the other entity.
+        mappedBy            -> indicates that the relationship is already mapped by the owning side.                      
+
+
+Cascading
+    Cascade is used in entity relationships to automatically propagate persistence operations from one entity to its associated entity/entities,
+     avoiding the need to perform the same operation separately on each related entity.
+    Syntax -> 
+        @OneToOne(cascade = CascadeType.All)
+        private Passport passport;
+    
+    Types
+        PERSIST -> It is used to save the child entity automatically when the parent entitiy get saved
+        MERGE   -> It is used to update the child entity when the parent entity get updated
+        REMOVE  -> It is used to remove the child entity automatically when the parentis deleted.
+        REFRESH -> It is used to refresh child when the parent entity get refreshed
+        DETACH  -> It is used to rremove the connection btn java object and table, so it removes the connection for child object when its parent detached
+        ALL     -> It applies any of cascade operations on child when then parent entity had 
+
+FetchType
+    It is used to control whether all related data is automatically fetched from the database or only the requested object.
+    Syntax -> 
+        @OneToOne(fetch = FetchType.LAZY)
+        private Aadhar adr;
+
+    Types
+        LAZY  -> It fetches only the parent entity initially. The associated entity is not fetched until it is explicitly accessed.
+        EAGER -> It fetches the parent entity along with the associated entity. The associated entity is fetched when the parent entity is fetched.
+
+    Default FetchType
+        @oneToOne   -> EAGER
+        @OneToMany  -> EAGER
+        @ManyToOne  -> LAZY
+        @ManyToMany -> LAZY
+
+Caching 
+    caching is a mechanism used to store entity data temporarily in memory so that Hibernate can reduce repeated database queries and improve application performance.
+    Types
+        First-level
+            It s associated with the EntityManager/persistence context and is enabled by default.
+            There can be many first-level caches because each EntityManager has its own persistence context.
+        Second-level
+            It is shared across multiple EntityManager/persistence contexts instances. it is not enabled by default.
+            It requires a cache provider/configuration which should be added as dependency in POM.XML
+            There is generally one second-level cache associated with the EntityManagerFactory / Hibernate SessionFactory, and it can contain cached data for many different entity classes.
+            
+SessionFactory
+    SessionFactory is a thread-safe, heavyweight object in Hibernate that is responsible for creating Session objects.
+    It is normally created once for the application and reused throughout the application's lifecycle.  
+    It is used to get Session object, maintain hibernate config. and metadata, manage the second level cache
+
+Hibernate lifecycle
+    The Hibernate lifecycle describes the different states of an entity object during its interaction with Hibernate.
+    Stages
+        Transient Stage   -> When we create an object using new, it is in the transient state. The object is not associated with the persistence context.
+        Persistence Stage -> When we call em.persist(obj), the entity becomes persistent/managed. Hibernate starts tracking the entity and its changes.
+        Detached Stage    -> When the entity was persistent but the persistence context cleared or the entity is explicitly detached, it becomes detached. Hibernate no longer tracks the entity.
+        Remove Stage      -> When we call em.remove(obj), the entity becomes removed and Hibernate schedules it for deletion from the database. The deletion is executed when the transaction is committed.

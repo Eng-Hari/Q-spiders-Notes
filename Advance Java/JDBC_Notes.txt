@@ -1,0 +1,198 @@
+JDBC    
+    JDBC(Java DataBase Connectivity) is a Java API used to connect Java application with database
+     and perform database operations such as INSERT, SELECT, UPDATE and DELETE
+    JDBC act as a bridge btn a Java application and a database
+
+Java API
+    Java API refers the set of interfaces and classes provided by java that allow application to perform DB operation
+
+Driver Software
+    DataBase specific software that implements the JDBC API and enables java application to communnicate with a particular DB
+
+Steps in JDBC   
+    Steps in JDBC
+
+    1. Load/Register the Driver -> The JDBC driver enables Java to communicate with the specified database.
+    2. Establish the Connection -> Establish a connection between the Java application and the database.
+    3. Create Statement         -> Create a Statement or PreparedStatement object to send SQL statements to the database.
+    4. Execute Query            -> Execute the SQL statement and process the result returned by the database.
+    5. Close the Resources      -> Close the Connection, Statement/PreparedStatement, and ResultSet after completing the database operations.
+
+1.Load/Register the driver
+    Too older version
+        Driver d = new org.postgresql.Driver();
+        DriverManager.registerDriver(d);
+    
+    JDBC 3 (traditional approach)
+        Class.forName("org.postgresql.Driver"); // throws ClassNotFoundException
+
+    
+    JDBC 4+ 
+        It supports automatic driver discovery when the JDBC driver JAR is available on the classpath.
+
+        In POM.XML
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>YOUR_VERSION</version>
+            </dependency>
+
+2.Establish the connection    
+        .getConnection(url);             -> throws SQLException  
+
+            ->  url = "jdbc:postgresql://localhost:5432/DBname?user=postgres&password=root"
+            Connection con = DriverManager.getConnection(url);
+
+        .getConnection(url,user,pwd);    -> throws SQLException
+
+            ->  url = "jdbc:postgresql://localhost:5432/DBname";
+                user = "postgres";
+                pwd = "root";
+            Connection con = DriverManager.getConnection(url, user, pwd);
+
+        .getConnection(url,properties);  -> throws SQLException
+
+            ->  Properties props = new Properties();
+                props.setProperty("user", "postgres");
+                props.setProperty("password", "root");
+            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/DBname", props)
+
+3.Create Statement
+    We can create Statement in two ways 
+        Statement(Static way)   
+            It is used to execute Static SQL queries which doesn't require paramenters
+            Synatx ->
+                 Statement st = con.createStatement();
+                 String sql = "SELECT * FROM employee";
+                 ResultSet  rs = st.executeQuery(sql);
+
+        PreparedStatement(Dynamic way)
+            It is used to execute Dynamic queries which are parameterized sql queries
+            This separeate SQL structure from the values
+            It helps prevent SQL injection 
+            Synatx ->
+                String sql = "SELECT * FROM employee WHERE id = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setInt(1,101); //101 value is for 1st delimeter/placeholder
+                ResultSet rs = pst.executeQuery();
+
+            Setters methods
+                setInt(no., value), setDouble(), setString(), setBoolean(), setDate()
+
+4.Execute query  
+    Execution methods(Common for both)
+        1.executeQuery()    -> used to execute SELECT queries
+            It return ResultSet
+
+        2.executeUpdate()   -> used to execute UPDATE DELETE INSERT queries
+            It return the no. of affected rows
+
+        3.execute()         -> used to execute both DQL(SELECT) and DML(UPDATE DELETE INSERT) queries
+            It return Boolean 
+                true -> if result is a ResultSet
+                false -> if result is integer(update count)/ No result
+
+
+    JDBC ResultSet
+        ResultSet is an object that represents the data returned by a SQL query
+         and provides methods to navigate and retrieve the data.
+        
+        Methods to read Rows
+            .next() -> It moves the ResultSet cursor to the next row and returns true if a valid row exists. 
+
+        Methods to read Columns 
+            We can access the Columns based on its DataType with Column_name
+                .getInt("id"); / .getString("names"); / .getDouble("salary");  etc..
+
+            We can also access Columns using their column index
+                .getInt(1); / .getString(2); / .getDouble(3); etc..
+
+        getResultSet() -> Mainly used when we use execute()
+            It is a Statement/PreparedStatement method which is used to retrive the ResultSet when we execute SQL using the execute() method
+            since, execute() returns a boolean. If it returns true, getResultSet() retrieves the ResultSet produced by that execution.            Synatx ->  
+                Synatx ->    
+                    //Statement
+                     Statement st = con.createStatement();
+                        String sql =  "SELECT * FROM employee";
+                        boolean result = st.execute(sql);
+
+                    //PreparedStatement
+                    String psSQl = "SELECT * FROM employee WHERE id = ?";
+                    PreparedStatement pst = con.prepareStatement(psSQl);
+                    pst.setInt(1,101);
+                    boolean result = pst.execute();
+
+                        if(result){
+                            ResultSet rs = st.getResultSet(); // ps.getResultSet();
+                            while(rs.next()){
+                                Syso(rs.getInt(1)); //print the 1st column
+                                Syso(rs.getString("names"));    //print the column named "names"
+                            }
+                        }
+
+5.Close the Resources
+    Traditional approach
+        Direct close
+
+            rs.close();    st.close(); / pst.close();      con.close();
+
+        Finaly block
+            finally{
+                try{
+                    if(rs != null) rs.close();
+                    if(st != null) st.close();
+                    if(con != null) con.close();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }    
+    Try-with-Resources
+        
+Batch processing
+    It is used to execute multiple SQL operations together as a batch,
+     insted of sending and executing each SQL statement individually
+    It is more usefull for UPDATE, INSERT, DELETE operations
+    Methods
+        addBatch()      -> Adds the current SQL operations to the batch
+        executeBatch()  -> Execute all the commands currently stored in the batch
+        clearBatch()    -> Removes the commands currently stored in the batch
+    Synatx -> 
+        Statement
+            Statement st = con.createStatement();
+            st.addBatch("INSERT INTO employee VALUES (101, 'Hari', 50000));
+            st.addBatch("INSERT INTO employee VALUES (102, 'Hariharan', 60000));
+            st.addBatch("INSERT INTO employee VALUES (102, 'Nisha', 70000));
+
+            int[] result = st.executeBatch();
+
+        PreparedStatement
+            String sql = "INSERT INTO employee(id, name, salary) VALUES(?,?,?)";
+            PreparedStatement pst = con.prepareStatement(sql);
+                pst.setInt(1,101);
+                pst.setString(2,"Hariharan");
+                pst.setDouble(3,50000);
+                    pst.addBatch();
+
+                pst.setInt(1,101);
+                pst.setString(2,"Hariharan");
+                pst.setDouble(3,50000);
+                    pst.addBatch();
+               
+                int result = pst.executeBatch();
+
+Connection Pool (Manual)
+    The process of creating the pool of connection and take the connection object from the pool when needed,
+     after using the connection object we can call release(con) to send back the connection to the pool
+
+
+
+Feature	                        Statement	                                    PreparedStatement
+    Parameters  	                No ? parameters	                                Supports ? parameters
+    Dynamic values	                Usually string concatenation	                Setter methods
+    executeQuery()	                Yes	                                            Yes
+    executeUpdate()	                Yes                                     	    Yes
+    execute()	                    Yes                                        	    Yes
+    SQL injection protection	    Not inherently provided     	                Helps prevent SQL injection with parameter binding
+    Repeated execution	            Less efficient for repeated parameterized SQL	Can be more efficient because the statement can be prepared and reused
+    Recommended for user input	    ❌ No	                                      ✅ Yes
+        
