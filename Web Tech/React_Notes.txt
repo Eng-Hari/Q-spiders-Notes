@@ -315,7 +315,6 @@ Suspense
 
 
 React Rendering process
-
     Virtual DOM 
         Virtual DOM is a lightweight JavaScript representation of the actual DOM.
         When the state or props change, React creates a new Virtual DOM representation.
@@ -333,6 +332,11 @@ React Rendering process
         It was introduced after React 16
         It is React's reconciliation engine and it will do the task in asynchronous(doesn't block next execution) way.
         It breaks rendering work into smaller units, allowing React to prioritize, pause, resume, or discard rendering work when required.
+
+How React Executes
+    React starts by rendering the component, which creates a Virtual DOM representation of the UI.
+    When state or props change, React re-renders the component, creates a new Virtual DOM tree,
+     compares it with the previous one through reconciliation, and then updates only the required changes in the Real DOM.
 
 Memorization
     Memorization is an optimization technique used to avoid unnecessary calculations, function recreations, and re-rendering of components.
@@ -368,6 +372,31 @@ Memorization
                 console.log("Clicked");
             }, []);
 
+Web Storages
+    Web Storages allows a web application to store data in the browser
+    Data stored as key-value pairs as String
+    Types
+        LocalStorage
+            It stores data without any expiration time
+            Data will persists even if we refresh/close/reopen the browser
+            Methods
+                .setItems()     -> Used to store the data
+                .getItems()     -> Used to get the data
+                .removeItems()  -> Used to remove the data
+                .clear()        -> Used to clear all the data
+                .length()       -> Used to find the length of the data
+
+
+                let storage = LocalStorage.setItems("key", "value");
+                            clg(LocalStorage.getItems("key"));
+
+        SessionStorage
+            It works simillar as LocalStorage, but the data is associated with the browser tab/ session
+            Evven if we refreshed the page, data will not remove
+            When the tab/window session ends, its stored data is normally removed.
+            It methods  are same as LocalStorage methods
+
+                const name = localStorage.getItem("name");
 
 Diff btn PROPS, STATE & HOOKS
     1. PROPS

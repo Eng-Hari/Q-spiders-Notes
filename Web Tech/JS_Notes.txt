@@ -49,7 +49,7 @@ Datatype
     Datatype define which type of data can be stored in the variable,
      In js we don't need to mention the Datatype while declaring, Datatype will addded dynamically during runtime
     Types  
-        Primitive (7)-> number, bigint, string, boolean, undefined, null, symbol
+        Primitive (7)-> number, bigint(long integer), string, boolean, undefined, null, symbol(used to store UniqueKeys)
         Non-Primitive (3)-> Object, Function, Array 
 
 Template Literals
@@ -185,6 +185,12 @@ Array
     Array is non primitive leaner Data structure, where we can store data in a continous manner
     In js Array, we can store both homogeneous and heterogeneous type of data
     Array index start from 0
+    Ways to Create
+        new keyword    -> let arr = new Array(10,20,30);
+        Array literals -> let arr = [1,2,3,4,5]
+        Array.of()     -> let arr = new Array(5); // 5 is the size of array
+        Array.from()   -> let arr = Array.from("String) // crate array from String/ another array
+
     Array Methods(13)
         .length -> Used to find the length of the Array
         .index0f(value) -> Used to get the index of given no.
@@ -273,7 +279,14 @@ Object
 
     Object is a collection of key and value pairs used to store related data
     We can store multiple object inside an Array
-
+    Way of creating
+        Object literals         -> let user = {.......}
+        new keyword             -> let user = new Object();
+        Constructor fun.        -> funtion User(name, age){ thiis.name = name; this.age = age;}
+                                    => let user1 = new User("Hari', 23);
+        Object.create(Obj.name) -> let User = Object.create(name, age);
+                                    => let name = "hari"; let age = 23;
+    Syntax -> 
         let emp = {
             name : "Hariharan",
             id : 1,
@@ -397,33 +410,15 @@ Event parameter
 
     Event Object 
          When Keyboard event occurs, JS provide an event object which containing information about the key pressed 
-
-            event.key 
-                It return actual key pressed
-
-            event.code  
-                It return physical key on the keyword(enter,space,keyA,shift...)
-
-            event.ctrlKey
-                It return boolean when ctrl key is pressed
-
-            event.shiftkey
-                It return boolean when shift key is pressed
-
-            event.altkey
-                It return boolean when the alt key is pressed
-            
-            event.preventDefault()
-                It is used to stop the default behaviour of an element
-
-            event.target
-                It return the HTML element which is triggerd by the event
-
-            target.value
-                It return the value of targeted element
-
-            event.type  
-                It return the event name of the element
+            event.preventDefault() -> It is used to stop the default behaviour of an element
+            event.key       -> It return actual key pressed
+            event.code      -> It return physical key on the keyword(enter,space,keyA,shift...)
+            event.ctrlKey   -> It return boolean when ctrl key is pressed
+            event.shiftkey  -> It return boolean when shift key is pressed
+            event.altkey    -> It return boolean when the alt key is pressed
+            event.target    -> It return the HTML element which is triggerd by the event
+            target.value    -> It return the value of targeted element
+            event.type      -> It return the event name of the element
 
     Event Listner 
         It is a method which is used to attach the event to an HTML element using JS
@@ -435,48 +430,32 @@ Event parameter
         
         Events 
             Mouse + Keyboard event Types
-            input
-                This event occurs for every keystroke while typing
-            
-            change
-                This event occurs when value changes and focus leave the feild
-
-            focus
-                This event occurs when an element gains focus
-
-            blur
-                This event occurs when an element loses focus
-
-            submit
-                This event occurs when a form gets submitted
+            input   -> This event occurs for every keystroke while typing
+            change  -> This event occurs when value changes and focus leave the feild
+            focus   -> This event occurs when an element gains focus
+            blur    -> This event occurs when an element loses focus
+            submit  -> This event occurs when a form gets submitted
             
 Timing function
     Timing funtion is JS method used to execute code after a speciffic delay/ repetedly at fixed time intravals
     Functions
-        setTimeout()
-            It is a timing funtion that execute a funtion only once after speciic delay, return timer ID
-        
-        clarTimeout()
-            It is used to cancel a timeout before it executes
-        
-        setInterval()
-            It is a timing function that executes a funtion repeatedly after a fixed time interval, return interval ID
-
-        clearInterval()
-            It is used to stop a running interval
+        setTimeout()    -> It is a timing funtion that execute a funtion only once after speciic delay, return timer ID
+        clarTimeout()   -> It is used to cancel a timeout before it executes
+        setInterval()   -> It is a timing function that executes a funtion repeatedly after a fixed time interval, return interval ID
+        clearInterval() -> It is used to stop a running interval
     
 Date Object 
     Data object is a built-in JS object used to work with dates and times
     Syntax -> let now = new Date()
     Date Methods
-        getHours() -> return the current time in 24hrs format(0-23)
-        getMinutes() -> return the current minutes(0-59)
-        getSeconds() -> return the current seconds(0-59)
-        getMilliseconds() -> return the current milliseconds(0-999)
-        getFullYear() -> return the current year
-        getDate() -> return date (1-31)
-        getMonth()  -> return the month index(0-11)
-        getDay() -> return the day index(0-6)
+        getHours()           -> return the current time in 24hrs format(0-23)
+        getMinutes()         -> return the current minutes(0-59)
+        getSeconds()         -> return the current seconds(0-59)
+        getMilliseconds()    -> return the current milliseconds(0-999)
+        getFullYear()        -> return the current year
+        getDate()            -> return date (1-31)
+        getMonth()           -> return the month index(0-11)
+        getDay()             -> return the day index(0-6)
         toLocaleTimeString() -> current time in redable format
         toLocaleDateString() -> return current date ina redable format
 
@@ -484,23 +463,12 @@ Date Object
 Math Object
     A built-in JavaScript object that provides mathematical constants and methods.
     Math methods
-        getMonth()
-            Returns the month index (0-11).
-
-        getDay()
-            Returns the day index (0-6).
-
-        Math.ceil()
-            Rounds a number upward to the nearest integer.
-
-        Math.floor()
-            Rounds a number downward to the nearest integer.
-
-        Math.round()
-            Rounds a number to the nearest integer.
-
-        Math.random()
-            Returns a random number between 0 and 1.
+        getMonth()    -> Returns the month index (0-11).
+        getDay()      -> Returns the day index (0-6).
+        Math.ceil()   -> Rounds a number upward to the nearest integer.
+        Math.floor()  ->  Rounds a number downward to the nearest integer.
+        Math.round()  ->Rounds a number to the nearest integer.
+        Math.random() -> Returns a random number between 0 and 1.
 
 Promise
     A Promise is a JavaScript object that represents the future/eventual success or failure of an asynchronous operation.
@@ -563,7 +531,7 @@ async/await
     await
         It is a keyword inside an async function.
         It pauses the execution of the function until the Promise get resolves and returns the resolved value.
-
+        Syntax ->
   
             let getData = async ()=>{
                 try{
@@ -577,47 +545,48 @@ async/await
                 }
             }
 
-Destructure
-    Assigning separate variables for elements and properties of array/object
-
-         Object Destructuring
-            Extracts object properties into variables.
-        
-        Array Destructuring
-            Extracts array elements into variables.
-
-
-        Rest Parameter 
-            Collects multiple arguments into a single array.
-        
-        Spread Operator
-            Expands elements of an array/object.
-
-
-        value copy
-            copy the value of variable for primitive data Types
-
-        reference copy
-            copy tht reference of non-primitive data type
-
-        Shallow Copy
-            Creates a completely independent copy but copies the  nested object ref.
-            
-        Deep Copy
-            Copies the reference of an array/object and also for nested copy. so it will affect the original object
-
-       
-        JSON.stringify()
-            Converts Object → JSON String
-
-        JSON.parse()
-            Converts JSON String → Object
+Important Topics
+    Destructure          -> Assigning separate variables for elements and properties of array/object
+    Object Destructuring -> Extracts object properties into variables
+    Array Destructuring  -> Extracts array elements into variables.
+    Rest Parameter       -> The rest parameter (...) is used to Collects multiple arguments into a single array.
+    Spread Operator      -> The spread operator (...) is used to expand/unpack the elements of an array or the properties of an object.
+    Value copy           -> copy the value of variable for primitive data Types
+    Reference copy       -> copy tht reference of non-primitive data type
+    Shallow Copy         -> A shallow copy creates a new outer object, but nested objects are still shared by reference.
+    Deep Copy            -> A deep copy creates a completely independent copy, including nested objects and arrays.
+    JSON.stringify()     -> Converts Object → JSON String
+    JSON.parse()         -> Converts JSON String → Object
 
 Event Delegation
-        It is the process of attaching a single event handler to a parent element instead of attaching separate event handlers to each child element.
-        We can identify the specific child that triggered the event using properties such as event.target, tagName, or data-* attributes.
+    It is the process of attaching a single event handler to a parent element instead of attaching separate event handlers to each child element.
+    We can identify the specific child that triggered the event using properties such as event.target, tagName, or data-* attributes.
 
 Event Loop
-        The Event Loop continuously checks whether the Call Stack is empty.
-         When the Call Stack becomes empty, it moves pending callbacks from the appropriate queues to the Call Stack for execution.
-        Microtasks have higher priority than macrotasks, so the microtask queue is processed before the macrotask/callback queue.
+    The Event Loop is a mechanism. Since, JavaScript is single-threaded it that allows JavaScript to handle asynchronous operations.
+    The Event Loop continuously checks whether the Call Stack is empty.
+    When the Call Stack becomes empty, it moves pending callbacks from the task queues to the Call Stack for execution.
+    Microtasks have higher priority than macrotasks, so the microtask queue is processed before the macrotask/callback queue.
+
+Event propagation
+    Event propagation is the process by which an event travels through the DOM from the parent elements to the target element
+    and then back through the parents.
+    This can be stop by using stopPropagation()
+    Phases
+        Capturing Phase -> The event travels from the top of the DOM down toward the target.
+        Target Phase    -> The event reaches the actual element that was clicked.
+        Bubbling Phase  -> After reaching the target, the event travels back up through its parent elements.
+
+Event Loop Working machanism
+    JavaScript is single-threaded, so it executes synchronous code one by one using the Call Stack. Synchronous code is blocking,
+     meaning the next code cannot execute until the current code finishes.
+    For asynchronous operations like setTimeout, Promises, and API calls, JavaScript uses the Event Loop mechanism
+     so the main thread doesn't have to wait for them to complete.
+    The main components are the Call Stack, Web APIs, Microtask Queue, Task/Callback Queue, and Event Loop.     
+    Synchronous code is executed directly in the Call Stack. Asynchronous operations are handled by Web APIs,
+     and once they are completed, their callbacks are placed into the appropriate queue. Promise callbacks go into the Microtask Queue,
+      while timer callbacks like setTimeout go into the Task Queue.
+    The Event Loop continuously checks the Call Stack. When the current execution is finished, it processes the Microtask Queue first
+     and then takes tasks from the Task Queue and sends them to the Call Stack for execution.
+
+    This is how JavaScript handles asynchronous operations while remaining single-threaded.
