@@ -113,8 +113,8 @@ useState
             syntax -> let[search, setSearch] = useState(")
 
 useRef
-    Reference is used to directly access or target DOM elements.
-    It is used to store mutable data.
+    Reference is used to directly target DOM elements.
+    It is used to store immutable data.
     The data stored in a Ref persists across re-renders.
     Updating a Ref does not cause the component to re-render.
     It can also be used to create uncontrolled form components.

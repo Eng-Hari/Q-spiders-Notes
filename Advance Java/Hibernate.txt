@@ -10,6 +10,7 @@ JPA
      retrived, updated and deleted from a relational database
     It provided standard annotations such as @Entity, @ID, @Table and mapping annotations also 
      it provides standard API's such as EntityManager to perform Persistence operations
+
     
 Persistence
     It is the process of storing an application's data permanently in DB/ other permanent storage

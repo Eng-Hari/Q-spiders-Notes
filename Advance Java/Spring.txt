@@ -1,0 +1,56 @@
+Spring
+    Spring is a Java framework that helps us build loosely coupled and maintainable applications,
+     mainly through IoC and Dependency Injection. It is commonly used for web applications,
+      REST APIs, database applications, enterprise applications, and microservices.
+
+    Loosely Coupled
+        Loose coupling means reducing the dependency between classes using Dependency Injection.
+        so that one class does not strongly depend on the implementation of another class.
+
+    Dependency Injection
+        Dependency Injection is a design technique where an object's dependencies are provided from outside
+         rather than the object creating them itself.
+        A dependency is an object that requires another object to perform its work.
+
+    IoC (Inversion of Control)
+        IoC is a principle where the control of object creation and dependency management is transferred
+         from the application code to the Spring Container.
+
+Spring Container
+    The Spring Container is the core component of Spring that is responsible for creating and managing objects
+     and their dependencies.
+
+    The Spring Container is responsible for:
+    - Creating objects
+    - Managing objects
+    - Injecting dependencies
+    - Managing the bean lifecycle
+    - Managing configuration
+
+    The objects managed by the Spring Container are called Beans.
+
+Spring Bean
+    A Bean is an object that is created and managed by the Spring Container.
+
+Spring workflow
+    Spring follows IoC, where the Spring Container takes control of object creation and dependency management.
+    The Spring Container creates and manages objects called Beans.
+    It provides the required dependencies to those objects using Dependency Injection.
+    where dependencies are provided to objects from outside.   
+    This helps us create loosely coupled and maintainable applications.
+
+Diff. btn Spring and Spring Boot
+    Spring provides the core framework and features such as IoC and Dependency Injection.
+     Spring Boot is built on top of Spring and simplifies development by providing auto-configuration,
+      starter dependencies, embedded servers, and reduced configuration. 
+
+    Spring      -> Provides the framework and features
+    Spring Boot -> Makes Spring easier and faster to use
+
+Spring Modules
+    Spring core             -> The foundation of Spring.
+    Spring MVC - Web/API    -> Used for building web applications and REST APIs.
+    Spring Boot             -> Spring Boot simplifies the development of Spring applications.
+    Spring Security         -> Used for authentication and authorization.
+    Spring Microservices    -> used for building microservice-based applications through Spring Cloud ecoSystem
+

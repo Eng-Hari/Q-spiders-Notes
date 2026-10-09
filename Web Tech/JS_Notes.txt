@@ -386,27 +386,15 @@ Event parameter
     The event parameter is an object which is automatically passed by JS to the Event handler funtion when an event occurs
 
     Mouse Events 
-        onClick        
-            This event occurs when the user click on the element for once
-
-        ondblClick
-            This event occurs when user click the element for twice
-
-        onmouseover
-            This event occurs when the pointer enters an element
-
-        onmouseout
-            This event occurs when the pointer leaves an element
-
-        onmousemove
-            This event occurs when the pointer mover over the element
+        onClick     -> This event occurs when the user click on the element for once
+        ondblClick  -> This event occurs when user click the element for twice
+        onmouseover -> This event occurs when the pointer enters an element
+        onmouseout  -> This event occurs when the pointer leaves an element
+        onmousemove -> This event occurs when the pointer mover over the element
 
     Keyboard Events
-        onkeydown
-            This event occurs when the key is pressed down
-
-        onkeyup
-            This event occurs when the key is relesed
+        onkeydown -> This event occurs when the key is pressed down
+        onkeyup   -> This event occurs when the key is relesed
 
     Event Object 
          When Keyboard event occurs, JS provide an event object which containing information about the key pressed 
@@ -503,22 +491,26 @@ Promise
 
 
 fetch()
-
     A built-in JavaScript function used to send HTTP requests and communicate with APIs or servers.
-        fetch() ->  returns a Promise<Response>.
+    fetch() returns a Promise that eventually resolves to a Response object..
+    fetch() accepts two arguments, and the second one is optional object, that contains method, headers and body
+
     When the frontend requests data, the server usually sends the data in JSON format instead of a JavaScript object.
     To convert the JSON response into JavaScript data, we use:
-        response.json() -> returns a Promise that resolves to the actual JavaScript Object or Array.
-                            .json() -> used to handle non-synchronous event
+        response.json() -> reads the response body and parses the JSON into JavaScript data.
+                           It also returns a Promise.
+                .json() -> It is mainly used to handle non-synchronous event
+
         let fetchData = fetch(url);
-        fetchData.then((data)=>{
-            let jsonData = data.json()
-            jsonData.then((data)=>{
-                data.map(e)=>{
-                    clg(e)
-                }
+            fetchData.then((data)=>{
+                let jsonData = data.json()
+                jsonData.then((data)=>{
+                    data.map(e)=>{
+                        clg(e)
+                    }
+                }).catch((err)=>{clg(err)})
             }).catch((err)=>{clg(err)})
-        }).catch((err)=>{clg(err)})
+
 
 async/await
 
@@ -569,9 +561,10 @@ Event Loop
     Microtasks have higher priority than macrotasks, so the microtask queue is processed before the macrotask/callback queue.
 
 Event propagation
-    Event propagation is the process by which an event travels through the DOM from the parent elements to the target element
-    and then back through the parents.
+    Event propagation is the process by which an event travels through the DOM from the outermost parent element toward the target element
+     and then back from the target through its parent elements.
     This can be stop by using stopPropagation()
+
     Phases
         Capturing Phase -> The event travels from the top of the DOM down toward the target.
         Target Phase    -> The event reaches the actual element that was clicked.
@@ -590,3 +583,20 @@ Event Loop Working machanism
      and then takes tasks from the Task Queue and sends them to the Call Stack for execution.
 
     This is how JavaScript handles asynchronous operations while remaining single-threaded.
+
+this
+    this is a special keyword in JavaScript that refers to the object or context associated with the current function invocation.
+    Its value mainly depends on how the function is called.
+    We can also explicitly control the value of this using methods:
+        call()  -> call() is used to explicitly set the value of this and immediately execute the function.
+                    and its Arguments are passed individually 
+                        greet.call(user, 22, "Chennai");
+
+        apply() -> apply() works almost exactly like call(). The main difference is that arguments are passed as an array.
+                        greet.apply(user, [22, "Chennai"]);
+
+        bind()  -> It does not execute the function immediately. Instead, it creates and returns a new function
+                    with this permanently bound to the specified object.
+                        const newGreet = greet.bind(user, 22, "Chennai");
+                        newGreet();
+
